@@ -237,14 +237,18 @@ router.post('/', async (req, res) => {
       | null = null;
 
     if ((isPixPayment || isCardPayment) && !pagBankConfig) {
-      await prisma.order.update({
+      order = await prisma.order.update({
         where: { id: order.id },
         data: {
           status: 'pendente',
           notes: `${shippingMessage} | PagBank ainda não configurado.`,
         },
+        include: { items: true },
       });
-      return res.status(400).json({ error: 'PagBank ainda não está configurado no painel da loja.' });
+      payment = {
+        provider: 'manual',
+        reason: 'Pagamento online temporariamente indisponível. A loja continuará o atendimento manualmente.',
+      };
     }
 
     if ((isPixPayment || isCardPayment) && !shouldCreateCheckout) {
@@ -325,28 +329,18 @@ router.post('/', async (req, res) => {
         };
       } catch (paymentError) {
         const message = paymentError instanceof Error ? paymentError.message : 'Falha ao iniciar pagamento PagBank';
-        await prisma.$transaction(async (tx) => {
-          for (const item of items) {
-            await tx.product.update({
-              where: { id: item.productId },
-              data: { stock: { increment: item.quantity } },
-            });
-          }
-          if (appliedCouponCode) {
-            await tx.coupon.update({
-              where: { code: appliedCouponCode },
-              data: { uses: { decrement: 1 } },
-            });
-          }
-          await tx.order.update({
-            where: { id: order.id },
-            data: {
-              status: 'cancelado',
-              notes: `Falha ao iniciar checkout PagBank: ${message}`,
-            },
-          });
+        order = await prisma.order.update({
+          where: { id: order.id },
+          data: {
+            status: 'pendente',
+            notes: `Falha ao iniciar checkout PagBank: ${message}. Atendimento seguirá manualmente.`,
+          },
+          include: { items: true },
         });
-        return res.status(502).json({ error: `Não foi possível iniciar o pagamento online: ${message}` });
+        payment = {
+          provider: 'manual',
+          reason: `Pagamento online indisponível no momento: ${message}. A loja seguirá o atendimento manualmente.`,
+        };
       }
     }
 
