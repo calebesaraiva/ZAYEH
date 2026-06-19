@@ -1,0 +1,15 @@
+{
+  "installCommand": "npm install && npm --prefix backend install",
+  "buildCommand": "npm run build && cd backend && npx prisma generate && npm run build",
+  "outputDirectory": "dist",
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/api/index"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}

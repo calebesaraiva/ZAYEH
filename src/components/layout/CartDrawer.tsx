@@ -1,0 +1,278 @@
+import { motion, AnimatePresence } from 'framer-motion';
+import { X, ShoppingBag, Trash2, Plus, Minus, Tag, Truck, Lock, Zap, ArrowRight, Coins } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { useStore } from '../../store/useStore';
+import { getProductPricing, useStorePricingSettings } from '../../lib/storePricing';
+
+const CASHBACK_RATE = 0.05; // 5%
+
+interface Props { open: boolean; onClose: () => void; }
+
+export default function CartDrawer({ open, onClose }: Props) {
+  const { cart, removeFromCart, updateQuantity } = useStore();
+  const settings = useStorePricingSettings();
+  const subtotal  = cart.reduce((a, i) => a + i.product.price    * i.quantity, 0);
+  const pixTotal  = cart.reduce((a, i) => a + getProductPricing(i.product, settings).pixPrice * i.quantity, 0);
+  const count     = cart.reduce((a, i) => a + i.quantity, 0);
+  const freeShip  = subtotal >= settings.freeShipThreshold;
+  const progress  = Math.min((subtotal / settings.freeShipThreshold) * 100, 100);
+  const pixSaving = subtotal - pixTotal;
+  const cashback  = subtotal * CASHBACK_RATE;
+
+  return (
+    <AnimatePresence>
+      {open && (
+        <>
+          {/* Backdrop */}
+          <motion.div
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+            onClick={onClose}
+            style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.78)', backdropFilter: 'blur(4px)', zIndex: 50 }}
+          />
+
+          {/* Drawer */}
+          <motion.div
+            initial={{ x: '100%' }} animate={{ x: 0 }} exit={{ x: '100%' }}
+            transition={{ type: 'tween', duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            style={{
+              position: 'fixed', right: 0, top: 0, bottom: 0, zIndex: 51,
+              width: '100%', maxWidth: 440,
+              background: '#0f0f0f',
+              borderLeft: '1px solid rgba(255,255,255,0.07)',
+              display: 'flex', flexDirection: 'column',
+              boxShadow: '-24px 0 80px rgba(0,0,0,0.7)',
+            }}>
+
+            {/* ── Header ── */}
+            <div style={{ padding: '20px 22px', borderBottom: '1px solid rgba(255,255,255,0.07)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: '#0b0b0b' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                <div style={{ width: 36, height: 36, borderRadius: 10, background: 'rgba(255,184,0,0.1)', border: '1px solid rgba(255,184,0,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <ShoppingBag size={17} style={{ color: '#a855f7' }} />
+                </div>
+                <div>
+                  <h2 style={{ fontWeight: 800, fontSize: 15, color: '#fff', lineHeight: 1 }}>Minha Sacola</h2>
+                  <p style={{ fontSize: 11, color: '#555', marginTop: 2 }}>{count} {count === 1 ? 'item' : 'itens'}</p>
+                </div>
+              </div>
+              <button onClick={onClose}
+                style={{ width: 32, height: 32, borderRadius: '50%', border: '1px solid rgba(255,255,255,0.1)', background: 'rgba(255,255,255,0.04)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: '#666' }}>
+                <X size={16} />
+              </button>
+            </div>
+
+            {/* ── Shipping progress ── */}
+            <div style={{ padding: '12px 22px', background: freeShip ? 'rgba(34,197,94,0.05)' : '#0b0b0b', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+              {freeShip ? (
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <Truck size={14} style={{ color: '#22C55E' }} />
+                  <p style={{ fontSize: 12.5, fontWeight: 700, color: '#22C55E' }}>Frete grátis garantido! 🎉</p>
+                </div>
+              ) : (
+                <>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 8 }}>
+                    <Truck size={13} style={{ color: '#555' }} />
+                    <p style={{ fontSize: 12, color: '#555' }}>
+                      Faltam <strong style={{ color: '#fff' }}>R$ {(settings.freeShipThreshold - subtotal).toFixed(2).replace('.', ',')}</strong> para frete grátis
+                    </p>
+                  </div>
+                  <div style={{ height: 4, borderRadius: 99, background: '#1a1a1a', overflow: 'hidden' }}>
+                    <motion.div animate={{ width: `${progress}%` }} transition={{ duration: 0.5 }}
+                      style={{ height: '100%', borderRadius: 99, background: 'linear-gradient(90deg, #a855f7, #FF2DA0)' }} />
+                  </div>
+                </>
+              )}
+            </div>
+
+            {/* ── Items ── */}
+            <div style={{ flex: 1, overflowY: 'auto', padding: '16px 22px', display: 'flex', flexDirection: 'column', gap: 12 }}>
+              {cart.length === 0 ? (
+                /* Empty state */
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', textAlign: 'center', gap: 0 }}>
+                  <div style={{ width: 88, height: 88, borderRadius: '50%', background: 'rgba(255,184,0,0.06)', border: '1px solid rgba(255,184,0,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 20 }}>
+                    <ShoppingBag size={36} style={{ color: 'rgba(255,255,255,0.1)' }} />
+                  </div>
+                  <h3 style={{ fontSize: 16, fontWeight: 700, color: '#fff', marginBottom: 8 }}>Sacola vazia</h3>
+                  <p style={{ fontSize: 13, color: '#444', lineHeight: 1.6, marginBottom: 28, maxWidth: 240 }}>
+                    Explore nossas coleções e adicione os produtos que você curtir.
+                  </p>
+                  <button onClick={onClose}
+                    style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '12px 24px', borderRadius: 8, background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', color: '#fff', fontWeight: 700, fontSize: 13, cursor: 'pointer', fontFamily: 'inherit' }}>
+                    EXPLORAR COLEÇÕES <ArrowRight size={14} />
+                  </button>
+                </div>
+              ) : (
+                cart.map(item => (
+                  <motion.div
+                    key={`${item.product.id}-${item.size}-${item.color}`}
+                    layout
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: 40 }}
+                    style={{ display: 'flex', gap: 14, padding: '14px', borderRadius: 12, background: '#161616', border: '1px solid rgba(255,255,255,0.06)' }}>
+
+                    {/* Image */}
+                    <div style={{ width: 80, height: 96, borderRadius: 8, overflow: 'hidden', flexShrink: 0, background: '#0d0d0d' }}>
+                      <img src={item.product.image} alt={item.product.name}
+                        style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                    </div>
+
+                    {/* Info */}
+                    <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                      <div>
+                        <p style={{ fontSize: 13.5, fontWeight: 700, color: '#e8e8e8', lineHeight: 1.3, marginBottom: 7, overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' }}>
+                          {item.product.name}
+                        </p>
+                        <div style={{ display: 'flex', gap: 6, marginBottom: 10 }}>
+                          {item.color && (
+                            <span style={{ fontSize: 10.5, color: '#888', background: '#222', padding: '2px 8px', borderRadius: 4, border: '1px solid rgba(255,255,255,0.06)' }}>
+                              {item.color}
+                            </span>
+                          )}
+                          <span style={{ fontSize: 10.5, color: '#888', background: '#222', padding: '2px 8px', borderRadius: 4, border: '1px solid rgba(255,255,255,0.06)' }}>
+                            {item.size}
+                          </span>
+                        </div>
+                      </div>
+
+                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                        {/* Qty */}
+                        <div style={{ display: 'flex', alignItems: 'center', borderRadius: 7, overflow: 'hidden', border: '1px solid rgba(255,255,255,0.1)' }}>
+                          <button onClick={() => updateQuantity(item.product.id, item.size, item.color, item.quantity - 1)}
+                            style={{ width: 30, height: 30, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(255,255,255,0.04)', border: 'none', cursor: 'pointer', color: '#888' }}>
+                            <Minus size={11} />
+                          </button>
+                          <span style={{ width: 32, textAlign: 'center', fontSize: 13, fontWeight: 700, color: '#fff' }}>{item.quantity}</span>
+                          <button onClick={() => updateQuantity(item.product.id, item.size, item.color, item.quantity + 1)}
+                            style={{ width: 30, height: 30, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(255,255,255,0.04)', border: 'none', cursor: 'pointer', color: '#888' }}>
+                            <Plus size={11} />
+                          </button>
+                        </div>
+
+                        {/* Price + remove */}
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                          <div style={{ textAlign: 'right' }}>
+                            <p style={{ fontSize: 15, fontWeight: 900, color: '#fff' }}>
+                              R$ {(item.product.price * item.quantity).toFixed(2).replace('.', ',')}
+                            </p>
+                            {item.quantity > 1 && (
+                              <p style={{ fontSize: 10.5, color: '#444' }}>
+                                R$ {item.product.price.toFixed(2).replace('.', ',')} / un
+                              </p>
+                            )}
+                          </div>
+                          <button onClick={() => removeFromCart(item.product.id, item.size, item.color)}
+                            style={{ width: 28, height: 28, borderRadius: 6, border: '1px solid rgba(255,255,255,0.07)', background: 'transparent', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: '#555', transition: 'all 0.2s' }}
+                            onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = 'rgba(239,68,68,0.4)'; (e.currentTarget as HTMLElement).style.color = '#EF4444'; }}
+                            onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.07)'; (e.currentTarget as HTMLElement).style.color = '#555'; }}>
+                            <Trash2 size={13} />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))
+              )}
+            </div>
+
+            {/* ── Footer / Summary ── */}
+            {cart.length > 0 && (
+              <div style={{ borderTop: '1px solid rgba(255,255,255,0.07)', background: '#0b0b0b', padding: '18px 22px 22px', display: 'flex', flexDirection: 'column', gap: 14 }}>
+
+                {/* Coupon */}
+                <div style={{ display: 'flex', gap: 8 }}>
+                  <div style={{ position: 'relative', flex: 1 }}>
+                    <Tag size={13} style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', color: '#444', pointerEvents: 'none' }} />
+                    <input
+                      placeholder="Cupom de desconto"
+                      style={{ width: '100%', background: '#141414', border: '1px solid rgba(255,255,255,0.09)', borderRadius: 8, padding: '10px 12px 10px 34px', color: '#fff', fontSize: 13, fontFamily: 'inherit', outline: 'none' }}
+                      onFocus={e => (e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)')}
+                      onBlur={e => (e.currentTarget.style.borderColor = 'rgba(255,255,255,0.09)')}
+                    />
+                  </div>
+                  <button style={{ padding: '0 16px', borderRadius: 8, border: '1px solid rgba(255,255,255,0.12)', background: 'transparent', color: '#aaa', fontSize: 12, fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit', transition: 'all 0.2s', whiteSpace: 'nowrap' }}
+                    onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.3)'; (e.currentTarget as HTMLElement).style.color = '#fff'; }}
+                    onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.12)'; (e.currentTarget as HTMLElement).style.color = '#aaa'; }}>
+                    APLICAR
+                  </button>
+                </div>
+
+                {/* Summary */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 8, padding: '14px 16px', borderRadius: 10, background: '#111', border: '1px solid rgba(255,255,255,0.06)' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, color: '#666' }}>
+                    <span>Subtotal ({count} {count === 1 ? 'item' : 'itens'})</span>
+                    <span style={{ color: '#aaa' }}>R$ {subtotal.toFixed(2).replace('.', ',')}</span>
+                  </div>
+                  {pixSaving > 0 && (
+                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, color: '#22C55E' }}>
+                      <span style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
+                        <Zap size={11} /> Desconto PIX ({settings.pixDiscount}%)
+                      </span>
+                      <span>– R$ {pixSaving.toFixed(2).replace('.', ',')}</span>
+                    </div>
+                  )}
+                  {/* Cashback */}
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, color: '#a855f7' }}>
+                    <span style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
+                      <Coins size={11} /> Cashback (5%)
+                    </span>
+                    <span>+ R$ {cashback.toFixed(2).replace('.', ',')}</span>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, color: '#555' }}>
+                    <span>Frete</span>
+                    <span style={{ color: freeShip ? '#22C55E' : '#555', fontWeight: freeShip ? 600 : 400 }}>
+                      {freeShip ? 'Grátis 🎉' : 'Calcular no checkout'}
+                    </span>
+                  </div>
+                  <div style={{ height: 1, background: 'rgba(255,255,255,0.06)', margin: '2px 0' }} />
+                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <span style={{ fontWeight: 800, fontSize: 14, color: '#fff' }}>Total</span>
+                    <span style={{ fontWeight: 900, fontSize: 18, color: '#fff' }}>R$ {subtotal.toFixed(2).replace('.', ',')}</span>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11.5 }}>
+                    <span style={{ color: '#444' }}>
+                      ou <strong style={{ color: '#22C55E' }}>R$ {pixTotal.toFixed(2).replace('.', ',')}</strong> no PIX
+                    </span>
+                    <span style={{ background: 'rgba(34,197,94,0.1)', color: '#22C55E', padding: '1px 7px', borderRadius: 99, fontSize: 10, fontWeight: 800, border: '1px solid rgba(34,197,94,0.2)' }}>
+                      {settings.pixDiscount}% OFF
+                    </span>
+                  </div>
+                </div>
+
+                {/* Cashback banner */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '11px 14px', borderRadius: 10, background: 'rgba(255,184,0,0.07)', border: '1px solid rgba(255,184,0,0.2)' }}>
+                  <div style={{ width: 32, height: 32, borderRadius: 8, background: 'rgba(255,184,0,0.12)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                    <Coins size={16} style={{ color: '#a855f7' }} />
+                  </div>
+                  <div>
+                    <p style={{ fontSize: 12.5, fontWeight: 800, color: '#a855f7', lineHeight: 1.2 }}>
+                      Você vai ganhar R$ {cashback.toFixed(2).replace('.', ',')} de cashback!
+                    </p>
+                    <p style={{ fontSize: 11, color: '#664d00', marginTop: 2 }}>
+                      5% do valor volta pra sua carteira SUH
+                    </p>
+                  </div>
+                </div>
+
+                {/* CTA */}
+                <Link to="/checkout" onClick={onClose}
+                  className="no-underline"
+                  style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, padding: '15px', borderRadius: 10, background: 'linear-gradient(135deg, #a855f7, #FF2DA0)', color: '#fff', fontWeight: 900, fontSize: 14, letterSpacing: '0.06em', transition: 'opacity 0.2s' }}
+                  onMouseEnter={e => (e.currentTarget.style.opacity = '0.9')}
+                  onMouseLeave={e => (e.currentTarget.style.opacity = '1')}>
+                  <Lock size={15} /> FINALIZAR COMPRA
+                </Link>
+
+                <button onClick={onClose}
+                  style={{ background: 'none', border: 'none', color: '#444', fontSize: 12, cursor: 'pointer', fontFamily: 'inherit', transition: 'color 0.15s' }}
+                  onMouseEnter={e => (e.currentTarget.style.color = '#888')}
+                  onMouseLeave={e => (e.currentTarget.style.color = '#444')}>
+                  Continuar comprando
+                </button>
+              </div>
+            )}
+          </motion.div>
+        </>
+      )}
+    </AnimatePresence>
+  );
+}

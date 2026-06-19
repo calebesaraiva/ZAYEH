@@ -1,0 +1,127 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Product {
+  id            String      @id @default(cuid())
+  slug          String      @unique
+  name          String
+  price         Float
+  originalPrice Float?
+  pixPrice      Float
+  installments  Json
+  image         String
+  images        String[]
+  category      String
+  categorySlug  String
+  collection    String?
+  tags          String[]
+  description   String      @db.Text
+  sizes         String[]
+  colors        Json
+  costPrice     Float?
+  stock         Int         @default(0)
+  rating        Float       @default(0)
+  reviewCount   Int         @default(0)
+  isNew         Boolean     @default(false)
+  isBestSeller  Boolean     @default(false)
+  discount      Int?
+  sku           String      @unique
+  active        Boolean     @default(true)
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  orderItems    OrderItem[]
+}
+
+model Customer {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  phone     String?
+  cpf       String?  @unique
+  city      String?
+  state     String?
+  status    String   @default("ativo")
+  avatar    String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  orders    Order[]
+}
+
+model Order {
+  id             String      @id @default(cuid())
+  customerId     String?
+  customer       Customer?   @relation(fields: [customerId], references: [id])
+  customerName   String
+  customerEmail  String
+  customerPhone  String?
+  customerCpf    String?
+  items          OrderItem[]
+  subtotal       Float
+  total          Float
+  discount       Float       @default(0)
+  status         String      @default("pendente")
+  paymentMethod  String
+  deliveryMethod String      @default("delivery")
+  address        Json?
+  couponCode     String?
+  cashback       Float       @default(0)
+  notes          String?
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+}
+
+model OrderItem {
+  id          String  @id @default(cuid())
+  orderId     String
+  order       Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId   String
+  product     Product @relation(fields: [productId], references: [id])
+  productName String
+  quantity    Int
+  price       Float
+  pixPrice    Float
+  size        String
+  color       String
+}
+
+model Coupon {
+  id           String    @id @default(cuid())
+  code         String    @unique
+  type         String // 'percent' | 'fixed' | 'frete'
+  value        Float
+  minOrder     Float     @default(0)
+  maxUses      Int?
+  uses         Int       @default(0)
+  expiresAt    DateTime?
+  active       Boolean   @default(true)
+  freeShipping Boolean   @default(false)
+  createdAt    DateTime  @default(now())
+}
+
+model Setting {
+  key   String @id
+  value String
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String
+  role      String   @default("admin")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Newsletter {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  subscribedAt DateTime @default(now())
+}

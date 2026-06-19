@@ -1,0 +1,319 @@
+import { useState, useEffect } from 'react';
+import { Coins, Truck, MapPin, Clock, Key, Check, Info, Loader2 } from 'lucide-react';
+import { api } from '../../lib/api';
+import { useStore } from '../../store/useStore';
+
+const inp: React.CSSProperties = {
+  width: '100%', background: '#0d0d0d',
+  border: '1px solid rgba(255,255,255,0.08)',
+  borderRadius: 8, padding: '10px 12px',
+  color: '#fff', fontSize: 13, fontFamily: 'inherit', outline: 'none',
+  boxSizing: 'border-box',
+};
+const lbl: React.CSSProperties = {
+  display: 'block', fontSize: 10, fontWeight: 700, color: '#999',
+  letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 5,
+};
+const focIn = (e: React.FocusEvent<HTMLInputElement | HTMLSelectElement>) =>
+  (e.target.style.borderColor = 'rgba(255,255,255,0.2)');
+const focOut = (e: React.FocusEvent<HTMLInputElement | HTMLSelectElement>) =>
+  (e.target.style.borderColor = 'rgba(255,255,255,0.08)');
+
+function Toggle({ on, color = '#a855f7', onChange }: { on: boolean; color?: string; onChange: (v: boolean) => void }) {
+  return (
+    <button onClick={() => onChange(!on)}
+      style={{ width: 46, height: 26, borderRadius: 99, border: 'none', cursor: 'pointer', padding: 3, flexShrink: 0,
+        background: on ? `linear-gradient(135deg,${color},#FF2DA0)` : 'rgba(255,255,255,0.08)',
+        transition: 'all 0.2s', display: 'flex', alignItems: 'center', justifyContent: on ? 'flex-end' : 'flex-start' }}>
+      <div style={{ width: 20, height: 20, borderRadius: '50%', background: '#fff', transition: 'all 0.2s' }} />
+    </button>
+  );
+}
+
+function Card({ children, title, icon: Icon, color = '#FF2DA0' }: { children: React.ReactNode; title: string; icon: React.ElementType; color?: string }) {
+  return (
+    <div style={{ background: '#111', borderRadius: 14, border: '1px solid rgba(255,255,255,0.06)', padding: 24 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20 }}>
+        <div style={{ width: 36, height: 36, borderRadius: 10, background: `${color}18`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <Icon size={16} style={{ color }} />
+        </div>
+        <h3 style={{ fontWeight: 800, fontSize: 14, color: '#fff' }}>{title}</h3>
+      </div>
+      {children}
+    </div>
+  );
+}
+
+function Row({ label, sub, children }: { label: string; sub?: string; children: React.ReactNode }) {
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '14px 16px', borderRadius: 10, background: '#0d0d0d', border: '1px solid rgba(255,255,255,0.05)' }}>
+      <div>
+        <p style={{ fontWeight: 700, color: '#ccc', fontSize: 13 }}>{label}</p>
+        {sub && <p style={{ fontSize: 11, color: '#777', marginTop: 2 }}>{sub}</p>}
+      </div>
+      {children}
+    </div>
+  );
+}
+
+export default function Settings() {
+  const { showToast } = useStore();
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [saved, setSaved] = useState(false);
+
+  // Cashback
+  const [cashbackEnabled, setCashbackEnabled] = useState(true);
+  const [cashbackRate, setCashbackRate] = useState(5);
+  const [cashbackExpiry, setCashbackExpiry] = useState(90);
+
+  // Shipping
+  const [deliveryEnabled, setDeliveryEnabled] = useState(true);
+  const [freeShipPromo, setFreeShipPromo] = useState(false);
+  const [freeShipThreshold, setFreeShipThreshold] = useState(599.99);
+  const [whatsapp, setWhatsapp] = useState('');
+  const [pickupEnabled, setPickupEnabled] = useState(true);
+  const [storeAddress, setStoreAddress] = useState('');
+  const [storeHours, setStoreHours] = useState('Seg–Sáb: 9h–19h · Dom: 10h–14h');
+  const [pickupDays, setPickupDays] = useState(2);
+
+  // Payments
+  const [pixKey, setPixKey] = useState('');
+  const [pixEnabled, setPixEnabled] = useState(true);
+  const [pixDiscount, setPixDiscount] = useState(10);
+  const [cardEnabled, setCardEnabled] = useState(true);
+  const [maxInstallments, setMaxInstallments] = useState(6);
+
+  useEffect(() => {
+    api.dashboard.getSettings().then(s => {
+      if (s.cashbackEnabled !== undefined)   setCashbackEnabled(s.cashbackEnabled === 'true');
+      if (s.cashbackRate)                    setCashbackRate(Number(s.cashbackRate));
+      if (s.cashbackExpiry)                  setCashbackExpiry(Number(s.cashbackExpiry));
+      if (s.deliveryEnabled !== undefined)   setDeliveryEnabled(s.deliveryEnabled === 'true');
+      if (s.freeShipPromo !== undefined)     setFreeShipPromo(s.freeShipPromo === 'true');
+      if (s.freeShipThreshold)               setFreeShipThreshold(Number(s.freeShipThreshold));
+      if (s.whatsapp)                        setWhatsapp(s.whatsapp);
+      if (s.pickupEnabled !== undefined)     setPickupEnabled(s.pickupEnabled === 'true');
+      if (s.storeAddress)                    setStoreAddress(s.storeAddress);
+      if (s.storeHours)                      setStoreHours(s.storeHours);
+      if (s.pickupDays)                      setPickupDays(Number(s.pickupDays));
+      if (s.pixKey)                          setPixKey(s.pixKey);
+      if (s.pixEnabled !== undefined)        setPixEnabled(s.pixEnabled === 'true');
+      if (s.pixDiscount)                     setPixDiscount(Number(s.pixDiscount));
+      if (s.cardEnabled !== undefined)       setCardEnabled(s.cardEnabled === 'true');
+      if (s.maxInstallments)                 setMaxInstallments(Number(s.maxInstallments));
+    }).catch(() => {}).finally(() => setLoading(false));
+  }, []);
+
+  const save = async () => {
+    setSaving(true);
+    try {
+      await api.dashboard.saveSettings({
+        cashbackEnabled: String(cashbackEnabled),
+        cashbackRate: String(cashbackRate),
+        cashbackExpiry: String(cashbackExpiry),
+        deliveryEnabled: String(deliveryEnabled),
+        freeShipPromo: String(freeShipPromo),
+        freeShipThreshold: String(freeShipThreshold),
+        whatsapp,
+        pickupEnabled: String(pickupEnabled),
+        storeAddress,
+        storeHours,
+        pickupDays: String(pickupDays),
+        pixKey,
+        pixEnabled: String(pixEnabled),
+        pixDiscount: String(pixDiscount),
+        cardEnabled: String(cardEnabled),
+        maxInstallments: String(maxInstallments),
+      });
+      setSaved(true);
+      setTimeout(() => setSaved(false), 2500);
+      showToast('Configurações salvas!');
+    } catch (e) {
+      showToast(e instanceof Error ? e.message : 'Erro ao salvar', 'error');
+    } finally { setSaving(false); }
+  };
+
+  if (loading) return (
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: 200, gap: 10, color: '#555' }}>
+      <Loader2 size={18} style={{ animation: 'spin 1s linear infinite' }} /> Carregando configurações...
+    </div>
+  );
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+
+      {/* Header */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>
+        <div>
+          <h1 style={{ fontSize: 22, fontWeight: 900, color: '#fff', marginBottom: 4 }}>Configurações</h1>
+          <p style={{ fontSize: 13, color: '#999' }}>Cashback, entrega, pagamentos e loja</p>
+        </div>
+        <button onClick={save} disabled={saving}
+          style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '10px 22px', borderRadius: 10,
+            background: saved ? 'rgba(34,197,94,0.12)' : 'linear-gradient(135deg,#a855f7,#FF2DA0)',
+            color: saved ? '#22C55E' : '#fff', fontWeight: 800, fontSize: 13,
+            border: saved ? '1px solid rgba(34,197,94,0.3)' : 'none',
+            cursor: saving ? 'not-allowed' : 'pointer', fontFamily: 'inherit', transition: 'all 0.25s', opacity: saving ? 0.7 : 1 }}>
+          {saving ? <Loader2 size={14} style={{ animation: 'spin 1s linear infinite' }} /> : <Check size={15} />}
+          {saved ? 'SALVO!' : saving ? 'SALVANDO...' : 'SALVAR CONFIGURAÇÕES'}
+        </button>
+      </div>
+
+      {/* Cashback */}
+      <Card title="Cashback" icon={Coins} color="#a855f7">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+          <Row label="Ativar cashback" sub="Crédito automático na carteira do cliente">
+            <Toggle on={cashbackEnabled} onChange={setCashbackEnabled} />
+          </Row>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14, opacity: cashbackEnabled ? 1 : 0.4, pointerEvents: cashbackEnabled ? 'auto' : 'none' }}>
+            <div>
+              <label style={lbl}>Taxa de cashback (%)</label>
+              <input type="number" style={inp} value={cashbackRate} onChange={e => setCashbackRate(Number(e.target.value))} min={0} max={30} step={0.5} onFocus={focIn} onBlur={focOut} />
+            </div>
+            <div>
+              <label style={lbl}>Validade dos créditos (dias)</label>
+              <input type="number" style={inp} value={cashbackExpiry} onChange={e => setCashbackExpiry(Number(e.target.value))} min={1} onFocus={focIn} onBlur={focOut} />
+            </div>
+          </div>
+          {cashbackEnabled && (
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '10px 12px', borderRadius: 8, background: 'rgba(168,85,247,0.06)', border: '1px solid rgba(168,85,247,0.15)' }}>
+              <Info size={13} style={{ color: '#a855f7', flexShrink: 0 }} />
+              <p style={{ fontSize: 11.5, color: '#a855f7' }}>Clientes ganham <strong>{cashbackRate}%</strong> a cada compra, válido por {cashbackExpiry} dias.</p>
+            </div>
+          )}
+        </div>
+      </Card>
+
+      {/* Entrega */}
+      <Card title="Entrega e Retirada" icon={Truck} color="#3b82f6">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+
+          {/* Entrega a domicílio */}
+          <Row label="Entrega a domicílio" sub="Habilitar opção de entrega no checkout">
+            <Toggle on={deliveryEnabled} color="#3b82f6" onChange={setDeliveryEnabled} />
+          </Row>
+
+          {deliveryEnabled && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 14, padding: '16px', borderRadius: 10, background: '#0d0d0d', border: '1px solid rgba(255,255,255,0.05)' }}>
+
+              {/* Frete grátis promoção */}
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <div>
+                  <p style={{ fontWeight: 700, color: freeShipPromo ? '#22c55e' : '#ccc', fontSize: 13 }}>
+                    🎉 Frete grátis para todos (promoção)
+                  </p>
+                  <p style={{ fontSize: 11, color: '#777', marginTop: 2 }}>
+                    Quando ativo, nenhum cliente paga frete — independente do valor
+                  </p>
+                </div>
+                <Toggle on={freeShipPromo} color="#22c55e" onChange={setFreeShipPromo} />
+              </div>
+
+              {freeShipPromo && (
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '10px 12px', borderRadius: 8, background: 'rgba(34,197,94,0.06)', border: '1px solid rgba(34,197,94,0.2)' }}>
+                  <Info size={13} style={{ color: '#22c55e', flexShrink: 0 }} />
+                  <p style={{ fontSize: 11.5, color: '#22c55e' }}>Promoção de frete grátis <strong>ativa</strong>. Todos os pedidos com entrega não pagam frete.</p>
+                </div>
+              )}
+
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14, opacity: freeShipPromo ? 0.4 : 1, pointerEvents: freeShipPromo ? 'none' : 'auto' }}>
+                <div>
+                  <label style={lbl}>Frete grátis acima de (R$)</label>
+                  <input type="number" style={inp} value={freeShipThreshold} onChange={e => setFreeShipThreshold(Number(e.target.value))} min={0} onFocus={focIn} onBlur={focOut} />
+                </div>
+                <div>
+                  <label style={lbl}>WhatsApp da loja</label>
+                  <input style={inp} value={whatsapp} onChange={e => setWhatsapp(e.target.value)} placeholder="(99) 99999-9999" onFocus={focIn} onBlur={focOut} />
+                </div>
+              </div>
+
+              <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8, padding: '10px 12px', borderRadius: 8, background: 'rgba(59,130,246,0.06)', border: '1px solid rgba(59,130,246,0.15)' }}>
+                <Info size={13} style={{ color: '#3b82f6', flexShrink: 0, marginTop: 1 }} />
+                <p style={{ fontSize: 11.5, color: '#3b82f6', lineHeight: 1.6 }}>
+                  O valor do frete é informado manualmente pelo WhatsApp após o pedido ser feito. O cliente receberá o contato da loja com o valor antes de efetuar o pagamento.
+                </p>
+              </div>
+            </div>
+          )}
+
+          {/* Retirada */}
+          <Row label="Retirada na loja" sub="Habilitar opção de retirar na loja física">
+            <Toggle on={pickupEnabled} color="#a855f7" onChange={setPickupEnabled} />
+          </Row>
+
+          {pickupEnabled && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 14, padding: '14px 16px', borderRadius: 10, background: '#0d0d0d', border: '1px solid rgba(255,255,255,0.05)' }}>
+              <div>
+                <label style={lbl}><MapPin size={10} style={{ display: 'inline', marginRight: 4 }} />Endereço da loja</label>
+                <input style={inp} value={storeAddress} onChange={e => setStoreAddress(e.target.value)} placeholder="Rua, número — Bairro, Cidade – UF, CEP" onFocus={focIn} onBlur={focOut} />
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
+                <div>
+                  <label style={lbl}><Clock size={10} style={{ display: 'inline', marginRight: 4 }} />Horário de funcionamento</label>
+                  <input style={inp} value={storeHours} onChange={e => setStoreHours(e.target.value)} onFocus={focIn} onBlur={focOut} />
+                </div>
+                <div>
+                  <label style={lbl}>Prazo de retirada (dias úteis)</label>
+                  <input type="number" style={inp} value={pickupDays} onChange={e => setPickupDays(Number(e.target.value))} min={0} onFocus={focIn} onBlur={focOut} />
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      </Card>
+
+      {/* Pagamentos */}
+      <Card title="Meios de Pagamento" icon={Key} color="#FF2DA0">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+
+          <div style={{ padding: '16px', borderRadius: 12, background: '#0d0d0d', border: '1px solid rgba(255,255,255,0.05)' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: pixEnabled ? 14 : 0 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <div style={{ width: 28, height: 28, borderRadius: 6, background: 'rgba(34,197,94,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M4 12L12 4L20 12L12 20L4 12Z" stroke="#22C55E" strokeWidth="2"/></svg>
+                </div>
+                <p style={{ fontWeight: 700, color: '#ccc', fontSize: 13 }}>PIX</p>
+              </div>
+              <Toggle on={pixEnabled} color="#22c55e" onChange={setPixEnabled} />
+            </div>
+            {pixEnabled && (
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
+                <div>
+                  <label style={lbl}>Chave PIX</label>
+                  <input style={inp} value={pixKey} onChange={e => setPixKey(e.target.value)} placeholder="CPF, e-mail, telefone ou chave" onFocus={focIn} onBlur={focOut} />
+                </div>
+                <div>
+                  <label style={lbl}>Desconto PIX (%)</label>
+                  <input type="number" style={inp} value={pixDiscount} onChange={e => setPixDiscount(Number(e.target.value))} min={0} max={50} onFocus={focIn} onBlur={focOut} />
+                </div>
+              </div>
+            )}
+          </div>
+
+          <div style={{ padding: '16px', borderRadius: 12, background: '#0d0d0d', border: '1px solid rgba(255,255,255,0.05)' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: cardEnabled ? 14 : 0 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <div style={{ width: 28, height: 28, borderRadius: 6, background: 'rgba(255,45,160,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <svg width="14" height="10" viewBox="0 0 24 16" fill="none"><rect width="24" height="16" rx="3" stroke="#FF2DA0" strokeWidth="1.5"/><rect x="0" y="4" width="24" height="3" fill="#FF2DA0" opacity="0.4"/></svg>
+                </div>
+                <p style={{ fontWeight: 700, color: '#ccc', fontSize: 13 }}>Cartão de Crédito/Débito</p>
+              </div>
+              <Toggle on={cardEnabled} color="#FF2DA0" onChange={setCardEnabled} />
+            </div>
+            {cardEnabled && (
+              <div>
+                <label style={lbl}>Máximo de parcelas (sem juros)</label>
+                <select style={{ ...inp, cursor: 'pointer' }} value={maxInstallments} onChange={e => setMaxInstallments(Number(e.target.value))} onFocus={focIn} onBlur={focOut}>
+                  {[1,2,3,4,5,6,8,10,12].map(n => (
+                    <option key={n} value={n} style={{ background: '#111' }}>{n}x {n === 1 ? '(à vista)' : 'sem juros'}</option>
+                  ))}
+                </select>
+              </div>
+            )}
+          </div>
+        </div>
+      </Card>
+    </div>
+  );
+}

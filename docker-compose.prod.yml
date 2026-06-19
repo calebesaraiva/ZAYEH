@@ -1,0 +1,47 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: suhconcept_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: suh
+      POSTGRES_PASSWORD: suh2026
+      POSTGRES_DB: suhdb
+    volumes:
+      - suhconcept_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U suh -d suhdb"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  backend:
+    build:
+      context: ./backend
+    container_name: suhconcept_backend
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://suh:suh2026@postgres:5432/suhdb
+      JWT_SECRET: suh-concept-jwt-secret-2026-ultra-secure
+      PORT: 3333
+      FRONTEND_URL: https://suhconcept.com,https://www.suhconcept.com
+    command: sh -c "npx prisma db push && node dist/index.js"
+    ports:
+      - "127.0.0.1:3201:3333"
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    container_name: suhconcept_frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "127.0.0.1:3200:80"
+
+volumes:
+  suhconcept_postgres_data:

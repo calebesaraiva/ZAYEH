@@ -1,0 +1,10 @@
+[Unit]
+Description=Verifica atualizações do GitHub e publica SUH Concept automaticamente
+
+[Timer]
+OnBootSec=1min
+OnUnitActiveSec=1min
+Unit=suhconcept-auto-deploy.service
+
+[Install]
+WantedBy=timers.target

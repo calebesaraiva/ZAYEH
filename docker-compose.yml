@@ -1,0 +1,36 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: suh_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: suh
+      POSTGRES_PASSWORD: suh2026
+      POSTGRES_DB: suhdb
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U suh -d suhdb']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build: ./backend
+    container_name: suh_backend
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://suh:suh2026@postgres:5432/suhdb
+      JWT_SECRET: suh-concept-jwt-secret-2026-ultra-secure
+      PORT: 3333
+      FRONTEND_URL: http://localhost:4173
+    ports:
+      - '3333:3333'
+
+volumes:
+  postgres_data:
