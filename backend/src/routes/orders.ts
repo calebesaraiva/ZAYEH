@@ -7,6 +7,8 @@ import { getStoreSettingsMap, parseBool, parseNumber } from '../lib/storeSetting
 const router = Router();
 
 const REQUIRED_DELIVERY_FIELDS = ['cep', 'rua', 'num', 'bairro', 'cidade', 'estado'] as const;
+const normalizeEmail = (value: unknown) => String(value ?? '').trim().toLowerCase();
+const normalizeCpf = (value: unknown) => String(value ?? '').replace(/\D/g, '').trim();
 
 // POST /api/orders — create order from checkout
 router.post('/', async (req, res) => {
@@ -28,6 +30,9 @@ router.post('/', async (req, res) => {
     if (!customerName || !customerEmail || !items?.length || !paymentMethod) {
       return res.status(400).json({ error: 'Dados incompletos' });
     }
+
+    const normalizedCustomerEmail = normalizeEmail(customerEmail);
+    const normalizedCustomerCpf = normalizeCpf(customerCpf) || undefined;
 
     const selectedDeliveryMethod = deliveryMethod === 'pickup' ? 'pickup' : 'delivery';
     const normalizedAddress = address && typeof address === 'object' ? address : null;
@@ -137,16 +142,36 @@ router.post('/', async (req, res) => {
         ? `PagBank Cartão ${requestedInstallments}x`
         : paymentMethodText;
 
-    let customer = await prisma.customer.findUnique({ where: { email: customerEmail } });
+    let customer = await prisma.customer.findFirst({
+      where: {
+        OR: [
+          { email: normalizedCustomerEmail },
+          ...(normalizedCustomerCpf ? [{ cpf: normalizedCustomerCpf }] : []),
+        ],
+      },
+    });
+
     if (!customer) {
       customer = await prisma.customer.create({
         data: {
           name: customerName,
-          email: customerEmail,
+          email: normalizedCustomerEmail,
           phone: customerPhone,
-          cpf: customerCpf,
+          cpf: normalizedCustomerCpf,
           city: normalizedAddress?.cidade,
           state: normalizedAddress?.estado,
+        },
+      });
+    } else {
+      customer = await prisma.customer.update({
+        where: { id: customer.id },
+        data: {
+          name: customerName,
+          phone: customerPhone,
+          city: normalizedAddress?.cidade ?? customer.city,
+          state: normalizedAddress?.estado ?? customer.state,
+          ...(customer.email === normalizedCustomerEmail ? { email: normalizedCustomerEmail } : {}),
+          ...(!customer.cpf && normalizedCustomerCpf ? { cpf: normalizedCustomerCpf } : {}),
         },
       });
     }
@@ -157,9 +182,9 @@ router.post('/', async (req, res) => {
         data: {
           customerId: customer.id,
           customerName,
-          customerEmail,
+          customerEmail: normalizedCustomerEmail,
           customerPhone,
-          customerCpf,
+          customerCpf: normalizedCustomerCpf,
           subtotal,
           total,
           discount: discountAmount,
@@ -273,9 +298,9 @@ router.post('/', async (req, res) => {
         const checkout = await createPagBankCheckout(pagBankConfig, {
           orderId: order.id,
           customerName,
-          customerEmail,
+          customerEmail: normalizedCustomerEmail,
           customerPhone,
-          customerCpf,
+          customerCpf: normalizedCustomerCpf,
           discountAmount,
           paymentMethod: isPixPayment ? 'PIX' : 'CREDIT_CARD',
           items: items.map((item: { productId: string; productName: string; quantity: number }) => {

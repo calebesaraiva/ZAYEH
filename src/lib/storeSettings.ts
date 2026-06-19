@@ -15,6 +15,8 @@ const DEFAULT_SETTINGS: StoreSettings = {
 
 let cachedSettings: StoreSettings | null = null;
 let inflightSettings: Promise<StoreSettings> | null = null;
+let lastLoadedAt = 0;
+const SETTINGS_TTL_MS = 30_000;
 
 export function resolveStoreSettings(raw?: Record<string, string> | null): StoreSettings {
   return {
@@ -25,11 +27,12 @@ export function resolveStoreSettings(raw?: Record<string, string> | null): Store
 }
 
 async function loadStoreSettings() {
-  if (cachedSettings) return cachedSettings;
+  if (cachedSettings && Date.now() - lastLoadedAt < SETTINGS_TTL_MS) return cachedSettings;
   if (!inflightSettings) {
     inflightSettings = api.settings.get()
       .then((raw) => {
         cachedSettings = resolveStoreSettings(raw);
+        lastLoadedAt = Date.now();
         return cachedSettings;
       })
       .catch(() => DEFAULT_SETTINGS)
@@ -45,11 +48,31 @@ export function useStoreSettings() {
 
   useEffect(() => {
     let active = true;
-    void loadStoreSettings().then((loaded) => {
-      if (active) setSettings(loaded);
-    });
+
+    const syncSettings = () => {
+      void loadStoreSettings().then((loaded) => {
+        if (active) setSettings(loaded);
+      });
+    };
+
+    syncSettings();
+
+    const interval = window.setInterval(syncSettings, SETTINGS_TTL_MS);
+    const handleVisibility = () => {
+      if (document.visibilityState === 'visible') {
+        cachedSettings = null;
+        syncSettings();
+      }
+    };
+
+    window.addEventListener('focus', syncSettings);
+    document.addEventListener('visibilitychange', handleVisibility);
+
     return () => {
       active = false;
+      window.clearInterval(interval);
+      window.removeEventListener('focus', syncSettings);
+      document.removeEventListener('visibilitychange', handleVisibility);
     };
   }, []);
 

@@ -3,8 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Search, Heart, ShoppingBag, User, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useStore } from '../../store/useStore';
-import { products } from '../../data/products';
 import { getProductPricing, useStorePricingSettings } from '../../lib/storePricing';
+import { useProducts } from '../../lib/useApi';
 
 interface Props { onMenuOpen: () => void; onCartOpen: () => void; onAccountOpen: () => void; }
 
@@ -16,14 +16,16 @@ export default function Header({ onMenuOpen, onCartOpen, onAccountOpen }: Props)
   const inputRef = useRef<HTMLInputElement>(null);
   const cartCount = cart.reduce((a, i) => a + i.quantity, 0);
   const pricingSettings = useStorePricingSettings();
+  const { data: searchProductsData } = useProducts({ limit: '100' });
+  const searchProducts = searchProductsData?.products ?? [];
 
   const suggestions = useMemo(() => {
     if (search.length <= 1) return [];
     const q = search.toLowerCase();
-    return products.filter((p) =>
-      p.name.toLowerCase().includes(q) || p.tags.some((t) => t.includes(q))
+    return searchProducts.filter((p) =>
+      p.name.toLowerCase().includes(q) || p.tags.some((t) => t.toLowerCase().includes(q))
     ).slice(0, 5);
-  }, [search]);
+  }, [search, searchProducts]);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
