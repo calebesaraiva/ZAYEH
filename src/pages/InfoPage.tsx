@@ -64,7 +64,7 @@ type PageContent = {
 const pageContent: Record<PageKey, PageContent> = {
   contact: {
     eyebrow: 'Contato',
-    title: 'Fale Com A SUH CONCEPT',
+    title: 'Fale Com A ZAYEH',
     subtitle: 'Atendimento humanizado para pedidos, dúvidas, trocas, entrega e suporte geral da sua compra.',
     badge: 'Resposta rápida',
     heroPoints: [
@@ -77,7 +77,7 @@ const pageContent: Record<PageKey, PageContent> = {
       {
         title: 'Como falar com a gente',
         text: [
-          'Se você precisa de ajuda com um pedido, produto, retirada, entrega ou pagamento, o atendimento da SUH CONCEPT pode ser feito pelo WhatsApp, e-mail ou redes sociais oficiais.',
+          'Se você precisa de ajuda com um pedido, produto, retirada, entrega ou pagamento, o atendimento da ZAYEH pode ser feito pelo WhatsApp, e-mail ou redes sociais oficiais.',
           'Para agilizar o suporte, envie nome completo, número do pedido se já existir e uma descrição objetiva do que precisa.',
         ],
       },
@@ -105,7 +105,7 @@ const pageContent: Record<PageKey, PageContent> = {
     ctaText: 'Nossa equipe está pronta para orientar sua compra, confirmar entrega e resolver qualquer detalhe do pedido.',
     ctaHref: '/',
     ctaLabel: 'Voltar para a loja',
-    ctaMessage: 'Olá! Quero falar com a equipe da SUH CONCEPT.',
+    ctaMessage: 'Olá! Quero falar com a equipe da ZAYEH.',
   },
   help: {
     eyebrow: 'Ajuda',
@@ -147,10 +147,10 @@ const pageContent: Record<PageKey, PageContent> = {
       { question: 'Posso retirar na loja?', answer: 'Sim. Quando a retirada estiver disponível, ela pode ser selecionada no checkout sem custo de frete.' },
     ],
     ctaTitle: 'Ainda ficou com dúvida?',
-    ctaText: 'Se a sua pergunta não estiver respondida aqui, o atendimento da SUH CONCEPT pode orientar você rapidamente.',
+    ctaText: 'Se a sua pergunta não estiver respondida aqui, o atendimento da ZAYEH pode orientar você rapidamente.',
     ctaHref: '/contato',
     ctaLabel: 'Falar com a equipe',
-    ctaMessage: 'Olá! Preciso de ajuda com uma dúvida na loja SUH CONCEPT.',
+    ctaMessage: 'Olá! Preciso de ajuda com uma dúvida na loja ZAYEH.',
   },
   returns: {
     eyebrow: 'Ajuda',
@@ -281,7 +281,7 @@ const pageContent: Record<PageKey, PageContent> = {
       { question: 'Posso pedir atualização dos meus dados?', answer: 'Sim. O atendimento da loja pode orientar ajustes e solicitações relacionadas ao cadastro.' },
     ],
     ctaTitle: 'Quer continuar comprando com segurança?',
-    ctaText: 'A SUH CONCEPT trabalha para manter uma experiência confiável, transparente e alinhada ao atendimento humanizado da marca.',
+    ctaText: 'A ZAYEH trabalha para manter uma experiência confiável, transparente e alinhada ao atendimento humanizado da marca.',
     ctaHref: '/',
     ctaLabel: 'Ir para a vitrine',
   },
@@ -301,7 +301,7 @@ const pageContent: Record<PageKey, PageContent> = {
         title: 'Uso do site',
         text: [
           'Ao navegar e comprar na loja, o usuário concorda com as condições de uso da plataforma e com as regras comerciais aplicáveis.',
-          'A SUH CONCEPT pode atualizar conteúdo, preços, disponibilidade, layout e condições operacionais sempre que necessário.',
+          'A ZAYEH pode atualizar conteúdo, preços, disponibilidade, layout e condições operacionais sempre que necessário.',
         ],
       },
       {
@@ -332,7 +332,7 @@ const pageContent: Record<PageKey, PageContent> = {
   'exchange-policy': {
     eyebrow: 'Políticas',
     title: 'Política De Trocas',
-    subtitle: 'Diretrizes práticas da SUH CONCEPT para trocas comerciais, análise de devolução e atendimento pós-venda com mais clareza.',
+    subtitle: 'Diretrizes práticas da ZAYEH para trocas comerciais, análise de devolução e atendimento pós-venda com mais clareza.',
     badge: 'Regras da loja',
     heroPoints: [
       { icon: RefreshCw, title: 'Troca orientada', text: 'Cada solicitação é avaliada conforme o tipo de produto e situação do pedido.', color: '#a855f7' },
@@ -369,10 +369,10 @@ const pageContent: Record<PageKey, PageContent> = {
       { question: 'A política é igual para perfume e roupa?', answer: 'Não necessariamente. Produtos de perfumaria podem exigir regras de conferência diferentes.' },
     ],
     ctaTitle: 'Quer alinhar sua solicitação?',
-    ctaText: 'Entre em contato com a equipe da SUH CONCEPT para abrir a análise e receber a orientação correta para o seu caso.',
+    ctaText: 'Entre em contato com a equipe da ZAYEH para abrir a análise e receber a orientação correta para o seu caso.',
     ctaHref: '/contato',
     ctaLabel: 'Abrir atendimento',
-    ctaMessage: 'Olá! Quero falar sobre a política de trocas da SUH CONCEPT.',
+    ctaMessage: 'Olá! Quero falar sobre a política de trocas da ZAYEH.',
   },
 };
 
@@ -402,7 +402,7 @@ export default function InfoPage({ pageKey }: { pageKey: PageKey }) {
                 {page.badge}
               </span>
               <span style={{ padding: '10px 14px', borderRadius: 999, background: 'rgba(255,184,0,0.08)', border: '1px solid rgba(255,184,0,0.16)', color: '#ffd77c', fontSize: 11.5, fontWeight: 800 }}>
-                Suporte oficial da SUH CONCEPT
+                Suporte oficial da ZAYEH
               </span>
             </div>
           </motion.div>

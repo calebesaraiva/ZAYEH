@@ -1,0 +1,10 @@
+[Unit]
+Description=Verifica atualizações do GitHub e publica ZAYEH automaticamente
+
+[Timer]
+OnBootSec=1min
+OnUnitActiveSec=1min
+Unit=zayeh-auto-deploy.service
+
+[Install]
+WantedBy=timers.target

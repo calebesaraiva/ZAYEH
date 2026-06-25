@@ -44,12 +44,12 @@ export type StoreSeedProduct = {
 
 export const adminUsers = [
   {
-    email: 'admin@suhconcept.com.br',
-    password: 'suh@2026',
+    email: 'admin@zayeh.com.br',
+    password: 'zayeh@2026',
     name: 'Admin',
   },
   {
-    email: 'nexus@suhconcept.com.br',
+    email: 'nexus@zayeh.com.br',
     password: 'nexus@2026',
     name: 'Nexus',
   },
@@ -202,7 +202,7 @@ export const settings = {
   freeShipThreshold: '599.99',
   whatsapp: '(99) 99999-9999',
   pickupEnabled: 'true',
-  storeAddress: 'Suh - Imperatriz, MA',
+  storeAddress: 'ZAYEH - Imperatriz, MA',
   storeHours: 'Seg-Sab: 9h-19h · Dom: 10h-14h',
   pickupDays: '2',
   pixKey: '',
@@ -211,14 +211,15 @@ export const settings = {
   cardEnabled: 'true',
   maxInstallments: '12',
   interestFreeInstallments: '3',
-  pagbankEnabled: 'true',
-  pagbankEnvironment: 'production',
-  pagbankToken: '',
-  storeDisplayName: 'SUH CONCEPT',
-  publicSiteUrl: 'https://suhconcept.com',
+  mercadopagoEnabled: 'true',
+  mercadopagoEnvironment: 'production',
+  mercadopagoAccessToken: '',
+  mercadopagoWebhookSecret: '',
+  storeDisplayName: 'ZAYEH',
+  publicSiteUrl: 'https://zayeh.com.br',
 };
 
-export const demoCouponCodes = ['COPA2026', 'SUH10', 'FRETE', 'VIP30', 'FRETEGRATIS'];
+export const demoCouponCodes = ['ZAYEH10', 'FRETE', 'VIP30', 'FRETEGRATIS'];
 
 export const sampleCustomerEmails = [
   'ana@email.com',

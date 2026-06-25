@@ -6,7 +6,7 @@ const links = [
   { label: 'FEMININO',    to: '/categoria/feminino' },
   { label: 'INFANTIL',    to: '/categoria/infantil' },
   { label: 'PERFUMARIA',  to: '/categoria/perfumaria' },
-  { label: 'COPA 2026',   to: '/categoria/copa-2026', isCopa: true, isNew: true },
+  { label: 'DROP EDIT',   to: '/categoria/copa-2026', isCopa: true, isNew: true },
   { label: 'OUTLET',      to: '/categoria/outlet', isOutlet: true },
   { label: 'SOBRE NÓS',   to: '/sobre' },
 ];
@@ -31,19 +31,19 @@ export default function Navigation() {
                 padding: '0 14px', height: '100%',
                 fontSize: 11.5, fontWeight: 700, letterSpacing: '0.09em',
                 textTransform: 'uppercase', textDecoration: 'none',
-                color: isActive ? '#fff' : (link.isCopa ? '#FFB800' : '#666'),
+                color: isActive ? '#fff' : (link.isCopa ? '#d8a84a' : '#7f7768'),
 
                 position: 'relative',
                 transition: 'color 0.2s',
                 whiteSpace: 'nowrap',
               }}
-              onMouseEnter={e => { if (!isActive) (e.currentTarget as HTMLAnchorElement).style.color = link.isCopa ? '#FFB800' : '#ccc'; }}
-              onMouseLeave={e => { if (!isActive) (e.currentTarget as HTMLAnchorElement).style.color = link.isCopa ? '#FFB800' : '#666'; }}
+              onMouseEnter={e => { if (!isActive) (e.currentTarget as HTMLAnchorElement).style.color = link.isCopa ? '#f0cf82' : '#d9d0bf'; }}
+              onMouseLeave={e => { if (!isActive) (e.currentTarget as HTMLAnchorElement).style.color = link.isCopa ? '#d8a84a' : '#7f7768'; }}
             >
               {/* Active/hover underline */}
               <span style={{
                 position: 'absolute', bottom: 0, left: 14, right: 14, height: 2,
-                background: link.isCopa ? '#FFB800' : 'linear-gradient(90deg, #a855f7, #FF2DA0)',
+                background: link.isCopa ? '#d8a84a' : 'linear-gradient(90deg, #8d6b2f, #d8a84a)',
                 borderRadius: '2px 2px 0 0',
                 opacity: isActive ? 1 : 0,
                 transform: isActive ? 'scaleX(1)' : 'scaleX(0)',
@@ -56,8 +56,8 @@ export default function Navigation() {
               {link.isNew && (
                 <span style={{
                   fontSize: 8, fontWeight: 900, padding: '2px 5px', borderRadius: 3,
-                  background: 'linear-gradient(135deg, #a855f7, #FF2DA0)',
-                  color: '#fff', letterSpacing: '0.06em', lineHeight: 1.2,
+                  background: 'linear-gradient(135deg, #8d6b2f, #d8a84a)',
+                  color: '#111', letterSpacing: '0.06em', lineHeight: 1.2,
                 }}>
                   NOVO
                 </span>

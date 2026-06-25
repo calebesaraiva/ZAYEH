@@ -1,16 +1,16 @@
 services:
   postgres:
     image: postgres:16-alpine
-    container_name: suhconcept_postgres
+    container_name: zayeh_postgres
     restart: unless-stopped
     environment:
-      POSTGRES_USER: suh
-      POSTGRES_PASSWORD: suh2026
-      POSTGRES_DB: suhdb
+      POSTGRES_USER: zayeh
+      POSTGRES_PASSWORD: zayeh2026
+      POSTGRES_DB: zayehdb
     volumes:
-      - suhconcept_postgres_data:/var/lib/postgresql/data
+      - zayeh_postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U suh -d suhdb"]
+      test: ["CMD-SHELL", "pg_isready -U zayeh -d zayehdb"]
       interval: 5s
       timeout: 5s
       retries: 20
@@ -18,16 +18,19 @@ services:
   backend:
     build:
       context: ./backend
-    container_name: suhconcept_backend
+    container_name: zayeh_backend
     restart: unless-stopped
     depends_on:
       postgres:
         condition: service_healthy
     environment:
-      DATABASE_URL: postgresql://suh:suh2026@postgres:5432/suhdb
-      JWT_SECRET: suh-concept-jwt-secret-2026-ultra-secure
+      DATABASE_URL: ${DATABASE_URL:-postgresql://zayeh:zayeh2026@postgres:5432/zayehdb}
+      JWT_SECRET: ${JWT_SECRET:-zayeh-jwt-secret-2026-ultra-secure}
       PORT: 3333
-      FRONTEND_URL: https://suhconcept.com,https://www.suhconcept.com
+      FRONTEND_URL: ${FRONTEND_URL:-https://zayeh.com.br,https://www.zayeh.com.br}
+      PUBLIC_SITE_URL: ${PUBLIC_SITE_URL:-https://zayeh.com.br}
+      MERCADOPAGO_ACCESS_TOKEN: ${MERCADOPAGO_ACCESS_TOKEN:-}
+      MERCADOPAGO_WEBHOOK_SECRET: ${MERCADOPAGO_WEBHOOK_SECRET:-}
     command: sh -c "npx prisma db push && node dist/index.js"
     ports:
       - "127.0.0.1:3201:3333"
@@ -36,7 +39,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.frontend
-    container_name: suhconcept_frontend
+    container_name: zayeh_frontend
     restart: unless-stopped
     depends_on:
       - backend
@@ -44,4 +47,4 @@ services:
       - "127.0.0.1:3200:80"
 
 volumes:
-  suhconcept_postgres_data:
+  zayeh_postgres_data:

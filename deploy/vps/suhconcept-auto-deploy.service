@@ -1,9 +1,0 @@
-[Unit]
-Description=Sincroniza o projeto SUH Concept do GitHub e publica na VPS
-After=network-online.target docker.service
-Wants=network-online.target
-
-[Service]
-Type=oneshot
-WorkingDirectory=/var/www/suhconcept/app
-ExecStart=/bin/bash /var/www/suhconcept/app/deploy/vps/sync.sh

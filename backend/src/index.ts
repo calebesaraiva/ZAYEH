@@ -4,7 +4,7 @@ const PORT = process.env.PORT || 3333;
 
 if (require.main === module) {
   app.listen(PORT, () => {
-    console.log(`🚀 SUH Backend running on http://localhost:${PORT}`);
+    console.log(`🚀 ZAYEH Backend running on http://localhost:${PORT}`);
   });
 }
 

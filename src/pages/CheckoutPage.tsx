@@ -41,6 +41,7 @@ export default function CheckoutPage() {
   const [couponFreeShipping, setCouponFreeShipping] = useState(false);
   const [done, setDone] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [redirectingCheckout, setRedirectingCheckout] = useState('');
   const [orderId, setOrderId] = useState('');
   const [summaryOpen, setSummaryOpen] = useState(false);
   const [shippingMessage, setShippingMessage] = useState('Valor do frete informado manualmente pelo WhatsApp após o pedido.');
@@ -52,7 +53,7 @@ export default function CheckoutPage() {
   const pricingSettings = resolveStorePricingSettings(settings);
   const freeShipThreshold = pricingSettings.freeShipThreshold;
   const whatsapp = settings.whatsapp?.trim();
-  const storeAddress = settings.storeAddress || 'SUH CONCEPT - Imperatriz, MA';
+  const storeAddress = settings.storeAddress || 'ZAYEH - Imperatriz, MA';
   const storeHours = settings.storeHours || 'Seg-Sab: 9h-19h · Dom: 10h-14h';
   const maxInstallments = pricingSettings.maxInstallments;
   const interestFreeInstallments = pricingSettings.interestFreeInstallments;
@@ -91,6 +92,11 @@ export default function CheckoutPage() {
         // Mantem os defaults caso o backend de configuracoes nao responda.
       });
   }, []);
+
+  useEffect(() => {
+    if (!redirectingCheckout) return;
+    window.location.assign(redirectingCheckout);
+  }, [redirectingCheckout]);
 
   const set = (k: keyof typeof form) =>
     (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) =>
@@ -181,9 +187,9 @@ export default function CheckoutPage() {
         discount: couponDiscount,
       });
 
-      if (payment?.provider === 'pagbank' && payment.checkoutUrl) {
+      if (payment?.provider === 'mercadopago' && payment.checkoutUrl) {
         clearCart();
-        window.location.href = payment.checkoutUrl;
+        setRedirectingCheckout(payment.checkoutUrl);
         return;
       }
 
@@ -217,6 +223,20 @@ export default function CheckoutPage() {
           CONTINUAR COMPRANDO
         </Link>
       </motion.div>
+    </div>
+  );
+
+  if (redirectingCheckout) return (
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '80px 24px', minHeight: '60vh' }}>
+      <div style={{ textAlign: 'center', maxWidth: 420 }}>
+        <div style={{ width: 72, height: 72, borderRadius: '50%', background: 'rgba(216,168,74,0.12)', border: '2px solid rgba(216,168,74,0.45)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px' }}>
+          <Loader2 size={30} style={{ color: '#d8a84a', animation: 'spin 1s linear infinite' }} />
+        </div>
+        <h2 style={{ fontSize: 24, fontWeight: 900, color: '#fff', marginBottom: 8 }}>Redirecionando para o pagamento</h2>
+        <p style={{ color: '#888', lineHeight: 1.7 }}>
+          Você será levado ao checkout seguro do Mercado Pago para concluir o pedido.
+        </p>
+      </div>
     </div>
   );
 
@@ -386,8 +406,8 @@ export default function CheckoutPage() {
                     <CreditCard size={20} style={{ color: resolvedPayMethod === 'cartao' ? '#a855f7' : '#444' }} />
                   </div>
                   <div>
-                    <p style={{ fontSize: 14, fontWeight: 800, color: resolvedPayMethod === 'cartao' ? '#fff' : '#666', marginBottom: 2 }}>Cartão</p>
-                    <p style={{ fontSize: 11, color: resolvedPayMethod === 'cartao' ? '#a855f7' : '#333' }}>Parcele em até {maxInstallments}x</p>
+                  <p style={{ fontSize: 14, fontWeight: 800, color: resolvedPayMethod === 'cartao' ? '#fff' : '#666', marginBottom: 2 }}>Cartão</p>
+                  <p style={{ fontSize: 11, color: resolvedPayMethod === 'cartao' ? '#a855f7' : '#333' }}>Parcele em até {maxInstallments}x</p>
                   </div>
                 </button>
               )}
@@ -418,7 +438,7 @@ export default function CheckoutPage() {
                 </div>
                 <div style={{ padding: '14px 16px', borderRadius: 12, background: 'rgba(168,85,247,0.07)', border: '1px solid rgba(168,85,247,0.18)' }}>
                   <p style={{ fontSize: 12, color: '#d7b8ff', lineHeight: 1.7 }}>
-                    Os dados do cartão serão preenchidos com segurança no checkout oficial do PagBank. Na sua loja o cliente escolhe apenas a quantidade de parcelas.
+                    Os dados do cartão serão preenchidos com segurança no checkout oficial do Mercado Pago. Na sua loja o cliente escolhe apenas a quantidade de parcelas.
                   </p>
                 </div>
               </div>
@@ -436,7 +456,7 @@ export default function CheckoutPage() {
                   </div>
                   <p style={{ fontSize: 12, color: '#22C55E', fontWeight: 600 }}>Economia de R$ {pixDiscount.toFixed(2).replace('.', ',')}</p>
                 </div>
-                <p style={{ fontSize: 11, color: '#999', textAlign: 'center' }}>O QR Code real será exibido no checkout seguro do PagBank.</p>
+                <p style={{ fontSize: 11, color: '#999', textAlign: 'center' }}>O QR Code real será exibido no checkout seguro do Mercado Pago.</p>
               </div>
             )}
 

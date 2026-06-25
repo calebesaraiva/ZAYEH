@@ -138,7 +138,7 @@ export default function Hero() {
             <div className="w-80 h-[500px] rounded-3xl overflow-hidden neon-glow" style={{ border: '2px solid rgba(249,115,22,0.3)' }}>
               <img
                 src="https://images.unsplash.com/photo-1529635767500-4f64c3a8a0dc?w=700&q=80"
-                alt="SUH Concept"
+                alt="ZAYEH"
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" style={{ borderRadius: '1.5rem' }} />

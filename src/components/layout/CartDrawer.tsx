@@ -248,7 +248,7 @@ export default function CartDrawer({ open, onClose }: Props) {
                       Você vai ganhar R$ {cashback.toFixed(2).replace('.', ',')} de cashback!
                     </p>
                     <p style={{ fontSize: 11, color: '#664d00', marginTop: 2 }}>
-                      5% do valor volta pra sua carteira SUH
+                      5% do valor volta como saldo ZAYEH
                     </p>
                   </div>
                 </div>

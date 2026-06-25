@@ -1,0 +1,9 @@
+[Unit]
+Description=Sincroniza o projeto ZAYEH do GitHub e publica na VPS
+After=network-online.target docker.service
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/var/www/zayeh/app
+ExecStart=/bin/bash /var/www/zayeh/app/deploy/vps/sync.sh

@@ -39,7 +39,7 @@ const stats = [
 
 export default function SobrePage() {
   const settings = useStoreSettings();
-  const whatsappHref = buildWhatsAppLink(settings.whatsapp, 'Olá! Quero falar com a equipe da SUH CONCEPT.');
+  const whatsappHref = buildWhatsAppLink(settings.whatsapp, 'Olá! Quero falar com a equipe da ZAYEH.');
 
   return (
     <div style={{ background: '#0b0b0b', minHeight: '100vh' }}>
@@ -63,7 +63,7 @@ export default function SobrePage() {
           </div>
 
           <h1 style={{ fontFamily: 'Cinzel, serif', fontWeight: 900, fontSize: 'clamp(2.8rem, 6vw, 5rem)', color: '#fff', lineHeight: 0.95, letterSpacing: '0.06em', marginBottom: 24 }}>
-            SUH<br /><span style={{ background: 'linear-gradient(135deg, #FF2DA0, #FFB800)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>CONCEPT</span>
+            ZAYEH<br /><span style={{ background: 'linear-gradient(135deg, #b8842c, #f0cf82)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>STUDIO EDIT</span>
           </h1>
 
           <p style={{ fontSize: 'clamp(1rem, 1.8vw, 1.2rem)', color: '#888', lineHeight: 1.7, marginBottom: 32 }}>
@@ -129,8 +129,8 @@ export default function SobrePage() {
 
               {/* Corner badge */}
               <div style={{ position: 'absolute', bottom: 24, right: 24, background: 'rgba(0,0,0,0.85)', backdropFilter: 'blur(12px)', borderRadius: 12, padding: '12px 16px', border: '1px solid rgba(255,255,255,0.1)' }}>
-                <p style={{ fontFamily: 'Cinzel, serif', fontWeight: 900, fontSize: 22, color: '#fff', lineHeight: 1 }}>SUH</p>
-                <p style={{ fontSize: 8, color: '#555', letterSpacing: '0.3em' }}>CONCEPT</p>
+                <p style={{ fontFamily: 'Cinzel, serif', fontWeight: 900, fontSize: 22, color: '#fff', lineHeight: 1 }}>ZAYEH</p>
+                <p style={{ fontSize: 8, color: '#8f7a4b', letterSpacing: '0.3em' }}>STREETWEAR</p>
               </div>
             </div>
           </motion.div>
@@ -144,25 +144,25 @@ export default function SobrePage() {
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
               <p style={{ fontSize: 14, color: '#666', lineHeight: 1.8 }}>
-                A SUH CONCEPT nasceu em 2019 em Imperatriz, MA, com um propósito claro:
-                oferecer moda de qualidade para quem vive com intensidade. Uma marca que fala
-                a língua de quem não abre mão do estilo no dia a dia.
+                A ZAYEH nasceu para construir uma vitrine mais elegante, autoral e atual.
+                A proposta é oferecer moda, acessórios e perfumaria com mais direção de arte
+                e menos aparência de loja genérica.
               </p>
               <p style={{ fontSize: 14, color: '#666', lineHeight: 1.8 }}>
-                Começamos pequenos, com poucas peças e muito sonho. Hoje atendemos clientes
-                em todo o Brasil, sem perder a essência de quem somos: uma marca com
-                identidade forte, feita por maranhenses para o mundo.
+                Cada detalhe foi pensado para passar presença premium: contraste quente,
+                tipografia forte, recortes mais limpos e uma seleção que conversa entre si
+                do início ao fim da navegação.
               </p>
               <p style={{ fontSize: 14, color: '#666', lineHeight: 1.8 }}>
-                Cada coleção conta uma história. Cada peça é uma declaração.
-                Se você chegou até aqui, já faz parte da família SUH CONCEPT.
+                Cada coleção agora carrega uma assinatura própria.
+                Se você chegou até aqui, já faz parte do novo momento da ZAYEH.
               </p>
             </div>
 
             <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginTop: 32 }}>
               <Award size={16} style={{ color: '#FFB800', flexShrink: 0 }} />
               <p style={{ fontSize: 12, color: '#555' }}>
-                <span style={{ color: '#FFB800', fontWeight: 700 }}>+3.000 clientes</span> confiam na SUH CONCEPT desde 2019
+                <span style={{ color: '#FFB800', fontWeight: 700 }}>Nova fase</span> com linguagem visual mais premium e autoral
               </p>
             </div>
           </motion.div>

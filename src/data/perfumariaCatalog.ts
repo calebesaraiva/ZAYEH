@@ -74,7 +74,7 @@ function makePerfumeArt(name: string, size: string, accent = '#a855f7') {
       <rect x="288" y="300" width="324" height="420" rx="40" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.08)" />
       <text x="450" y="865" text-anchor="middle" fill="#ffffff" font-family="Georgia, serif" font-size="58" font-weight="700">${safeName}</text>
       <text x="450" y="925" text-anchor="middle" fill="${accent}" font-family="Arial, sans-serif" font-size="28" letter-spacing="6">${safeSize}</text>
-      <text x="450" y="1035" text-anchor="middle" fill="#71717a" font-family="Arial, sans-serif" font-size="24" letter-spacing="8">SUH PERFUMARIA</text>
+      <text x="450" y="1035" text-anchor="middle" fill="#71717a" font-family="Arial, sans-serif" font-size="24" letter-spacing="8">ZAYEH PERFUMARIA</text>
     </svg>
   `.trim();
 

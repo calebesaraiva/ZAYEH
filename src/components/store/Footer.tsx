@@ -10,19 +10,19 @@ export default function Footer() {
             <div className="flex items-center gap-3 mb-4">
               <div
                 className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0"
-                style={{ background: 'linear-gradient(135deg, #f97316, #ec4899, #c026d3)', padding: '2px' }}
+                style={{ background: 'linear-gradient(135deg, #8d6b2f, #d8a84a, #f0cf82)', padding: '2px' }}
               >
                 <div className="w-full h-full rounded-full bg-[#050505] flex items-center justify-center">
-                  <span className="text-[11px] font-black text-white tracking-tight">SUH</span>
+                  <span className="text-[11px] font-black text-white tracking-tight">ZY</span>
                 </div>
               </div>
               <div>
-                <div className="font-display font-black gradient-text text-xl tracking-widest uppercase">SUH</div>
-                <div className="text-[9px] text-gray-600 tracking-[0.3em] uppercase">Concept</div>
+                <div className="font-display font-black text-xl tracking-widest uppercase text-[#f0cf82]">ZAYEH</div>
+                <div className="text-[9px] text-[#8f7a4b] tracking-[0.3em] uppercase">Studio Edit</div>
               </div>
             </div>
             <p className="text-gray-500 text-sm leading-relaxed mb-4">
-              Moda feminina exclusiva. Copa 2026 — vista o espírito campeão com elegância e atitude.
+              Moda, acessórios e perfumaria com visual mais sofisticado, contraste quente e assinatura própria.
             </p>
             <div className="flex items-center gap-2 text-xs text-yellow-500/70 border border-yellow-500/10 rounded-full px-3 py-1.5 w-fit">
               <Trophy size={11} />
@@ -38,7 +38,7 @@ export default function Footer() {
           {[
             { title: 'Loja', links: ['Novidades', 'Coleção Copa 2026', 'Vestidos', 'Blazers & Conjuntos', 'Sale'] },
             { title: 'Atendimento', links: ['Central de Ajuda', 'Rastrear Pedido', 'Trocas e Devoluções', 'Guia de Tamanhos', 'Fale Conosco'] },
-            { title: 'SUH CONCEPT', links: ['Sobre Nós', 'Nossa História', 'Sustentabilidade', 'Trabalhe Conosco', 'Imprensa'] },
+            { title: 'ZAYEH', links: ['Sobre Nós', 'Manifesto', 'Curadoria', 'Editorial', 'Contato'] },
           ].map(({ title, links }) => (
             <div key={title}>
               <h4 className="font-bold text-white mb-4 text-sm">{title}</h4>
@@ -72,7 +72,7 @@ export default function Footer() {
         </div>
 
         <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-gray-700 border-t border-white/[0.04] pt-6">
-          <p>© 2026 SUH CONCEPT. Todos os direitos reservados.</p>
+          <p>© 2026 ZAYEH. Todos os direitos reservados.</p>
           <p className="flex items-center gap-1">
             Feito com <Heart size={11} className="text-orange-500 fill-current" /> no Brasil
           </p>

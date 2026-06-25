@@ -23,7 +23,7 @@ const mainLinks = [
   { label: 'Perfumaria', to: '/categoria/perfumaria', desc: 'Fragrâncias marcantes e sofisticadas', accent: 'linear-gradient(180deg, #06b6d4, #3b82f6)' },
   { label: 'Copa 2026', to: '/categoria/copa-2026', desc: 'Coleção da seleção em destaque', accent: 'linear-gradient(180deg, #FFB800, #FF8A00)', isNew: true, isCopa: true },
   { label: 'Outlet', to: '/categoria/outlet', desc: 'Oportunidades com valor especial', accent: 'linear-gradient(180deg, #9333ea, #ec4899)' },
-  { label: 'Sobre nós', to: '/sobre', desc: 'Conheça a essência da SUH CONCEPT', accent: 'linear-gradient(180deg, #7c3aed, #a855f7)' },
+  { label: 'Sobre nós', to: '/sobre', desc: 'Conheça o universo da ZAYEH', accent: 'linear-gradient(180deg, #8d6b2f, #d8a84a)' },
 ];
 
 const accountLinks = [
@@ -73,11 +73,11 @@ export default function MobileDrawer({ open, onClose, onAccountOpen }: Props) {
                   <div className="drawer-brand-row">
                     <div className="drawer-brand-main">
                       <div className="drawer-brand-logo">
-                        <img src="/suh-logo-transparent.png" alt="SUH CONCEPT" style={{ height: 24, width: 'auto', objectFit: 'contain' }} />
+                        <span style={{ width: 32, height: 32, borderRadius: '50%', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', background: 'linear-gradient(135deg,#b8842c,#f0cf82)', color: '#111', fontSize: 11, fontWeight: 900, letterSpacing: '0.2em' }}>ZY</span>
                       </div>
                       <div style={{ minWidth: 0 }}>
-                        <span className="drawer-brand-title">SUH CONCEPT</span>
-                        <span className="drawer-brand-subtitle">Vista-se bem e notarão quem você é</span>
+                        <span className="drawer-brand-title">ZAYEH</span>
+                        <span className="drawer-brand-subtitle">Linhas limpas, contraste quente e presença premium</span>
                       </div>
                     </div>
 

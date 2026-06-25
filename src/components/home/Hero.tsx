@@ -6,35 +6,35 @@ import { ChevronRight, ChevronLeft } from 'lucide-react';
 const slides = [
   {
     id: 1,
-    badge: 'COPA DO MUNDO 2026',
-    title: 'VISTA A\nSUA PAIXÃO',
-    subtitle: 'Coleção oficial Copa 2026 — Estilo que representa. Atitude que vence.',
-    cta: 'VER COLEÇÃO',
+    badge: 'ESSÊNCIA ZAYEH',
+    title: 'LINHAS,\nTEXTURA,\nPRESENÇA',
+    subtitle: 'Moda, acessórios e perfumaria reunidos em uma leitura mais sofisticada, limpa e autoral.',
+    cta: 'DESCOBRIR EDIÇÃO',
     ctaLink: '/categoria/copa-2026',
-    bg: 'linear-gradient(135deg, #0b0b0b 0%, #1a0b00 50%, #0b0b0b 100%)',
-    accent: '#FFB800',
-    fieldLines: true,
+    bg: 'linear-gradient(135deg, #080808 0%, #1b1208 46%, #0d1011 100%)',
+    accent: '#d8a84a',
+    fieldLines: false,
   },
   {
     id: 2,
-    badge: 'NOVA COLEÇÃO',
-    title: 'MASCULINO\nSUH CONCEPT',
-    subtitle: 'Vista-se bem e notarão quem você é.',
-    cta: 'EXPLORAR',
+    badge: 'ALFAIATARIA URBANA',
+    title: 'RECORTE\nFORTE,\nCAIMENTO CALMO',
+    subtitle: 'Peças masculinas com contraste quente, materiais sólidos e uma estética mais madura.',
+    cta: 'VER MASCULINO',
     ctaLink: '/categoria/masculino',
-    bg: 'linear-gradient(135deg, #0b0b0b 0%, #1a0040 50%, #0b0b0b 100%)',
-    accent: '#a855f7',
+    bg: 'linear-gradient(135deg, #0a0a0b 0%, #24170d 50%, #111417 100%)',
+    accent: '#c7a15a',
     fieldLines: false,
   },
   {
     id: 3,
-    badge: 'OUTLET',
-    title: 'ATÉ 40%\nDE DESCONTO',
-    subtitle: 'Aproveite os melhores preços em peças selecionadas.',
-    cta: 'VER OUTLET',
+    badge: 'CURADORIA EM OFERTA',
+    title: 'VALOR\nALTO,\nPREÇO CERTO',
+    subtitle: 'Seleções de destaque com preço enxuto, acabamento premium e leitura visual mais elegante.',
+    cta: 'ACESSAR OUTLET',
     ctaLink: '/categoria/outlet',
-    bg: 'linear-gradient(135deg, #0b0b0b 0%, #200040 50%, #0b0b0b 100%)',
-    accent: '#FF2DA0',
+    bg: 'linear-gradient(135deg, #090909 0%, #2b1d0f 52%, #121212 100%)',
+    accent: '#e0bc73',
     fieldLines: false,
   },
 ];
@@ -122,7 +122,7 @@ export default function Hero() {
                   {slide.cta} <ChevronRight size={16} />
                 </Link>
                 <Link to="/sobre" className="btn-outline no-underline" style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
-                  SOBRE NÓS
+                  CONHECER A MARCA
                 </Link>
               </div>
             </motion.div>

@@ -86,7 +86,7 @@ export default function ProductPage() {
     {
       id: 'desc',
       title: 'Descrição',
-      body: product.description || 'Peça exclusiva da coleção SUH CONCEPT. Confeccionada com materiais de alta qualidade para garantir conforto, presença e estilo no uso diário.',
+      body: product.description || 'Peça exclusiva da coleção ZAYEH. Confeccionada com materiais de alta qualidade para garantir conforto, presença e estilo no uso diário.',
     },
     {
       id: 'comp',
@@ -273,7 +273,7 @@ export default function ProductPage() {
               </div>
 
               <p style={{ fontSize: 14, color: '#9a9a9a', lineHeight: 1.75, marginBottom: 22, maxWidth: 620 }}>
-                {product.description || 'Seleção exclusiva da SUH CONCEPT com acabamento premium, ótima presença visual e proposta pensada para quem quer comprar bem e vestir personalidade.'}
+                {product.description || 'Seleção exclusiva da ZAYEH com acabamento premium, ótima presença visual e proposta pensada para quem quer comprar bem e vestir personalidade.'}
               </p>
 
               <div

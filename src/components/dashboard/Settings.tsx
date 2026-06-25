@@ -84,10 +84,11 @@ export default function Settings() {
   const [cardEnabled, setCardEnabled] = useState(true);
   const [maxInstallments, setMaxInstallments] = useState(12);
   const [interestFreeInstallments, setInterestFreeInstallments] = useState(3);
-  const [pagbankEnabled, setPagbankEnabled] = useState(true);
-  const [pagbankEnvironment, setPagbankEnvironment] = useState<'production' | 'sandbox'>('production');
-  const [pagbankToken, setPagbankToken] = useState('');
-  const [storeDisplayName, setStoreDisplayName] = useState('SUH CONCEPT');
+  const [mercadopagoEnabled, setMercadopagoEnabled] = useState(true);
+  const [mercadopagoEnvironment, setMercadopagoEnvironment] = useState<'production' | 'sandbox'>('production');
+  const [mercadopagoAccessToken, setMercadopagoAccessToken] = useState('');
+  const [mercadopagoWebhookSecret, setMercadopagoWebhookSecret] = useState('');
+  const [storeDisplayName, setStoreDisplayName] = useState('ZAYEH');
 
   useEffect(() => {
     api.dashboard.getSettings().then(s => {
@@ -108,9 +109,10 @@ export default function Settings() {
       if (s.cardEnabled !== undefined)       setCardEnabled(s.cardEnabled === 'true');
       if (s.maxInstallments)                 setMaxInstallments(Number(s.maxInstallments));
       if (s.interestFreeInstallments)        setInterestFreeInstallments(Number(s.interestFreeInstallments));
-      if (s.pagbankEnabled !== undefined)    setPagbankEnabled(s.pagbankEnabled === 'true');
-      if (s.pagbankEnvironment === 'sandbox' || s.pagbankEnvironment === 'production') setPagbankEnvironment(s.pagbankEnvironment);
-      if (s.pagbankToken)                    setPagbankToken(s.pagbankToken);
+      if (s.mercadopagoEnabled !== undefined)    setMercadopagoEnabled(s.mercadopagoEnabled === 'true');
+      if (s.mercadopagoEnvironment === 'sandbox' || s.mercadopagoEnvironment === 'production') setMercadopagoEnvironment(s.mercadopagoEnvironment);
+      if (s.mercadopagoAccessToken)              setMercadopagoAccessToken(s.mercadopagoAccessToken);
+      if (s.mercadopagoWebhookSecret)            setMercadopagoWebhookSecret(s.mercadopagoWebhookSecret);
       if (s.storeDisplayName)                setStoreDisplayName(s.storeDisplayName);
     }).catch(() => {}).finally(() => setLoading(false));
   }, []);
@@ -136,9 +138,10 @@ export default function Settings() {
         cardEnabled: String(cardEnabled),
         maxInstallments: String(maxInstallments),
         interestFreeInstallments: String(interestFreeInstallments),
-        pagbankEnabled: String(pagbankEnabled),
-        pagbankEnvironment,
-        pagbankToken,
+        mercadopagoEnabled: String(mercadopagoEnabled),
+        mercadopagoEnvironment,
+        mercadopagoAccessToken,
+        mercadopagoWebhookSecret,
         storeDisplayName,
       });
       setSaved(true);
@@ -339,36 +342,40 @@ export default function Settings() {
           </div>
 
           <div style={{ padding: '16px', borderRadius: 12, background: '#0d0d0d', border: '1px solid rgba(255,255,255,0.05)' }}>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: pagbankEnabled ? 14 : 0 }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: mercadopagoEnabled ? 14 : 0 }}>
               <div>
-                <p style={{ fontWeight: 700, color: '#ccc', fontSize: 13 }}>PagBank / PagSeguro</p>
-                <p style={{ fontSize: 11, color: '#777', marginTop: 2 }}>Checkout oficial com PIX, cartão e webhook automático</p>
+                <p style={{ fontWeight: 700, color: '#ccc', fontSize: 13 }}>Mercado Pago</p>
+                <p style={{ fontSize: 11, color: '#777', marginTop: 2 }}>Checkout oficial com PIX, cartão e retorno automático</p>
               </div>
-              <Toggle on={pagbankEnabled} color="#2563eb" onChange={setPagbankEnabled} />
+              <Toggle on={mercadopagoEnabled} color="#2563eb" onChange={setMercadopagoEnabled} />
             </div>
-            {pagbankEnabled && (
+            {mercadopagoEnabled && (
               <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
                   <div>
                     <label style={lbl}>Ambiente</label>
-                    <select style={{ ...inp, cursor: 'pointer' }} value={pagbankEnvironment} onChange={e => setPagbankEnvironment(e.target.value as 'production' | 'sandbox')} onFocus={focIn} onBlur={focOut}>
+                    <select style={{ ...inp, cursor: 'pointer' }} value={mercadopagoEnvironment} onChange={e => setMercadopagoEnvironment(e.target.value as 'production' | 'sandbox')} onFocus={focIn} onBlur={focOut}>
                       <option value="production" style={{ background: '#111' }}>Produção</option>
                       <option value="sandbox" style={{ background: '#111' }}>Sandbox</option>
                     </select>
                   </div>
                   <div>
                     <label style={lbl}>Nome na cobrança</label>
-                    <input style={inp} value={storeDisplayName} onChange={e => setStoreDisplayName(e.target.value)} maxLength={17} placeholder="SUH CONCEPT" onFocus={focIn} onBlur={focOut} />
+                    <input style={inp} value={storeDisplayName} onChange={e => setStoreDisplayName(e.target.value)} maxLength={17} placeholder="ZAYEH" onFocus={focIn} onBlur={focOut} />
                   </div>
                 </div>
                 <div>
-                  <label style={lbl}>Token PagBank</label>
-                  <input type="password" style={inp} value={pagbankToken} onChange={e => setPagbankToken(e.target.value)} placeholder="Bearer token da conta" onFocus={focIn} onBlur={focOut} />
+                  <label style={lbl}>Access Token Mercado Pago</label>
+                  <input type="password" style={inp} value={mercadopagoAccessToken} onChange={e => setMercadopagoAccessToken(e.target.value)} placeholder="APP_USR ou TEST token" onFocus={focIn} onBlur={focOut} />
+                </div>
+                <div>
+                  <label style={lbl}>Secret do Webhook</label>
+                  <input type="password" style={inp} value={mercadopagoWebhookSecret} onChange={e => setMercadopagoWebhookSecret(e.target.value)} placeholder="Chave secreta do webhook" onFocus={focIn} onBlur={focOut} />
                 </div>
                 <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8, padding: '10px 12px', borderRadius: 8, background: 'rgba(37,99,235,0.06)', border: '1px solid rgba(37,99,235,0.15)' }}>
                   <Info size={13} style={{ color: '#60a5fa', flexShrink: 0, marginTop: 1 }} />
                   <p style={{ fontSize: 11.5, color: '#60a5fa', lineHeight: 1.6 }}>
-                    URL do webhook para cadastrar no PagBank: <strong>https://suhconcept.com/api/payments/pagbank/webhook</strong>. Em pedidos com frete manual, o pagamento online só fica disponível quando o total já estiver fechado.
+                    URL do webhook para cadastrar no Mercado Pago: <strong>https://seudominio.com/api/payments/mercadopago/webhook</strong>. Em pedidos com frete manual, o pagamento online só fica disponível quando o total já estiver fechado.
                   </p>
                 </div>
               </div>

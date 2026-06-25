@@ -29,17 +29,17 @@ export default function PromoBanner() {
           <div style={{ position: 'absolute', right: 0, top: 0, bottom: 0, width: '50%', opacity: 0.12, background: 'radial-gradient(ellipse at right, #FFB800 0%, transparent 70%)', pointerEvents: 'none' }} />
 
           <div style={{ position: 'relative', zIndex: 1 }}>
-            <span className="badge badge-gold" style={{ display: 'inline-block', marginBottom: 16 }}>COPA DO MUNDO 2026</span>
+            <span className="badge badge-gold" style={{ display: 'inline-block', marginBottom: 16 }}>ZAYEH SELECT</span>
             <h2 style={{ fontFamily: 'Cinzel, serif', fontWeight: 900, color: '#fff', fontSize: 'clamp(1.5rem, 3vw, 2.5rem)', lineHeight: 1.15, marginBottom: 10 }}>
-              ATÉ 20% OFF NA<br />LINHA COPA 2026
+              EDIÇÃO CURADA COM<br />ATÉ 20% OFF
             </h2>
             <p style={{ fontSize: 13, color: '#666' }}>
-              Use o cupom <strong style={{ color: '#fff', fontWeight: 700 }}>COPA2026</strong> no checkout
+              Use o cupom <strong style={{ color: '#fff', fontWeight: 700 }}>ZAYEH10</strong> no checkout
             </p>
           </div>
 
           <Link to="/categoria/copa-2026" className="btn-primary no-underline" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, position: 'relative', zIndex: 1 }}>
-            APROVEITAR <ChevronRight size={16} />
+            VER EDIÇÃO <ChevronRight size={16} />
           </Link>
         </motion.div>
       </div>

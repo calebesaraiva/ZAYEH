@@ -47,7 +47,18 @@ export default function Payments() {
   };
 
   useEffect(() => {
-    void loadSettings();
+    let active = true;
+    api.dashboard.getSettings()
+      .then((response) => {
+        if (!active) return;
+        setSettings(response);
+      })
+      .finally(() => {
+        if (active) setSettingsLoading(false);
+      });
+    return () => {
+      active = false;
+    };
   }, []);
 
   const pixEnabled = settings?.pixEnabled !== 'false';
@@ -56,8 +67,8 @@ export default function Payments() {
   const maxInstallments = Number(settings?.maxInstallments || 1);
   const interestFreeInstallments = Number(settings?.interestFreeInstallments || 1);
   const pixKey = settings?.pixKey || '';
-  const pagbankEnabled = settings?.pagbankEnabled !== 'false';
-  const pagbankEnvironment = settings?.pagbankEnvironment === 'sandbox' ? 'Sandbox' : 'Produção';
+  const mercadopagoEnabled = settings?.mercadopagoEnabled !== 'false';
+  const mercadopagoEnvironment = settings?.mercadopagoEnvironment === 'sandbox' ? 'Sandbox' : 'Produção';
   const paymentMethods = finance?.paymentMethods ?? [];
   const totals = finance?.totals ?? { receita: 0, pedidos: 0, ticketMedio: 0, clientes: 0 };
 
@@ -143,7 +154,7 @@ export default function Payments() {
             </div>
             <div style={{ padding: '16px', borderRadius: 12, background: '#0d0d0d', border: '1px solid rgba(255,255,255,0.06)' }}>
               <p style={{ fontSize: 10, fontWeight: 700, color: '#666', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 6 }}>Gateway</p>
-              <p style={{ fontSize: 14, fontWeight: 800, color: pagbankEnabled ? '#fff' : '#999' }}>{pagbankEnabled ? `PagBank ativo · ${pagbankEnvironment}` : 'Desligado'}</p>
+              <p style={{ fontSize: 14, fontWeight: 800, color: mercadopagoEnabled ? '#fff' : '#999' }}>{mercadopagoEnabled ? `Mercado Pago ativo · ${mercadopagoEnvironment}` : 'Desligado'}</p>
             </div>
           </div>
         </motion.div>

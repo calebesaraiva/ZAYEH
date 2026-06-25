@@ -26,7 +26,7 @@ export default function StoreLayout() {
       </div>
       <div className="header-spacer" />
 
-      <main style={{ flex: 1, paddingBottom: isCheckout ? 0 : 64 }}>
+      <main className={isCheckout ? 'store-main checkout-main' : 'store-main'} style={{ flex: 1 }}>
         <Outlet />
       </main>
 

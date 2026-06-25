@@ -34,23 +34,22 @@ export default function Navbar() {
           className="flex items-center gap-3 cursor-pointer flex-shrink-0"
           onClick={() => setCurrentView('store')}
         >
-          {/* Logo ring replicating brand mark */}
           <div className="relative w-9 h-9 flex-shrink-0">
             <div
               className="w-9 h-9 rounded-full flex items-center justify-center"
               style={{
-                background: 'linear-gradient(135deg, #f97316, #ec4899, #c026d3)',
+                background: 'linear-gradient(135deg, #8d6b2f, #d8a84a, #f0cf82)',
                 padding: '2px',
               }}
             >
               <div className="w-full h-full rounded-full bg-[#050505] flex items-center justify-center">
-                <span className="text-[10px] font-black text-white tracking-tight leading-none">SUH</span>
+                <span className="text-[10px] font-black text-white tracking-tight leading-none">ZY</span>
               </div>
             </div>
           </div>
           <div className="flex flex-col leading-none">
-            <span className="font-display text-lg font-black gradient-text tracking-widest uppercase">SUH</span>
-            <span className="text-[9px] text-gray-500 tracking-[0.3em] uppercase">Concept</span>
+            <span className="font-display text-lg font-black tracking-widest uppercase text-[#f0cf82]">ZAYEH</span>
+            <span className="text-[9px] text-[#8f7a4b] tracking-[0.3em] uppercase">Studio Edit</span>
           </div>
         </motion.div>
 

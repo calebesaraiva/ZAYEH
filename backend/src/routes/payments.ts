@@ -1,11 +1,10 @@
 import { Router } from 'express';
 import { prisma } from '../lib/prisma';
 import {
-  getPagBankCheckoutStatus,
-  getPagBankConfig,
-  mapPagBankStatus,
-  validatePagBankWebhookSignature,
-} from '../lib/pagbank';
+  getMercadoPagoConfig,
+  getMercadoPagoPaymentStatus,
+  mapMercadoPagoStatus,
+} from '../lib/mercadoPago';
 
 const router = Router();
 
@@ -19,57 +18,54 @@ function getStringValue(value: unknown) {
   return typeof value === 'string' ? value : '';
 }
 
-router.post('/pagbank/webhook', async (req, res) => {
+router.post('/mercadopago/webhook', async (req, res) => {
   try {
-    const orderId = String(req.query.orderId || '');
-    if (!orderId) return res.status(400).json({ error: 'orderId obrigatório' });
-
-    const config = await getPagBankConfig(prisma);
+    const config = await getMercadoPagoConfig(prisma);
     if (!config) return res.status(200).json({ ok: true });
 
-    const signature = req.headers['x-authenticity-token'];
-    const rawBody = (req as typeof req & { rawBody?: string }).rawBody || '';
-    const signatureValue = Array.isArray(signature) ? signature[0] : signature;
-    if (!validatePagBankWebhookSignature(rawBody, signatureValue, config.token)) {
-      return res.status(401).json({ error: 'Assinatura inválida' });
-    }
-
     const payload = req.body && typeof req.body === 'object' ? req.body as Record<string, unknown> : {};
-    const externalStatus = String(payload.status || '');
-    const externalId = String(payload.id || '');
+    const data = payload.data && typeof payload.data === 'object' ? payload.data as Record<string, unknown> : {};
+    const paymentId = String(req.query['data.id'] || req.query.data_id || data.id || '');
+    if (!paymentId) return res.status(200).json({ ok: true });
+
+    const providerStatus = await getMercadoPagoPaymentStatus(config, paymentId);
+    const orderId = providerStatus.externalReference || String(req.query.order || '');
+    if (!orderId) return res.status(200).json({ ok: true });
 
     const order = await prisma.order.findUnique({ where: { id: orderId } });
-    if (!order) return res.status(404).json({ error: 'Pedido não encontrado' });
+    if (!order) return res.status(200).json({ ok: true });
 
     const { address, payment } = getOrderPaymentMeta(order);
-    const paymentMeta = {
-      ...payment,
-      status: externalStatus || getStringValue(payment.status),
-      chargeId: externalId || getStringValue(payment.chargeId),
-      lastWebhookAt: new Date().toISOString(),
-      webhookScope: String(req.query.scope || 'payment'),
-      lastWebhookEventId: externalId || getStringValue(payment.chargeId),
-    };
-
     await prisma.order.update({
       where: { id: orderId },
       data: {
-        status: mapPagBankStatus(externalStatus),
+        status: mapMercadoPagoStatus(providerStatus.status),
         address: {
           ...address,
-          payment: paymentMeta,
+          payment: {
+            ...payment,
+            provider: 'mercadopago',
+            paymentId: providerStatus.paymentId,
+            status: providerStatus.status,
+            statusDetail: providerStatus.statusDetail || getStringValue(payment.statusDetail),
+            externalReference: providerStatus.externalReference || getStringValue(payment.externalReference),
+            paymentTypeId: providerStatus.paymentTypeId || getStringValue(payment.paymentTypeId),
+            methodId: providerStatus.methodId || getStringValue(payment.methodId),
+            paidAt: providerStatus.paidAt || getStringValue(payment.paidAt),
+            lastWebhookAt: new Date().toISOString(),
+          },
         },
       },
     });
 
     return res.json({ ok: true });
   } catch (error) {
-    console.error('Erro no webhook PagBank:', error);
+    console.error('Erro no webhook Mercado Pago:', error);
     return res.status(500).json({ error: 'Erro ao processar webhook' });
   }
 });
 
-router.get('/pagbank/orders/:orderId/status', async (req, res) => {
+router.get('/mercadopago/orders/:orderId/status', async (req, res) => {
   try {
     const order = await prisma.order.findUnique({
       where: { id: req.params.orderId },
@@ -78,33 +74,34 @@ router.get('/pagbank/orders/:orderId/status', async (req, res) => {
     if (!order) return res.status(404).json({ error: 'Pedido não encontrado' });
 
     const { address, payment } = getOrderPaymentMeta(order);
-    const checkoutId = typeof payment.checkoutId === 'string' ? payment.checkoutId : '';
-    const config = await getPagBankConfig(prisma);
+    const paymentId = String(req.query.paymentId || payment.paymentId || '');
+    const config = await getMercadoPagoConfig(prisma);
 
-    if (!checkoutId || !config) {
+    if (!paymentId || !config) {
       return res.json({
         order,
         payment: payment || null,
       });
     }
 
-    const providerStatus = await getPagBankCheckoutStatus(config, checkoutId);
-    const internalStatus = mapPagBankStatus(providerStatus.chargeStatus || providerStatus.status);
-
+    const providerStatus = await getMercadoPagoPaymentStatus(config, paymentId);
     const nextPaymentMeta = {
       ...payment,
-      checkoutId: providerStatus.checkoutId,
-      redirectUrl: providerStatus.redirectUrl || getStringValue(payment.redirectUrl),
-      status: providerStatus.chargeStatus || providerStatus.status,
-      chargeId: providerStatus.chargeId || getStringValue(payment.chargeId),
-      syncedAt: new Date().toISOString(),
+      provider: 'mercadopago',
+      paymentId: providerStatus.paymentId,
+      status: providerStatus.status,
+      statusDetail: providerStatus.statusDetail || getStringValue(payment.statusDetail),
+      externalReference: providerStatus.externalReference || getStringValue(payment.externalReference),
+      paymentTypeId: providerStatus.paymentTypeId || getStringValue(payment.paymentTypeId),
+      methodId: providerStatus.methodId || getStringValue(payment.methodId),
       paidAt: providerStatus.paidAt || getStringValue(payment.paidAt),
+      syncedAt: new Date().toISOString(),
     };
 
     const updatedOrder = await prisma.order.update({
       where: { id: order.id },
       data: {
-        status: internalStatus,
+        status: mapMercadoPagoStatus(providerStatus.status),
         address: {
           ...address,
           payment: nextPaymentMeta,
@@ -118,7 +115,7 @@ router.get('/pagbank/orders/:orderId/status', async (req, res) => {
       payment: nextPaymentMeta,
     });
   } catch (error) {
-    console.error('Erro ao consultar status PagBank:', error);
+    console.error('Erro ao consultar status Mercado Pago:', error);
     return res.status(500).json({ error: 'Erro ao consultar pagamento' });
   }
 });

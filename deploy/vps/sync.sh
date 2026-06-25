@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-REPO_URL="${REPO_URL:-https://github.com/calebesaraiva/suhconcept.git}"
-APP_DIR="${APP_DIR:-/var/www/suhconcept/app}"
+REPO_URL="${REPO_URL:-https://github.com/calebesaraiva/ZAYEH.git}"
+APP_DIR="${APP_DIR:-/var/www/zayeh/app}"
 BRANCH="${BRANCH:-main}"
-STAMP_FILE="${STAMP_FILE:-/root/.suhconcept_last_deploy_commit}"
+STAMP_FILE="${STAMP_FILE:-/root/.zayeh_last_deploy_commit}"
 
 mkdir -p "$(dirname "$APP_DIR")"
 

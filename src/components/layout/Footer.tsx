@@ -55,22 +55,22 @@ export default function Footer() {
   ];
 
   return (
-    <footer style={{ background: '#080808', borderTop: '1px solid rgba(255,255,255,0.07)' }}>
+    <footer className="store-footer" style={{ background: '#080808', borderTop: '1px solid rgba(255,255,255,0.07)' }}>
 
       {/* Rainbow accent */}
-      <div style={{ height: 3, background: 'linear-gradient(90deg,#a855f7,#FF2DA0,#FFB800,#22C55E)' }} />
+      <div style={{ height: 3, background: 'linear-gradient(90deg,#5b4320,#d8a84a,#f1d48b,#8d6b2f)' }} />
 
       {/* CTA banner */}
-      <div style={{ background: 'linear-gradient(135deg,rgba(168,85,247,0.07),rgba(255,45,160,0.05))', borderBottom: '1px solid rgba(255,255,255,0.05)', padding: '24px 20px' }}>
+      <div style={{ background: 'linear-gradient(135deg,rgba(216,168,74,0.16),rgba(94,72,29,0.12))', borderBottom: '1px solid rgba(255,255,255,0.05)', padding: '24px 20px' }}>
         <div style={{ maxWidth: 1280, margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 14 }}>
           <div>
             <p style={{ fontSize: 16, fontWeight: 800, color: '#fff', marginBottom: 4 }}>
-              Frete grátis acima de <span style={{ color: '#FFB800' }}>R$ {settings.freeShipThreshold.toFixed(2).replace('.', ',')}</span>
+              Curadoria premium com frete acima de <span style={{ color: '#f0cf82' }}>R$ {settings.freeShipThreshold.toFixed(2).replace('.', ',')}</span>
             </p>
-            <p style={{ fontSize: 12, color: '#666' }}>{settings.pixDiscount}% OFF no PIX · 3x sem juros e até {settings.maxInstallments}x no cartão</p>
+            <p style={{ fontSize: 12, color: '#9f9277' }}>{settings.pixDiscount}% OFF no PIX · até {settings.maxInstallments}x no cartão</p>
           </div>
-          <Link to="/categoria/todos" className="no-underline" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '10px 20px', borderRadius: 8, background: 'linear-gradient(135deg,#a855f7,#FF2DA0)', color: '#fff', fontWeight: 800, fontSize: 13, whiteSpace: 'nowrap' }}>
-            EXPLORAR →
+          <Link to="/categoria/todos" className="no-underline" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '10px 20px', borderRadius: 8, background: 'linear-gradient(135deg,#b8842c,#f0cf82)', color: '#1a160f', fontWeight: 900, fontSize: 13, whiteSpace: 'nowrap' }}>
+            VER SELEÇÃO →
           </Link>
         </div>
       </div>
@@ -125,11 +125,17 @@ export default function Footer() {
           >
             <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at top right,rgba(168,85,247,0.18),transparent 42%)' }} />
             <div style={{ position: 'relative' }}>
-              <img src="/suh-logo-transparent.png" alt="SUH CONCEPT" style={{ height: 44, width: 'auto', objectFit: 'contain', marginBottom: 14 }} />
+              <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16 }}>
+                <span style={{ width: 42, height: 42, borderRadius: '50%', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', background: 'linear-gradient(135deg,#b8842c,#f0cf82)', color: '#111', fontSize: 13, fontWeight: 900, letterSpacing: '0.18em' }}>ZY</span>
+                <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1 }}>
+                  <span style={{ fontSize: 23, fontWeight: 900, letterSpacing: '0.22em', color: '#f8f0df' }}>ZAYEH</span>
+                  <span style={{ fontSize: 9, letterSpacing: '0.24em', color: '#c9ae6a', marginTop: 5 }}>CURATED STREETWEAR</span>
+                </div>
+              </div>
               <p style={{ fontSize: 13, color: '#cfcfcf', lineHeight: 1.8, marginBottom: 18, maxWidth: 280 }}>
-                Vista-se bem e notarão quem você é.
+                Design limpo, recorte forte e uma vitrine com assinatura própria.
                 <br />
-                <span style={{ color: '#8f8f93' }}>Moda, acessórios e perfumaria com identidade forte em Imperatriz - MA.</span>
+                <span style={{ color: '#8f8f93' }}>Moda, acessórios e perfumaria com linguagem mais elegante e presença premium.</span>
               </p>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 18 }}>
                 <span style={{ padding: '8px 12px', borderRadius: 999, background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.07)', fontSize: 11, color: '#f0f0f0' }}>
@@ -162,7 +168,7 @@ export default function Footer() {
                 border: '1px solid rgba(255,255,255,0.06)',
               }}
             >
-              <h4 style={{ fontSize: 10, fontWeight: 900, color: '#a855f7', letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: 16 }}>
+              <h4 style={{ fontSize: 10, fontWeight: 900, color: '#d8a84a', letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: 16 }}>
                 {col.title}
               </h4>
               <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 12 }}>
@@ -187,8 +193,8 @@ export default function Footer() {
                       }}
                       onMouseEnter={e => {
                         e.currentTarget.style.transform = 'translateX(4px)';
-                        e.currentTarget.style.borderColor = 'rgba(168,85,247,0.34)';
-                        e.currentTarget.style.background = 'linear-gradient(135deg,rgba(168,85,247,0.14),rgba(255,255,255,0.03))';
+                        e.currentTarget.style.borderColor = 'rgba(216,168,74,0.34)';
+                        e.currentTarget.style.background = 'linear-gradient(135deg,rgba(216,168,74,0.14),rgba(255,255,255,0.03))';
                         e.currentTarget.style.boxShadow = '0 14px 30px rgba(0,0,0,0.22)';
                       }}
                       onMouseLeave={e => {
@@ -202,7 +208,7 @@ export default function Footer() {
                         <span style={{ fontSize: 15, fontWeight: 700 }}>{link.label}</span>
                         <span style={{ fontSize: 12, color: '#8f8f93', lineHeight: 1.4 }}>{link.description}</span>
                       </span>
-                      <ChevronRight size={18} style={{ flexShrink: 0, color: '#c084fc' }} />
+                      <ChevronRight size={18} style={{ flexShrink: 0, color: '#d8a84a' }} />
                     </Link>
                   </li>
                 ))}
@@ -240,7 +246,7 @@ export default function Footer() {
           </div>
 
           <p style={{ fontSize: 11, color: '#444', textAlign: 'center' }}>
-            © 2026 SUH CONCEPT. Todos os direitos reservados.
+            © 2026 ZAYEH. Todos os direitos reservados.
           </p>
           <p style={{ fontSize: 10.5, color: '#555', textAlign: 'center', letterSpacing: '0.04em' }}>
             Desenvolvido por <span style={{ color: '#a855f7', fontWeight: 700 }}>NEXUS TECNOLOGIA LTDA</span>

@@ -1,73 +1,87 @@
-# React + TypeScript + Vite
+# ZAYEH
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Loja em React + Vite no frontend e Express + Prisma no backend.
 
-Currently, two official plugins are available:
+## Rodar local
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Frontend:
 
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run dev -- --host 0.0.0.0 --port 5173
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Backend:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+cd backend
+npm install
+npm run dev
 ```
+
+URLs locais:
+
+- Frontend: `http://localhost:5173`
+- Backend health: `http://localhost:3333/health`
+
+## Build
+
+Frontend:
+
+```bash
+npm run lint
+npm run build
+```
+
+Backend:
+
+```bash
+cd backend
+npm run build
+```
+
+## Produção
+
+Preencha as variáveis de ambiente usando:
+
+- [backend/.env.example](/C:/Users/Calebe/Desktop/SUN/backend/.env.example:1)
+- [.env.production.example](/C:/Users/Calebe/Desktop/SUN/.env.production.example:1)
+
+Campos obrigatórios para checkout:
+
+- `PUBLIC_SITE_URL`
+- `MERCADOPAGO_ACCESS_TOKEN`
+- `MERCADOPAGO_WEBHOOK_SECRET`
+
+Webhook do Mercado Pago:
+
+- `https://zayeh.com.br/api/payments/mercadopago/webhook`
+
+## Docker
+
+Desenvolvimento:
+
+```bash
+docker compose up -d
+```
+
+Produção:
+
+```bash
+docker compose -f docker-compose.prod.yml up -d --build
+```
+
+## VPS
+
+Arquivos prontos em:
+
+- [deploy/vps/bootstrap.sh](/C:/Users/Calebe/Desktop/SUN/deploy/vps/bootstrap.sh:1)
+- [deploy/vps/deploy.sh](/C:/Users/Calebe/Desktop/SUN/deploy/vps/deploy.sh:1)
+- [deploy/vps/sync.sh](/C:/Users/Calebe/Desktop/SUN/deploy/vps/sync.sh:1)
+- [deploy/nginx/zayeh.conf](/C:/Users/Calebe/Desktop/SUN/deploy/nginx/zayeh.conf:1)
+
+Antes de usar na VPS, troque:
+
+- domínio final
+- URL real do repositório Git
+- secrets de produção

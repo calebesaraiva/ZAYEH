@@ -17,15 +17,14 @@ export default function Header({ onMenuOpen, onCartOpen, onAccountOpen }: Props)
   const cartCount = cart.reduce((a, i) => a + i.quantity, 0);
   const pricingSettings = useStorePricingSettings();
   const { data: searchProductsData } = useProducts({ limit: '100' });
-  const searchProducts = searchProductsData?.products ?? [];
-
   const suggestions = useMemo(() => {
     if (search.length <= 1) return [];
+    const searchProducts = searchProductsData?.products ?? [];
     const q = search.toLowerCase();
     return searchProducts.filter((p) =>
       p.name.toLowerCase().includes(q) || p.tags.some((t) => t.toLowerCase().includes(q))
     ).slice(0, 5);
-  }, [search, searchProducts]);
+  }, [search, searchProductsData]);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -118,12 +117,41 @@ export default function Header({ onMenuOpen, onCartOpen, onAccountOpen }: Props)
 
         {/* ── CENTRO: Logo ── */}
         <Link to="/" className="no-underline hdr-logo-link" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-          <img
-            src="/suh-logo-transparent.png"
-            alt="SUH CONCEPT"
-            style={{ height: 54, width: 'auto', objectFit: 'contain', display: 'block' }}
+          <div
             className="hdr-logo-img"
-          />
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 12,
+              padding: '10px 18px',
+              borderRadius: 999,
+              background: 'linear-gradient(135deg, rgba(216,168,74,0.18), rgba(255,255,255,0.05))',
+              border: '1px solid rgba(216,168,74,0.28)',
+              boxShadow: '0 14px 36px rgba(0,0,0,0.24)',
+            }}
+          >
+            <span
+              style={{
+                width: 34,
+                height: 34,
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderRadius: '50%',
+                background: 'linear-gradient(135deg, #d8a84a, #f5df9b)',
+                color: '#111',
+                fontSize: 12,
+                fontWeight: 900,
+                letterSpacing: '0.2em',
+              }}
+            >
+              ZY
+            </span>
+            <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1 }}>
+              <span style={{ fontSize: 22, fontWeight: 900, letterSpacing: '0.24em', color: '#f6f1e7' }}>ZAYEH</span>
+              <span style={{ fontSize: 9, letterSpacing: '0.28em', color: '#c9ae6a', marginTop: 5 }}>EDITORIAL STREETWEAR</span>
+            </div>
+          </div>
         </Link>
 
         {/* ── DIREITA: ações ── */}

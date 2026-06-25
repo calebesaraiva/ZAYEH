@@ -21,7 +21,7 @@ const statusMeta: Record<string, { title: string; color: string; icon: typeof Cl
     title: 'Pagamento em processamento',
     color: '#f59e0b',
     icon: Clock3,
-    desc: 'Estamos aguardando a confirmação do PagBank. Isso pode levar alguns minutos.',
+    desc: 'Estamos aguardando a confirmação do pagamento. Isso pode levar alguns minutos.',
   },
   cancelado: {
     title: 'Pagamento não concluído',
@@ -34,21 +34,19 @@ const statusMeta: Record<string, { title: string; color: string; icon: typeof Cl
 export default function PaymentReturnPage() {
   const [params] = useSearchParams();
   const orderId = params.get('order') || '';
+  const paymentId = params.get('payment_id') || '';
   const [state, setState] = useState<PaymentState>({
     order: null,
-    status: 'aguardando_pagamento',
-    error: '',
-    loading: true,
+    status: orderId ? 'aguardando_pagamento' : 'cancelado',
+    error: orderId ? '' : 'Pedido não informado no retorno do pagamento.',
+    loading: Boolean(orderId),
   });
 
   useEffect(() => {
-    if (!orderId) {
-      setState({ order: null, status: 'cancelado', error: 'Pedido não informado no retorno do pagamento.', loading: false });
-      return;
-    }
+    if (!orderId) return;
 
     let active = true;
-    api.orders.paymentStatus(orderId)
+    api.orders.paymentStatus(orderId, paymentId || undefined)
       .then((result) => {
         if (!active) return;
         setState({
@@ -71,7 +69,7 @@ export default function PaymentReturnPage() {
     return () => {
       active = false;
     };
-  }, [orderId]);
+  }, [orderId, paymentId]);
 
   if (state.loading) {
     return (
@@ -91,7 +89,7 @@ export default function PaymentReturnPage() {
         <div style={{ width: 74, height: 74, margin: '0 auto 18px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', background: `${meta.color}18`, border: `2px solid ${meta.color}` }}>
           <Icon size={30} style={{ color: meta.color }} />
         </div>
-        <p style={{ fontSize: 10, color: '#a855f7', fontWeight: 900, letterSpacing: '0.16em', textTransform: 'uppercase', marginBottom: 8 }}>SUH CONCEPT</p>
+        <p style={{ fontSize: 10, color: '#d8a84a', fontWeight: 900, letterSpacing: '0.16em', textTransform: 'uppercase', marginBottom: 8 }}>ZAYEH</p>
         <h1 style={{ fontSize: 28, fontWeight: 900, color: '#fff', marginBottom: 8 }}>{meta.title}</h1>
         <p style={{ fontSize: 14, color: '#888', lineHeight: 1.7, marginBottom: 20 }}>{state.error || meta.desc}</p>
         {state.order && (

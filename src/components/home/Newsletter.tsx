@@ -35,10 +35,10 @@ export default function Newsletter() {
             <Mail size={20} style={{ color: '#FFB800' }} />
           </div>
 
-          <p className="section-label">EXCLUSIVO</p>
-          <h2 className="section-title" style={{ marginBottom: 12 }}>RECEBA OFERTAS EXCLUSIVAS</h2>
+          <p className="section-label">PRIME ACCESS</p>
+          <h2 className="section-title" style={{ marginBottom: 12 }}>ENTRE NA LISTA ZAYEH</h2>
           <p style={{ fontSize: 13.5, color: '#555', marginBottom: 32, lineHeight: 1.7 }}>
-            Inscreva-se e fique por dentro de lançamentos, promoções e novidades da SUH CONCEPT.
+            Receba lançamentos, edições limitadas e campanhas com a nova direção visual da ZAYEH.
           </p>
 
           {sent ? (
@@ -57,7 +57,7 @@ export default function Newsletter() {
               />
               <button type="submit" disabled={loading} className="btn-primary" style={{ display: 'inline-flex', alignItems: 'center', gap: 6, whiteSpace: 'nowrap', opacity: loading ? 0.7 : 1 }}>
                 {loading ? <Loader2 size={14} style={{ animation: 'spin 1s linear infinite' }} /> : <ArrowRight size={14} />}
-                {loading ? 'AGUARDE...' : 'QUERO RECEBER'}
+                {loading ? 'AGUARDE...' : 'ENTRAR AGORA'}
               </button>
             </form>
           )}

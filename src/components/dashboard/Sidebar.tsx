@@ -48,16 +48,20 @@ export default function Sidebar({ collapsed, onToggle }: Props) {
       {/* ── Logo ── */}
       <div style={{ padding: '14px 16px', borderBottom: '1px solid rgba(255,255,255,0.05)', display: 'flex', alignItems: 'center', justifyContent: collapsed ? 'center' : 'flex-start', minHeight: 68, flexShrink: 0, overflow: 'hidden' }}>
         {collapsed ? (
-          <img src="/suh-logo-transparent.png" alt="SUH" style={{ height: 32, width: 'auto', objectFit: 'contain' }} />
+          <div style={{ width: 34, height: 34, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'linear-gradient(135deg,#b8842c,#f0cf82)', color: '#111', fontSize: 11, fontWeight: 900, letterSpacing: '0.2em' }}>ZY</div>
         ) : (
-          <motion.img
-            src="/suh-logo-transparent.png"
-            alt="SUH Concept"
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.05 }}
-            style={{ height: 38, width: 'auto', objectFit: 'contain' }}
-          />
+            style={{ display: 'flex', alignItems: 'center', gap: 10 }}
+          >
+            <div style={{ width: 38, height: 38, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'linear-gradient(135deg,#b8842c,#f0cf82)', color: '#111', fontSize: 12, fontWeight: 900, letterSpacing: '0.2em' }}>ZY</div>
+            <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1 }}>
+              <span style={{ color: '#f5e7c3', fontSize: 18, fontWeight: 900, letterSpacing: '0.18em' }}>ZAYEH</span>
+              <span style={{ color: '#8f7a4b', fontSize: 8, letterSpacing: '0.22em', marginTop: 4 }}>DASHBOARD</span>
+            </div>
+          </motion.div>
         )}
       </div>
 

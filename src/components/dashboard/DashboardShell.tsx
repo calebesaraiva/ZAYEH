@@ -93,7 +93,7 @@ function LoginGate({ onLogin }: { onLogin: () => void }) {
           <div style={{ width: 56, height: 56, borderRadius: 16, background: 'linear-gradient(135deg,#a855f7,#FF2DA0)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px', boxShadow: '0 8px 24px rgba(168,85,247,0.35)' }}>
             <Lock size={22} style={{ color: '#fff' }} />
           </div>
-          <h1 style={{ fontSize: 22, fontWeight: 900, color: '#fff', marginBottom: 6 }}>Dashboard SUH CONCEPT</h1>
+          <h1 style={{ fontSize: 22, fontWeight: 900, color: '#fff', marginBottom: 6 }}>Dashboard ZAYEH</h1>
           <p style={{ fontSize: 13, color: '#999' }}>Entre com suas credenciais de administrador</p>
         </div>
 

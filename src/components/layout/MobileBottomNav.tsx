@@ -16,8 +16,8 @@ export default function MobileBottomNav() {
       {items.map(({ label, to, icon: Icon }) => (
         <Link key={to} to={to}
           className={`bottom-nav-item no-underline ${pathname === to ? 'active' : ''}`}>
-          <Icon size={21} />
-          {label}
+          <Icon size={20} strokeWidth={2.2} />
+          <span className="bottom-nav-label">{label}</span>
         </Link>
       ))}
     </nav>

@@ -65,9 +65,10 @@ export interface OrderShippingInfo {
 }
 
 export interface OrderPaymentInfo {
-  provider: 'pagbank' | 'manual';
+  provider: 'mercadopago' | 'manual';
   method?: 'PIX' | 'CREDIT_CARD';
-  checkoutId?: string;
+  preferenceId?: string;
+  paymentId?: string;
   checkoutUrl?: string;
   reason?: string;
   status?: string;
@@ -136,8 +137,10 @@ export const api = {
         body: JSON.stringify(data),
       }),
     get: (id: string) => request<ApiOrder>(`/orders/${id}`),
-    paymentStatus: (id: string) =>
-      request<{ order: ApiOrder; payment: Record<string, unknown> | null }>(`/payments/pagbank/orders/${id}/status`),
+    paymentStatus: (id: string, paymentId?: string) =>
+      request<{ order: ApiOrder; payment: Record<string, unknown> | null }>(
+        `/payments/mercadopago/orders/${id}/status${paymentId ? `?paymentId=${encodeURIComponent(paymentId)}` : ''}`,
+      ),
   },
 
   auth: {

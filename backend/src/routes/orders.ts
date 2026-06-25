@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { prisma } from '../lib/prisma';
-import { createPagBankCheckout, getPagBankConfig } from '../lib/pagbank';
+import { createMercadoPagoPreference, getMercadoPagoConfig } from '../lib/mercadoPago';
 import { getProductPricing, getStorePricingSettings } from '../lib/storePricing';
 import { getStoreSettingsMap, parseBool, parseNumber } from '../lib/storeSettings';
 
@@ -10,7 +10,6 @@ const REQUIRED_DELIVERY_FIELDS = ['cep', 'rua', 'num', 'bairro', 'cidade', 'esta
 const normalizeEmail = (value: unknown) => String(value ?? '').trim().toLowerCase();
 const normalizeCpf = (value: unknown) => String(value ?? '').replace(/\D/g, '').trim();
 
-// POST /api/orders — create order from checkout
 router.post('/', async (req, res) => {
   try {
     const {
@@ -38,12 +37,14 @@ router.post('/', async (req, res) => {
     const normalizedAddress = address && typeof address === 'object' ? address : null;
     const paymentMethodText = String(paymentMethod).trim();
     const isPixPayment = paymentMethodText.toLowerCase().includes('pix');
+    const isCardPayment = paymentMethodText.toLowerCase().includes('cart');
 
-    const [settings, pricingSettings, pagBankConfig] = await Promise.all([
+    const [settings, pricingSettings, mercadoPagoConfig] = await Promise.all([
       getStoreSettingsMap(prisma),
       getStorePricingSettings(prisma),
-      getPagBankConfig(prisma),
+      getMercadoPagoConfig(prisma),
     ]);
+
     const deliveryEnabled = settings.deliveryEnabled !== undefined ? parseBool(settings.deliveryEnabled) : true;
     const pickupEnabled = settings.pickupEnabled !== undefined ? parseBool(settings.pickupEnabled) : true;
     const freeShipPromo = parseBool(settings.freeShipPromo);
@@ -53,7 +54,6 @@ router.post('/', async (req, res) => {
       ? `Valor do frete informado manualmente no WhatsApp ${whatsapp}`
       : 'Valor do frete informado manualmente pelo WhatsApp após o pedido';
     const requestedInstallments = Math.max(1, Math.trunc(Number(installments) || 1));
-    const isCardPayment = paymentMethodText.toLowerCase().includes('cart');
 
     if (selectedDeliveryMethod === 'delivery' && !deliveryEnabled) {
       return res.status(400).json({ error: 'Entrega a domicílio indisponível no momento' });
@@ -137,9 +137,9 @@ router.post('/', async (req, res) => {
     const total = +Math.max(0, subtotal - discountAmount).toFixed(2);
     const cashback = +(total * 0.05).toFixed(2);
     const paymentMethodLabel = isPixPayment
-      ? 'PagBank PIX'
+      ? 'Mercado Pago PIX'
       : isCardPayment
-        ? `PagBank Cartão ${requestedInstallments}x`
+        ? `Mercado Pago Cartão ${requestedInstallments}x`
         : paymentMethodText;
 
     let customer = await prisma.customer.findFirst({
@@ -196,10 +196,10 @@ router.post('/', async (req, res) => {
             freeShippingApplied,
             shippingMessage,
             payment: {
-              provider: pagBankConfig ? 'pagbank' : 'manual',
+              provider: mercadoPagoConfig ? 'mercadopago' : 'manual',
               method: isPixPayment ? 'PIX' : isCardPayment ? 'CREDIT_CARD' : paymentMethodText,
               installments: requestedInstallments,
-              checkoutEligible: pagBankConfig ? (selectedDeliveryMethod === 'pickup' || freeShippingApplied) : false,
+              checkoutEligible: mercadoPagoConfig ? (selectedDeliveryMethod === 'pickup' || freeShippingApplied) : false,
             },
           },
           couponCode: appliedCouponCode,
@@ -240,7 +240,7 @@ router.post('/', async (req, res) => {
       }
 
       shouldCreateCheckout = Boolean(
-        pagBankConfig &&
+        mercadoPagoConfig &&
         (isPixPayment || isCardPayment) &&
         (selectedDeliveryMethod === 'pickup' || freeShippingApplied),
       );
@@ -250,9 +250,9 @@ router.post('/', async (req, res) => {
 
     let payment:
       | {
-          provider: 'pagbank';
+          provider: 'mercadopago';
           method: 'PIX' | 'CREDIT_CARD';
-          checkoutId: string;
+          preferenceId: string;
           checkoutUrl: string;
         }
       | {
@@ -261,12 +261,12 @@ router.post('/', async (req, res) => {
         }
       | null = null;
 
-    if ((isPixPayment || isCardPayment) && !pagBankConfig) {
+    if ((isPixPayment || isCardPayment) && !mercadoPagoConfig) {
       order = await prisma.order.update({
         where: { id: order.id },
         data: {
           status: 'pendente',
-          notes: `${shippingMessage} | PagBank ainda não configurado.`,
+          notes: `${shippingMessage} | Mercado Pago ainda não configurado.`,
         },
         include: { items: true },
       });
@@ -293,16 +293,16 @@ router.post('/', async (req, res) => {
       };
     }
 
-    if (shouldCreateCheckout && pagBankConfig) {
+    if (shouldCreateCheckout && mercadoPagoConfig) {
       try {
-        const checkout = await createPagBankCheckout(pagBankConfig, {
+        const checkout = await createMercadoPagoPreference(mercadoPagoConfig, {
           orderId: order.id,
           customerName,
           customerEmail: normalizedCustomerEmail,
           customerPhone,
           customerCpf: normalizedCustomerCpf,
           discountAmount,
-          paymentMethod: isPixPayment ? 'PIX' : 'CREDIT_CARD',
+          paymentMethod: isPixPayment ? 'pix' : 'credit_card',
           items: items.map((item: { productId: string; productName: string; quantity: number }) => {
             const prod = products.find((p) => p.id === item.productId)!;
             const unitPrice = isPixPayment ? getProductPricing(prod, pricingSettings).pixPrice : prod.price;
@@ -313,11 +313,6 @@ router.post('/', async (req, res) => {
               unitAmount: unitPrice,
             };
           }),
-          shippingType: selectedDeliveryMethod === 'delivery'
-            ? (freeShippingApplied ? 'FREE' : undefined)
-            : undefined,
-          shippingAmount: 0,
-          shippingAddress: selectedDeliveryMethod === 'delivery' ? normalizedAddress || undefined : undefined,
         });
 
         const addressData = order.address && typeof order.address === 'object'
@@ -334,11 +329,11 @@ router.post('/', async (req, res) => {
               ...addressData,
               payment: {
                 ...previousPayment,
-                provider: 'pagbank',
+                provider: 'mercadopago',
                 method: isPixPayment ? 'PIX' : 'CREDIT_CARD',
-                checkoutId: checkout.checkoutId,
-                redirectUrl: checkout.redirectUrl,
-                status: 'WAITING',
+                preferenceId: checkout.preferenceId,
+                checkoutUrl: checkout.checkoutUrl,
+                status: 'pending',
                 createdAt: new Date().toISOString(),
               },
             },
@@ -347,18 +342,18 @@ router.post('/', async (req, res) => {
         });
 
         payment = {
-          provider: 'pagbank',
+          provider: 'mercadopago',
           method: isPixPayment ? 'PIX' : 'CREDIT_CARD',
-          checkoutId: checkout.checkoutId,
-          checkoutUrl: checkout.redirectUrl,
+          preferenceId: checkout.preferenceId,
+          checkoutUrl: checkout.checkoutUrl,
         };
       } catch (paymentError) {
-        const message = paymentError instanceof Error ? paymentError.message : 'Falha ao iniciar pagamento PagBank';
+        const message = paymentError instanceof Error ? paymentError.message : 'Falha ao iniciar pagamento Mercado Pago';
         order = await prisma.order.update({
           where: { id: order.id },
           data: {
             status: 'pendente',
-            notes: `Falha ao iniciar checkout PagBank: ${message}. Atendimento seguirá manualmente.`,
+            notes: `Falha ao iniciar checkout Mercado Pago: ${message}. Atendimento seguirá manualmente.`,
           },
           include: { items: true },
         });
@@ -379,13 +374,12 @@ router.post('/', async (req, res) => {
         message: shippingMessage,
       },
     });
-  } catch (e) {
-    console.error(e);
+  } catch (error) {
+    console.error(error);
     res.status(500).json({ error: 'Erro ao criar pedido' });
   }
 });
 
-// GET /api/orders/:id
 router.get('/:id', async (req, res) => {
   try {
     const order = await prisma.order.findUnique({
