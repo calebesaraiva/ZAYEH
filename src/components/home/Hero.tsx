@@ -11,7 +11,7 @@ const slides = [
     subtitle: 'Moda, acessórios e perfumaria reunidos em uma leitura mais sofisticada, limpa e autoral.',
     cta: 'DESCOBRIR EDIÇÃO',
     ctaLink: '/categoria/copa-2026',
-    bg: 'linear-gradient(135deg, #080808 0%, #1b1208 46%, #0d1011 100%)',
+    bg: 'linear-gradient(135deg, #f7f1e5 0%, #efe2c9 50%, #e8d6b4 100%)',
     accent: '#d8a84a',
     fieldLines: false,
   },
@@ -22,7 +22,7 @@ const slides = [
     subtitle: 'Peças masculinas com contraste quente, materiais sólidos e uma estética mais madura.',
     cta: 'VER MASCULINO',
     ctaLink: '/categoria/masculino',
-    bg: 'linear-gradient(135deg, #0a0a0b 0%, #24170d 50%, #111417 100%)',
+    bg: 'linear-gradient(135deg, #f8f3ea 0%, #ead7b5 50%, #f4ead8 100%)',
     accent: '#c7a15a',
     fieldLines: false,
   },
@@ -33,7 +33,7 @@ const slides = [
     subtitle: 'Seleções de destaque com preço enxuto, acabamento premium e leitura visual mais elegante.',
     cta: 'ACESSAR OUTLET',
     ctaLink: '/categoria/outlet',
-    bg: 'linear-gradient(135deg, #090909 0%, #2b1d0f 52%, #121212 100%)',
+    bg: 'linear-gradient(135deg, #f6efe1 0%, #dfc48e 52%, #fbf7ef 100%)',
     accent: '#e0bc73',
     fieldLines: false,
   },
@@ -90,9 +90,9 @@ export default function Hero() {
           )}
 
           {/* Gradient overlay desktop */}
-          <div className="absolute inset-0 hdr-desktop-only" style={{ background: 'linear-gradient(90deg, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.5) 60%, rgba(0,0,0,0.15) 100%)' }} />
+          <div className="absolute inset-0 hdr-desktop-only" style={{ background: 'linear-gradient(90deg, rgba(255,250,240,0.92) 0%, rgba(245,232,205,0.64) 58%, rgba(216,168,74,0.18) 100%)' }} />
           {/* Gradient overlay mobile — full cover for legibility */}
-          <div className="absolute inset-0 hdr-mobile-only" style={{ background: 'linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.7) 50%, rgba(0,0,0,0.92) 100%)' }} />
+          <div className="absolute inset-0 hdr-mobile-only" style={{ background: 'linear-gradient(180deg, rgba(255,250,240,0.3) 0%, rgba(250,241,225,0.78) 50%, rgba(244,239,228,0.96) 100%)' }} />
 
           {/* Content */}
           <div className="hero-content-wrap" style={{ position: 'relative', zIndex: 10, maxWidth: 1280, margin: '0 auto', width: '100%', padding: '0 20px', paddingLeft: 'clamp(20px, 5vw, 80px)', paddingRight: 'clamp(20px, 5vw, 88px)' }}>
@@ -108,12 +108,12 @@ export default function Hero() {
                 {slide.badge}
               </span>
 
-              <h1 className="hero-title font-cinzel font-black mb-4 text-white whitespace-pre-line"
-                style={{ fontSize: 'clamp(2rem, 6.4vw, 6rem)', lineHeight: 0.98, textShadow: '0 2px 40px rgba(0,0,0,0.8)' }}>
+              <h1 className="hero-title font-cinzel font-black mb-4 whitespace-pre-line"
+                style={{ fontSize: 'clamp(2rem, 6.4vw, 6rem)', lineHeight: 0.98, color: '#18201d', textShadow: '0 12px 50px rgba(139,104,42,0.12)' }}>
                 {slide.title}
               </h1>
 
-              <p className="hero-subtitle" style={{ color: '#aaa', marginBottom: 24, maxWidth: 400, lineHeight: 1.6, fontSize: 'clamp(0.8rem, 1.5vw, 1rem)' }}>
+              <p className="hero-subtitle" style={{ color: '#5f5647', marginBottom: 24, maxWidth: 400, lineHeight: 1.6, fontSize: 'clamp(0.8rem, 1.5vw, 1rem)' }}>
                 {slide.subtitle}
               </p>
 

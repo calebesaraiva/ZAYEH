@@ -1008,6 +1008,146 @@ body {
   animation: shimmer 1.4s infinite;
 }
 
+/* ZAYEH light editorial theme */
+.zayeh-light {
+  --bg: #f4efe4;
+  --bg2: #fffaf0;
+  --bg3: #efe3c9;
+  --border: rgba(71, 56, 28, 0.12);
+  --border2: rgba(71, 56, 28, 0.18);
+  --text: #171d1b;
+  --muted: #6f6658;
+  --muted2: #948872;
+  background:
+    linear-gradient(180deg, #f8f3ea 0%, #efe3cf 46%, #f6efe1 100%) !important;
+  color: #171d1b !important;
+}
+.zayeh-light-header,
+.zayeh-light-header header,
+.zayeh-light-header nav,
+.zayeh-light .hdr-mobile-search-bar {
+  background: rgba(250, 245, 236, 0.96) !important;
+  border-color: rgba(71, 56, 28, 0.12) !important;
+  box-shadow: 0 12px 34px rgba(62, 46, 18, 0.08) !important;
+  backdrop-filter: blur(18px);
+}
+.zayeh-light-header input {
+  background: #fffaf0 !important;
+  border-color: rgba(71, 56, 28, 0.14) !important;
+  color: #171d1b !important;
+}
+.zayeh-light-header input::placeholder {
+  color: #8a806d !important;
+}
+.zayeh-light .hdr-logo-img {
+  background: linear-gradient(135deg, #fffaf0, #ead8ad) !important;
+  border-color: rgba(184, 132, 44, 0.3) !important;
+  box-shadow: 0 12px 34px rgba(116, 82, 27, 0.14) !important;
+}
+.zayeh-light .hdr-logo-img span {
+  color: #181511;
+}
+.zayeh-light .hdr-logo-img > div > span:first-child {
+  color: #171d1b !important;
+}
+.zayeh-light .hdr-menu-btn,
+.zayeh-light .hdr-sacola,
+.zayeh-light .hdr-icon,
+.zayeh-light .hdr-entrar {
+  background: #fffaf0 !important;
+  border: 1px solid rgba(71, 56, 28, 0.14) !important;
+  color: #1d2522 !important;
+  box-shadow: 0 10px 24px rgba(86, 63, 26, 0.08) !important;
+}
+.zayeh-light .hdr-sacola {
+  background: linear-gradient(135deg, #d8a84a, #f5df9b) !important;
+}
+.zayeh-light .nav-link,
+.zayeh-light-header nav a {
+  color: #5c5548 !important;
+}
+.zayeh-light-header nav a:hover,
+.zayeh-light-header nav a[aria-current="page"] {
+  color: #171d1b !important;
+}
+.zayeh-light .topbar-mobile-item {
+  background: rgba(255, 250, 240, 0.72) !important;
+  border-color: rgba(71, 56, 28, 0.12) !important;
+  color: #4e493f !important;
+}
+.zayeh-light .hero-section {
+  background: linear-gradient(135deg, #f8f3ea, #ead7b5) !important;
+  border-bottom: 1px solid rgba(71, 56, 28, 0.1);
+}
+.zayeh-light .hero-section .btn-primary,
+.zayeh-light .btn-primary {
+  background: linear-gradient(135deg, #c49438, #f0cf82) !important;
+  color: #181511 !important;
+  border-radius: 999px !important;
+  box-shadow: 0 16px 36px rgba(153, 109, 37, 0.22) !important;
+}
+.zayeh-light .hero-section .btn-outline,
+.zayeh-light .btn-outline {
+  background: rgba(255, 250, 240, 0.82) !important;
+  color: #1d2522 !important;
+  border: 1px solid rgba(71, 56, 28, 0.18) !important;
+  border-radius: 999px !important;
+}
+.zayeh-light .section-gap {
+  background: transparent !important;
+}
+.zayeh-light .section-title,
+.zayeh-light h1,
+.zayeh-light h2,
+.zayeh-light h3 {
+  color: #171d1b !important;
+}
+.zayeh-light .section-label,
+.zayeh-light .gold-text {
+  color: #b8842c !important;
+}
+.zayeh-light .product-card,
+.zayeh-light .testimonial-card,
+.zayeh-light .card,
+.zayeh-light .collections-grid a,
+.zayeh-light .benefits-grid > div {
+  background: rgba(255, 250, 240, 0.86) !important;
+  border-color: rgba(71, 56, 28, 0.12) !important;
+  color: #171d1b !important;
+  box-shadow: 0 18px 48px rgba(70, 48, 15, 0.08) !important;
+}
+.zayeh-light .product-card p,
+.zayeh-light .testimonial-card p,
+.zayeh-light .collections-grid p,
+.zayeh-light .benefits-grid p,
+.zayeh-light a {
+  color: #5f5647 !important;
+}
+.zayeh-light .product-card strong,
+.zayeh-light .product-card h3,
+.zayeh-light .benefits-grid p:first-child,
+.zayeh-light .collections-grid h3 {
+  color: #171d1b !important;
+}
+.zayeh-light footer,
+.zayeh-light .store-footer {
+  background: #eee2cc !important;
+  border-color: rgba(71, 56, 28, 0.12) !important;
+  color: #171d1b !important;
+}
+.zayeh-light .store-footer * {
+  color: inherit;
+}
+.zayeh-light .bottom-nav {
+  background: rgba(255, 250, 240, 0.98) !important;
+  border-color: rgba(71, 56, 28, 0.14) !important;
+  box-shadow: 0 -12px 30px rgba(62, 46, 18, 0.1) !important;
+}
+.zayeh-light .bottom-nav a,
+.zayeh-light .bottom-nav button {
+  color: #5f5647 !important;
+}
+
 /* ─── PIX TAG ────────────────────────────────────── */
 .pix-tag {
   display: inline-flex; align-items: center; gap: 5px;
