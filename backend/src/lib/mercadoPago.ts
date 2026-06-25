@@ -185,11 +185,6 @@ export async function createMercadoPagoPreference(
       payment_methods: {
         installments: config.maxInstallments,
         default_installments: 1,
-        default_payment_method_id: payload.paymentMethod === 'pix' ? 'pix' : undefined,
-        excluded_payment_types:
-          payload.paymentMethod === 'pix'
-            ? [{ id: 'credit_card' }, { id: 'debit_card' }, { id: 'ticket' }, { id: 'atm' }]
-            : [{ id: 'ticket' }, { id: 'atm' }],
       },
       metadata: {
         order_id: payload.orderId,
