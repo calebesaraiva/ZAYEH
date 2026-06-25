@@ -62,22 +62,23 @@ function makePerfumeArt(name: string, size: string, accent = '#d8a84a') {
     <svg xmlns="http://www.w3.org/2000/svg" width="900" height="1200" viewBox="0 0 900 1200">
       <defs>
         <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stop-color="#09090b" />
-          <stop offset="100%" stop-color="#18181b" />
+          <stop offset="0%" stop-color="#fff8e8" />
+          <stop offset="100%" stop-color="#ead8b5" />
         </linearGradient>
         <linearGradient id="glass" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="${accent}" stop-opacity="0.82" />
-          <stop offset="100%" stop-color="#111111" stop-opacity="0.98" />
+          <stop offset="0%" stop-color="${accent}" stop-opacity="0.78" />
+          <stop offset="100%" stop-color="#17201d" stop-opacity="0.86" />
         </linearGradient>
       </defs>
       <rect width="900" height="1200" fill="url(#bg)" />
-      <circle cx="450" cy="250" r="220" fill="${accent}" opacity="0.15" />
-      <rect x="330" y="160" width="240" height="86" rx="22" fill="#111111" stroke="rgba(255,255,255,0.12)" />
-      <rect x="255" y="250" width="390" height="520" rx="64" fill="url(#glass)" stroke="rgba(255,255,255,0.18)" stroke-width="4" />
-      <rect x="288" y="300" width="324" height="420" rx="40" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.08)" />
-      <text x="450" y="865" text-anchor="middle" fill="#ffffff" font-family="Georgia, serif" font-size="58" font-weight="700">${safeName}</text>
-      <text x="450" y="925" text-anchor="middle" fill="${accent}" font-family="Arial, sans-serif" font-size="28" letter-spacing="6">${safeSize}</text>
-      <text x="450" y="1035" text-anchor="middle" fill="#71717a" font-family="Arial, sans-serif" font-size="24" letter-spacing="8">ZAYEH PERFUMARIA</text>
+      <circle cx="450" cy="260" r="225" fill="${accent}" opacity="0.16" />
+      <circle cx="450" cy="260" r="145" fill="#ffffff" opacity="0.2" />
+      <rect x="330" y="164" width="240" height="88" rx="24" fill="#17201d" stroke="rgba(255,255,255,0.28)" />
+      <rect x="255" y="254" width="390" height="520" rx="66" fill="url(#glass)" stroke="rgba(122,84,25,0.26)" stroke-width="5" />
+      <rect x="292" y="308" width="316" height="414" rx="42" fill="rgba(255,255,255,0.14)" stroke="rgba(255,255,255,0.18)" />
+      <text x="450" y="858" text-anchor="middle" fill="#171d1b" font-family="Georgia, serif" font-size="46" font-weight="700">${safeName}</text>
+      <text x="450" y="918" text-anchor="middle" fill="#9b6d22" font-family="Arial, sans-serif" font-size="27" font-weight="700" letter-spacing="6">${safeSize}</text>
+      <text x="450" y="1034" text-anchor="middle" fill="#8b806f" font-family="Arial, sans-serif" font-size="23" letter-spacing="8">ZAYEH PERFUMARIA</text>
     </svg>
   `.trim();
 

@@ -55,28 +55,28 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="store-footer" style={{ background: '#080808', borderTop: '1px solid rgba(255,255,255,0.07)' }}>
+    <footer className="store-footer" style={{ background: 'linear-gradient(180deg,#f3e7d2 0%,#eadcc1 100%)', borderTop: '1px solid rgba(92,66,22,0.12)', color: '#171d1b' }}>
 
       {/* Rainbow accent */}
-      <div style={{ height: 3, background: 'linear-gradient(90deg,#5b4320,#d8a84a,#f1d48b,#8d6b2f)' }} />
+      <div style={{ height: 4, background: 'linear-gradient(90deg,#5b4320,#d8a84a,#f5df9b,#8d6b2f)' }} />
 
       {/* CTA banner */}
-      <div style={{ background: 'linear-gradient(135deg,rgba(216,168,74,0.16),rgba(94,72,29,0.12))', borderBottom: '1px solid rgba(255,255,255,0.05)', padding: '24px 20px' }}>
+      <div style={{ background: 'linear-gradient(135deg,#fff7df,#e7c789)', borderBottom: '1px solid rgba(92,66,22,0.12)', padding: '24px 20px' }}>
         <div style={{ maxWidth: 1280, margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 14 }}>
           <div>
-            <p style={{ fontSize: 16, fontWeight: 800, color: '#fff', marginBottom: 4 }}>
-              Curadoria premium com frete acima de <span style={{ color: '#f0cf82' }}>R$ {settings.freeShipThreshold.toFixed(2).replace('.', ',')}</span>
+            <p style={{ fontSize: 16, fontWeight: 900, color: '#171d1b', marginBottom: 4 }}>
+              Curadoria premium com frete acima de <span style={{ color: '#9b6d22' }}>R$ {settings.freeShipThreshold.toFixed(2).replace('.', ',')}</span>
             </p>
-            <p style={{ fontSize: 12, color: '#9f9277' }}>{settings.pixDiscount}% OFF no PIX · até {settings.maxInstallments}x no cartão</p>
+            <p style={{ fontSize: 12, color: '#675b4a', fontWeight: 600 }}>{settings.pixDiscount}% OFF no PIX · até {settings.maxInstallments}x no cartão</p>
           </div>
-          <Link to="/categoria/todos" className="no-underline" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '10px 20px', borderRadius: 8, background: 'linear-gradient(135deg,#b8842c,#f0cf82)', color: '#1a160f', fontWeight: 900, fontSize: 13, whiteSpace: 'nowrap' }}>
+          <Link to="/categoria/todos" className="no-underline" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '12px 22px', borderRadius: 999, background: '#17201d', color: '#fff8e8', fontWeight: 900, fontSize: 13, whiteSpace: 'nowrap', boxShadow: '0 16px 34px rgba(23,32,29,0.16)' }}>
             VER SELEÇÃO →
           </Link>
         </div>
       </div>
 
       {/* Main content */}
-      <div style={{ maxWidth: 1280, margin: '0 auto', padding: '40px 20px 28px' }}>
+      <div style={{ maxWidth: 1280, margin: '0 auto', padding: '34px 20px 28px' }}>
         <div
           style={{
             display: 'grid',
@@ -91,13 +91,13 @@ export default function Footer() {
               style={{
                 padding: '18px 18px 16px',
                 borderRadius: 18,
-                background: 'linear-gradient(180deg,rgba(255,255,255,0.035),rgba(255,255,255,0.015))',
-                border: '1px solid rgba(255,255,255,0.06)',
-                boxShadow: '0 18px 32px rgba(0,0,0,0.2)',
+                background: 'rgba(255,250,240,0.64)',
+                border: '1px solid rgba(92,66,22,0.12)',
+                boxShadow: '0 16px 34px rgba(95,67,21,0.08)',
               }}
             >
-              <p style={{ fontSize: 13, fontWeight: 800, color: '#f5f5f5', marginBottom: 6 }}>{item.title}</p>
-              <p style={{ fontSize: 11.5, color: '#787878', lineHeight: 1.6 }}>{item.subtitle}</p>
+              <p style={{ fontSize: 13, fontWeight: 900, color: '#171d1b', marginBottom: 6 }}>{item.title}</p>
+              <p style={{ fontSize: 11.5, color: '#6f6658', lineHeight: 1.6 }}>{item.subtitle}</p>
             </div>
           ))}
         </div>
@@ -116,14 +116,14 @@ export default function Footer() {
               gridColumn: 'span 1',
               padding: '24px 22px',
               borderRadius: 24,
-              background: 'linear-gradient(135deg,rgba(37,18,44,0.95),rgba(15,15,18,0.98))',
+              background: 'radial-gradient(circle at top right,rgba(216,168,74,0.18),transparent 42%), linear-gradient(135deg,#23170f,#151413)',
               border: '1px solid rgba(255,255,255,0.07)',
-              boxShadow: '0 24px 50px rgba(0,0,0,0.28)',
+              boxShadow: '0 24px 54px rgba(58, 38, 14, 0.2)',
               position: 'relative',
               overflow: 'hidden',
             }}
           >
-            <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at top right,rgba(216,168,74,0.18),transparent 42%)' }} />
+            <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg,rgba(255,255,255,0.03),transparent)' }} />
             <div style={{ position: 'relative' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16 }}>
                 <span style={{ width: 42, height: 42, borderRadius: '50%', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', background: 'linear-gradient(135deg,#b8842c,#f0cf82)', color: '#111', fontSize: 13, fontWeight: 900, letterSpacing: '0.18em' }}>ZY</span>
@@ -164,8 +164,8 @@ export default function Footer() {
               style={{
                 padding: '22px 20px',
                 borderRadius: 22,
-                background: 'linear-gradient(180deg,rgba(255,255,255,0.028),rgba(255,255,255,0.012))',
-                border: '1px solid rgba(255,255,255,0.06)',
+                background: 'rgba(255,250,240,0.34)',
+                border: '1px solid rgba(92,66,22,0.1)',
               }}
             >
               <h4 style={{ fontSize: 10, fontWeight: 900, color: '#d8a84a', letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: 16 }}>
@@ -185,28 +185,28 @@ export default function Footer() {
                         width: '100%',
                         padding: '14px 16px',
                         borderRadius: 18,
-                        border: '1px solid rgba(255,255,255,0.06)',
-                        background: 'linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.02))',
-                        color: '#f2f2f2',
+                        border: '1px solid rgba(92,66,22,0.1)',
+                        background: 'rgba(255,250,240,0.54)',
+                        color: '#171d1b',
                         transition: 'transform 0.18s ease, border-color 0.18s ease, background 0.18s ease, box-shadow 0.18s ease',
                         cursor: 'pointer',
                       }}
                       onMouseEnter={e => {
                         e.currentTarget.style.transform = 'translateX(4px)';
                         e.currentTarget.style.borderColor = 'rgba(216,168,74,0.34)';
-                        e.currentTarget.style.background = 'linear-gradient(135deg,rgba(216,168,74,0.14),rgba(255,255,255,0.03))';
-                        e.currentTarget.style.boxShadow = '0 14px 30px rgba(0,0,0,0.22)';
+                        e.currentTarget.style.background = 'rgba(255,248,232,0.88)';
+                        e.currentTarget.style.boxShadow = '0 14px 30px rgba(95,67,21,0.1)';
                       }}
                       onMouseLeave={e => {
                         e.currentTarget.style.transform = 'translateX(0)';
-                        e.currentTarget.style.borderColor = 'rgba(255,255,255,0.06)';
-                        e.currentTarget.style.background = 'linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.02))';
+                        e.currentTarget.style.borderColor = 'rgba(92,66,22,0.1)';
+                        e.currentTarget.style.background = 'rgba(255,250,240,0.54)';
                         e.currentTarget.style.boxShadow = 'none';
                       }}
                     >
                       <span style={{ display: 'grid', gap: 4 }}>
                         <span style={{ fontSize: 15, fontWeight: 700 }}>{link.label}</span>
-                        <span style={{ fontSize: 12, color: '#8f8f93', lineHeight: 1.4 }}>{link.description}</span>
+                        <span style={{ fontSize: 12, color: '#766b5a', lineHeight: 1.4 }}>{link.description}</span>
                       </span>
                       <ChevronRight size={18} style={{ flexShrink: 0, color: '#d8a84a' }} />
                     </Link>
@@ -218,14 +218,14 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div style={{ paddingTop: 22, borderTop: '1px solid rgba(255,255,255,0.05)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 14 }}>
+        <div style={{ paddingTop: 22, borderTop: '1px solid rgba(92,66,22,0.1)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 14 }}>
 
           {/* Payment icons */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap', justifyContent: 'center' }}>
-            <div style={{ width: 46, height: 30, borderRadius: 5, background: '#1A1F71', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid rgba(255,255,255,0.06)' }}>
+            <div style={{ width: 46, height: 30, borderRadius: 5, background: '#1A1F71', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid rgba(92,66,22,0.06)' }}>
               <svg viewBox="0 0 46 30" width="42" height="28"><text x="50%" y="62%" textAnchor="middle" fontFamily="Arial" fontWeight="900" fontSize="13" fill="#fff" letterSpacing="1">VISA</text></svg>
             </div>
-            <div style={{ width: 46, height: 30, borderRadius: 5, background: '#252525', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid rgba(255,255,255,0.06)' }}>
+            <div style={{ width: 46, height: 30, borderRadius: 5, background: '#252525', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid rgba(92,66,22,0.06)' }}>
               <svg viewBox="0 0 46 30" width="42" height="28">
                 <circle cx="17" cy="15" r="9" fill="#EB001B" opacity="0.9" />
                 <circle cx="29" cy="15" r="9" fill="#F79E1B" opacity="0.9" />

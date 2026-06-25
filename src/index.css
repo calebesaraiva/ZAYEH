@@ -1116,15 +1116,12 @@ body {
   color: #171d1b !important;
   box-shadow: 0 18px 48px rgba(70, 48, 15, 0.08) !important;
 }
-.zayeh-light .product-card p,
 .zayeh-light .testimonial-card p,
 .zayeh-light .collections-grid p,
-.zayeh-light .benefits-grid p,
-.zayeh-light a {
+.zayeh-light .benefits-grid p {
   color: #5f5647 !important;
 }
 .zayeh-light .product-card strong,
-.zayeh-light .product-card h3,
 .zayeh-light .benefits-grid p:first-child,
 .zayeh-light .collections-grid h3 {
   color: #171d1b !important;
@@ -1134,9 +1131,6 @@ body {
   background: #eee2cc !important;
   border-color: rgba(71, 56, 28, 0.12) !important;
   color: #171d1b !important;
-}
-.zayeh-light .store-footer * {
-  color: inherit;
 }
 .zayeh-light .bottom-nav {
   background: rgba(255, 250, 240, 0.98) !important;

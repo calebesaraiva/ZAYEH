@@ -62,10 +62,18 @@ async function syncStore(prisma: PrismaClient) {
       continue;
     }
 
-    if (!existingProduct.active) {
+    if (!existingProduct.active || product.categorySlug === 'perfumaria') {
       await prisma.product.update({
         where: { id: existingProduct.id },
-        data: { active: true },
+        data: {
+          active: true,
+          ...(product.categorySlug === 'perfumaria'
+            ? {
+                image: product.image,
+                images: product.images,
+              }
+            : {}),
+        },
       });
     }
   }

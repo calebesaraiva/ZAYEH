@@ -28,11 +28,28 @@ export default function ProductCard({ product }: Props) {
       <div
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
-        style={{ cursor: 'pointer', borderRadius: 14, overflow: 'hidden', background: '#111', border: '1px solid rgba(255,255,255,0.06)', transition: 'box-shadow 0.25s, transform 0.25s', transform: hovered ? 'translateY(-3px)' : 'translateY(0)', boxShadow: hovered ? '0 16px 48px rgba(0,0,0,0.5)' : 'none' }}
+        style={{
+          cursor: 'pointer',
+          borderRadius: 22,
+          overflow: 'hidden',
+          background: 'linear-gradient(180deg, #fffaf0 0%, #f0e1c4 100%)',
+          border: '1px solid rgba(92, 66, 22, 0.14)',
+          transition: 'box-shadow 0.25s, transform 0.25s, border-color 0.25s',
+          transform: hovered ? 'translateY(-5px)' : 'translateY(0)',
+          boxShadow: hovered ? '0 24px 58px rgba(95, 67, 21, 0.18)' : '0 14px 34px rgba(95, 67, 21, 0.08)',
+        }}
         onClick={openModal}>
 
         {/* Image */}
-        <div style={{ position: 'relative', aspectRatio: '3/4', overflow: 'hidden', background: '#0d0d0d' }}>
+        <div style={{
+          position: 'relative',
+          aspectRatio: '3/4',
+          overflow: 'hidden',
+          background: isPerfumaria
+            ? 'radial-gradient(circle at 50% 18%, rgba(232, 196, 121, 0.42), transparent 42%), linear-gradient(180deg, #fff6e4 0%, #ead8b5 100%)'
+            : 'linear-gradient(180deg, #f5ead6 0%, #e9d8b9 100%)',
+          borderBottom: '1px solid rgba(92, 66, 22, 0.1)',
+        }}>
           <img
             src={product.image}
             alt={product.name}
@@ -41,25 +58,25 @@ export default function ProductCard({ product }: Props) {
               width: '100%',
               height: '100%',
               objectFit: isPerfumaria ? 'contain' : 'cover',
-              background: isPerfumaria ? 'radial-gradient(circle at top, rgba(216,168,74,0.14), transparent 58%), #111' : 'transparent',
-              padding: isPerfumaria ? 14 : 0,
+              background: 'transparent',
+              padding: isPerfumaria ? 18 : 0,
               transition: 'transform 0.5s',
-              transform: hovered ? 'scale(1.06)' : 'scale(1)',
+              transform: hovered ? 'scale(1.04)' : 'scale(1)',
+              filter: isPerfumaria ? 'drop-shadow(0 18px 22px rgba(69, 49, 18, 0.22))' : 'none',
             }}
           />
 
-          {/* Dark overlay on hover */}
-          <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.35)', opacity: hovered ? 1 : 0, transition: 'opacity 0.3s' }} />
+          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(255,255,255,0.05), rgba(91,65,22,0.14))', opacity: hovered ? 1 : 0, transition: 'opacity 0.3s' }} />
 
           {/* Badges */}
           <div style={{ position: 'absolute', top: 10, left: 10, display: 'flex', flexDirection: 'column', gap: 5 }}>
             {product.discount && (
-              <span style={{ background: '#EF4444', color: '#fff', fontSize: 9.5, fontWeight: 900, padding: '3px 9px', borderRadius: 99, letterSpacing: '0.06em' }}>
+              <span style={{ background: '#b8862f', color: '#17120a', fontSize: 9.5, fontWeight: 900, padding: '4px 10px', borderRadius: 99, letterSpacing: '0.06em', boxShadow: '0 8px 20px rgba(184,134,47,0.24)' }}>
                 {product.discount}% OFF
               </span>
             )}
             {product.isNew && !product.discount && (
-              <span style={{ background: '#b8842c', color: '#fff', fontSize: 9.5, fontWeight: 900, padding: '3px 9px', borderRadius: 99, letterSpacing: '0.06em' }}>
+              <span style={{ background: '#18332d', color: '#f5e4b3', fontSize: 9.5, fontWeight: 900, padding: '4px 10px', borderRadius: 99, letterSpacing: '0.06em' }}>
                 NOVO
               </span>
             )}
@@ -72,13 +89,14 @@ export default function ProductCard({ product }: Props) {
             style={{
               position: 'absolute', top: 10, right: 10,
               width: 34, height: 34, borderRadius: '50%',
-              background: isWished ? 'rgba(184,132,44,0.2)' : 'rgba(0,0,0,0.65)',
-              border: `1px solid ${isWished ? 'rgba(184,132,44,0.5)' : 'rgba(255,255,255,0.12)'}`,
+              background: isWished ? 'rgba(216,168,74,0.28)' : 'rgba(255,250,240,0.84)',
+              border: `1px solid ${isWished ? 'rgba(184,132,44,0.48)' : 'rgba(92,66,22,0.16)'}`,
               backdropFilter: 'blur(8px)',
+              boxShadow: '0 10px 22px rgba(68, 49, 18, 0.12)',
               display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer',
               transition: 'all 0.2s',
             }}>
-            <Heart size={14} fill={isWished ? '#b8842c' : 'none'} color={isWished ? '#b8842c' : '#fff'} />
+            <Heart size={14} fill={isWished ? '#b8842c' : 'none'} color={isWished ? '#b8842c' : '#1b211f'} />
           </motion.button>
 
           {/* Hover CTA */}
@@ -87,52 +105,52 @@ export default function ProductCard({ product }: Props) {
             transform: hovered ? 'translateY(0)' : 'translateY(100%)',
             transition: 'transform 0.28s cubic-bezier(0.22,1,0.36,1)',
           }}>
-            <div style={{ background: 'rgba(0,0,0,0.85)', backdropFilter: 'blur(12px)', borderTop: '1px solid rgba(255,255,255,0.08)', padding: '12px 14px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
-              <Eye size={15} style={{ color: '#d8a84a' }} />
-              <span style={{ fontSize: 12, fontWeight: 800, color: '#fff', letterSpacing: '0.1em' }}>VER RÁPIDO</span>
+            <div style={{ background: 'rgba(24, 30, 27, 0.92)', backdropFilter: 'blur(12px)', borderTop: '1px solid rgba(255,255,255,0.12)', padding: '12px 14px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
+              <Eye size={15} style={{ color: '#f0cf82' }} />
+              <span style={{ fontSize: 12, fontWeight: 800, color: '#fff8e8', letterSpacing: '0.1em' }}>VER RÁPIDO</span>
             </div>
           </div>
         </div>
 
         {/* Info */}
-        <div style={{ padding: '14px 14px 16px' }}>
-          <p style={{ fontSize: 10, color: '#666', letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: 5 }}>
+        <div style={{ padding: '16px 16px 18px' }}>
+          <p style={{ fontSize: 10, color: '#a0772c', letterSpacing: '0.16em', textTransform: 'uppercase', marginBottom: 6, fontWeight: 800 }}>
             {product.category}
           </p>
-          <h3 style={{ fontSize: 13.5, fontWeight: 700, color: '#e0e0e0', lineHeight: 1.35, marginBottom: 8, overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' }}>
+          <h3 style={{ fontSize: 14.5, fontWeight: 900, color: '#171d1b', lineHeight: 1.28, marginBottom: 9, overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' }}>
             {product.name}
           </h3>
 
           {/* Stars */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 4, marginBottom: 10 }}>
             {[1,2,3,4,5].map(s => (
-              <Star key={s} size={10} fill={s <= stars ? '#d8a84a' : 'none'} color={s <= stars ? '#d8a84a' : '#333'} />
+              <Star key={s} size={10} fill={s <= stars ? '#c49438' : 'none'} color={s <= stars ? '#c49438' : '#d8cab3'} />
             ))}
-            <span style={{ fontSize: 10.5, color: '#444', marginLeft: 2 }}>({product.reviews})</span>
+            <span style={{ fontSize: 10.5, color: '#7d705e', marginLeft: 2 }}>({product.reviews})</span>
           </div>
 
           {/* Price block */}
           <div>
             {product.originalPrice && (
-              <p style={{ fontSize: 11, color: '#444', textDecoration: 'line-through', marginBottom: 1 }}>
+              <p style={{ fontSize: 11, color: '#9d907c', textDecoration: 'line-through', marginBottom: 1 }}>
                 R$ {product.originalPrice.toFixed(2).replace('.', ',')}
               </p>
             )}
-            <p style={{ fontSize: 17, fontWeight: 900, color: '#fff', lineHeight: 1.2, marginBottom: 3 }}>
+            <p style={{ fontSize: 18, fontWeight: 900, color: '#171d1b', lineHeight: 1.2, marginBottom: 3 }}>
               R$ {product.price.toFixed(2).replace('.', ',')}
             </p>
             <p style={{ fontSize: 11, color: '#22C55E', fontWeight: 600 }}>
-              R$ {pricing.pixPrice.toFixed(2).replace('.', ',')} <span style={{ color: '#444', fontWeight: 400 }}>no PIX</span>
+              R$ {pricing.pixPrice.toFixed(2).replace('.', ',')} <span style={{ color: '#7d705e', fontWeight: 500 }}>no PIX</span>
             </p>
-            <p style={{ fontSize: 10.5, color: '#666', marginTop: 2 }}>
+            <p style={{ fontSize: 10.5, color: '#7d705e', marginTop: 2 }}>
               {pricing.installmentCount}x R$ {pricing.installmentValue.toFixed(2).replace('.', ',')}
             </p>
           </div>
 
           {/* Cashback */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 5, marginTop: 10, padding: '5px 8px', borderRadius: 6, background: 'rgba(255,184,0,0.06)', border: '1px solid rgba(255,184,0,0.12)' }}>
-            <Coins size={10} style={{ color: '#d8a84a', flexShrink: 0 }} />
-            <span style={{ fontSize: 10.5, color: '#d8a84a', fontWeight: 700 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 5, marginTop: 11, padding: '7px 9px', borderRadius: 10, background: 'rgba(196,148,56,0.12)', border: '1px solid rgba(196,148,56,0.2)' }}>
+            <Coins size={10} style={{ color: '#a87724', flexShrink: 0 }} />
+            <span style={{ fontSize: 10.5, color: '#8a641e', fontWeight: 800 }}>
               5% cashback · R$ {(product.price * 0.05).toFixed(2).replace('.', ',')}
             </span>
           </div>
@@ -142,11 +160,11 @@ export default function ProductCard({ product }: Props) {
             <div style={{ display: 'flex', gap: 6, marginTop: 8, alignItems: 'center' }}>
               {product.colors.slice(0, 5).map(c => (
                 <div key={c.name} title={c.name}
-                  style={{ width: 14, height: 14, borderRadius: '50%', background: c.hex, border: '1.5px solid rgba(255,255,255,0.15)', flexShrink: 0 }}
+                  style={{ width: 14, height: 14, borderRadius: '50%', background: c.hex, border: '1.5px solid rgba(92,66,22,0.16)', flexShrink: 0 }}
                 />
               ))}
               {product.colors.length > 5 && (
-                <span style={{ fontSize: 10, color: '#444' }}>+{product.colors.length - 5}</span>
+                <span style={{ fontSize: 10, color: '#7d705e' }}>+{product.colors.length - 5}</span>
               )}
             </div>
           )}
