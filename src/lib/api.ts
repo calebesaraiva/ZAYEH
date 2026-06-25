@@ -46,7 +46,26 @@ export interface CreateOrderPayload {
   paymentMethod: string; deliveryMethod: string;
   installments?: number;
   address?: Record<string, string>;
+  shippingQuote?: { serviceCode: string; serviceName?: string; price?: number; deadlineDays?: number; deadlineText?: string };
   couponCode?: string; discount?: number;
+}
+
+export interface ShippingQuoteOption {
+  serviceCode: string;
+  serviceName: string;
+  price: number;
+  originalPrice: number;
+  deadlineDays?: number;
+  deadlineText?: string;
+}
+
+export interface ShippingQuoteResponse {
+  provider: 'correios';
+  originCep: string;
+  destinationCep: string;
+  freeShippingApplied: boolean;
+  options: ShippingQuoteOption[];
+  selected: ShippingQuoteOption;
 }
 
 export interface ApiOrder {
@@ -61,6 +80,8 @@ export interface ApiOrder {
 export interface OrderShippingInfo {
   method: string;
   freeShippingApplied: boolean;
+  amount?: number;
+  quote?: ShippingQuoteResponse | null;
   message: string;
 }
 
@@ -164,6 +185,14 @@ export const api = {
 
   settings: {
     get: () => request<Record<string, string>>('/settings'),
+  },
+
+  shipping: {
+    quote: (data: { cepDestino: string; subtotal: number; serviceCode?: string; freeShipping?: boolean }) =>
+      request<ShippingQuoteResponse>('/shipping/quote', {
+        method: 'POST',
+        body: JSON.stringify(data),
+      }),
   },
 
   dashboard: {

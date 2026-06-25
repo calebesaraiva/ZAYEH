@@ -9,6 +9,7 @@ import dashboardRouter from './routes/dashboard';
 import authRouter from './routes/auth';
 import { ensureStoreBootstrap } from './lib/bootstrapStore';
 import paymentsRouter from './routes/payments';
+import shippingRouter from './routes/shipping';
 import { getStoreSettingsMap, toPublicStoreSettings } from './lib/storeSettings';
 
 const app = express();
@@ -65,6 +66,7 @@ app.post('/api/newsletter', async (req, res) => {
 app.use('/api/auth', authRouter);
 app.use('/api/products', productsRouter);
 app.use('/api/orders', ordersRouter);
+app.use('/api/shipping', shippingRouter);
 app.use('/api/coupons', couponsRouter);
 app.use('/api/payments', paymentsRouter);
 app.use('/api/dashboard', dashboardRouter);

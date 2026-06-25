@@ -3,6 +3,7 @@ import { prisma } from '../lib/prisma';
 import { createMercadoPagoPreference, getMercadoPagoConfig } from '../lib/mercadoPago';
 import { getProductPricing, getStorePricingSettings } from '../lib/storePricing';
 import { getStoreSettingsMap, parseBool, parseNumber } from '../lib/storeSettings';
+import { quoteShipping } from '../lib/shipping';
 
 const router = Router();
 
@@ -24,6 +25,7 @@ router.post('/', async (req, res) => {
       couponCode,
       discount,
       installments,
+      shippingQuote,
     } = req.body;
 
     if (!customerName || !customerEmail || !items?.length || !paymentMethod) {
@@ -128,13 +130,31 @@ router.post('/', async (req, res) => {
       selectedDeliveryMethod === 'delivery' &&
       (freeShipPromo || subtotal >= freeShipThreshold || couponFreeShipping);
 
+    let calculatedShippingQuote: Awaited<ReturnType<typeof quoteShipping>> | null = null;
+    let shippingAmount = 0;
+    if (selectedDeliveryMethod === 'delivery' && normalizedAddress?.cep) {
+      try {
+        calculatedShippingQuote = await quoteShipping(prisma, {
+          cepDestino: normalizedAddress.cep,
+          subtotal,
+          serviceCode: shippingQuote?.serviceCode,
+          freeShipping: freeShippingApplied,
+        });
+        shippingAmount = calculatedShippingQuote.selected.price;
+      } catch {
+        calculatedShippingQuote = null;
+      }
+    }
+
     const shippingMessage = selectedDeliveryMethod === 'pickup'
       ? 'Retirada na loja'
-      : freeShippingApplied
+      : freeShippingApplied || calculatedShippingQuote?.freeShippingApplied
         ? 'Frete grátis aplicado'
+        : calculatedShippingQuote
+          ? `Frete ${calculatedShippingQuote.selected.serviceName}: R$ ${calculatedShippingQuote.selected.price.toFixed(2).replace('.', ',')}${calculatedShippingQuote.selected.deadlineText ? ` · ${calculatedShippingQuote.selected.deadlineText}` : ''}`
         : manualShippingMessage;
 
-    const total = +Math.max(0, subtotal - discountAmount).toFixed(2);
+    const total = +Math.max(0, subtotal - discountAmount + shippingAmount).toFixed(2);
     const cashback = +(total * 0.05).toFixed(2);
     const paymentMethodLabel = isPixPayment
       ? 'Mercado Pago PIX'
@@ -195,11 +215,23 @@ router.post('/', async (req, res) => {
             ...(normalizedAddress || {}),
             freeShippingApplied,
             shippingMessage,
+            shippingAmount,
+            shippingQuote: calculatedShippingQuote ? {
+              provider: calculatedShippingQuote.provider,
+              serviceCode: calculatedShippingQuote.selected.serviceCode,
+              serviceName: calculatedShippingQuote.selected.serviceName,
+              price: calculatedShippingQuote.selected.price,
+              originalPrice: calculatedShippingQuote.selected.originalPrice,
+              deadlineDays: calculatedShippingQuote.selected.deadlineDays,
+              deadlineText: calculatedShippingQuote.selected.deadlineText,
+              cepOrigem: calculatedShippingQuote.originCep,
+              cepDestino: calculatedShippingQuote.destinationCep,
+            } : null,
             payment: {
               provider: mercadoPagoConfig ? 'mercadopago' : 'manual',
               method: isPixPayment ? 'PIX' : isCardPayment ? 'CREDIT_CARD' : paymentMethodText,
               installments: requestedInstallments,
-              checkoutEligible: mercadoPagoConfig ? (selectedDeliveryMethod === 'pickup' || freeShippingApplied) : false,
+              checkoutEligible: mercadoPagoConfig ? (selectedDeliveryMethod === 'pickup' || freeShippingApplied || calculatedShippingQuote !== null) : false,
             },
           },
           couponCode: appliedCouponCode,
@@ -242,7 +274,7 @@ router.post('/', async (req, res) => {
       shouldCreateCheckout = Boolean(
         mercadoPagoConfig &&
         (isPixPayment || isCardPayment) &&
-        (selectedDeliveryMethod === 'pickup' || freeShippingApplied),
+        (selectedDeliveryMethod === 'pickup' || freeShippingApplied || calculatedShippingQuote !== null),
       );
 
       return createdOrder;
@@ -288,7 +320,7 @@ router.post('/', async (req, res) => {
       payment = {
         provider: 'manual',
         reason: selectedDeliveryMethod === 'delivery' && !freeShippingApplied
-          ? 'Pagamento online liberado após a confirmação manual do frete pela loja.'
+          ? 'Pagamento online liberado após calcular o frete automático ou confirmar o frete com a loja.'
           : 'Pagamento online indisponível para este pedido.',
       };
     }
@@ -302,6 +334,8 @@ router.post('/', async (req, res) => {
           customerPhone,
           customerCpf: normalizedCustomerCpf,
           discountAmount,
+          shippingAmount,
+          shippingLabel: calculatedShippingQuote ? `Frete ${calculatedShippingQuote.selected.serviceName}` : undefined,
           paymentMethod: isPixPayment ? 'pix' : 'credit_card',
           items: items.map((item: { productId: string; productName: string; quantity: number }) => {
             const prod = products.find((p) => p.id === item.productId)!;
@@ -371,6 +405,8 @@ router.post('/', async (req, res) => {
       shipping: {
         method: selectedDeliveryMethod,
         freeShippingApplied,
+        amount: shippingAmount,
+        quote: calculatedShippingQuote,
         message: shippingMessage,
       },
     });

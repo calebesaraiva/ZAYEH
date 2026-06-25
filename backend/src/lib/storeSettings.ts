@@ -3,6 +3,7 @@ import type { PrismaClient, Setting } from '../generated/prisma';
 export const PUBLIC_SETTINGS_BLOCKLIST = new Set([
   'mercadopagoAccessToken',
   'mercadopagoWebhookSecret',
+  'correiosToken',
 ]);
 
 export type StoreSettingsMap = Record<string, string>;

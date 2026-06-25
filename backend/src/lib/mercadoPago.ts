@@ -129,6 +129,8 @@ export async function createMercadoPagoPreference(
     customerCpf?: string;
     items: { name: string; quantity: number; unitAmount: number; referenceId: string }[];
     discountAmount: number;
+    shippingAmount?: number;
+    shippingLabel?: string;
     paymentMethod: 'pix' | 'credit_card';
   },
 ) {
@@ -162,13 +164,24 @@ export async function createMercadoPagoPreference(
             }
           : undefined,
       },
-      items: payload.items.map((item) => ({
-        id: item.referenceId,
-        title: item.name,
-        quantity: item.quantity,
-        currency_id: 'BRL',
-        unit_price: Number(item.unitAmount.toFixed(2)),
-      })),
+      items: [
+        ...payload.items.map((item) => ({
+          id: item.referenceId,
+          title: item.name,
+          quantity: item.quantity,
+          currency_id: 'BRL',
+          unit_price: Number(item.unitAmount.toFixed(2)),
+        })),
+        ...(payload.shippingAmount && payload.shippingAmount > 0
+          ? [{
+              id: 'shipping-correios',
+              title: payload.shippingLabel || 'Frete Correios',
+              quantity: 1,
+              currency_id: 'BRL',
+              unit_price: Number(payload.shippingAmount.toFixed(2)),
+            }]
+          : []),
+      ],
       payment_methods: {
         installments: config.maxInstallments,
         default_installments: 1,

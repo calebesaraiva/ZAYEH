@@ -7,7 +7,7 @@ import {
   Tag, Loader2, Store, MapPin, Clock,
 } from 'lucide-react';
 import { useStore } from '../store/useStore';
-import { api } from '../lib/api';
+import { api, type ShippingQuoteResponse } from '../lib/api';
 import { getProductPricing, resolveStorePricingSettings } from '../lib/storePricing';
 
 const STEPS = ['Dados', 'Pagamento'];
@@ -45,6 +45,9 @@ export default function CheckoutPage() {
   const [orderId, setOrderId] = useState('');
   const [summaryOpen, setSummaryOpen] = useState(false);
   const [shippingMessage, setShippingMessage] = useState('Valor do frete informado manualmente pelo WhatsApp após o pedido.');
+  const [shippingQuote, setShippingQuote] = useState<ShippingQuoteResponse | null>(null);
+  const [shippingLoading, setShippingLoading] = useState(false);
+  const [shippingError, setShippingError] = useState('');
   const [settings, setSettings] = useState<Record<string, string>>({});
 
   const deliveryEnabled = settings.deliveryEnabled !== 'false';
@@ -66,18 +69,21 @@ export default function CheckoutPage() {
   const subtotal = cart.reduce((a, i) => a + i.product.price * i.quantity, 0);
   const pixTotal = cart.reduce((a, i) => a + getProductPricing(i.product, pricingSettings).pixPrice * i.quantity, 0);
   const pixDiscount = subtotal - pixTotal;
-  const total = resolvedPayMethod === 'pix' ? pixTotal - couponDiscount : subtotal - couponDiscount;
-  const cashback = Math.max(0, total) * 0.05;
+  const baseTotal = resolvedPayMethod === 'pix' ? pixTotal : subtotal;
 
   const freeShippingApplied =
     deliveryMethod === 'delivery' &&
-    (freeShipPromo || subtotal >= freeShipThreshold || couponFreeShipping);
+    (freeShipPromo || subtotal >= freeShipThreshold || couponFreeShipping || shippingQuote?.freeShippingApplied);
+  const shippingAmount = deliveryMethod === 'delivery' && !freeShippingApplied ? (shippingQuote?.selected.price || 0) : 0;
+  const total = Math.max(0, baseTotal - couponDiscount + shippingAmount);
+  const cashback = Math.max(0, total) * 0.05;
 
   const [form, setForm] = useState({
     nome: '', cpf: '', email: '', tel: '',
     cep: '', rua: '', num: '', comp: '', bairro: '', cidade: '', estado: '',
     card_num: '', card_name: '', card_exp: '', card_cvv: '', parcelas: '1',
   });
+  const cepDigits = form.cep.replace(/\D/g, '');
 
   useEffect(() => {
     api.settings.get()
@@ -92,6 +98,51 @@ export default function CheckoutPage() {
         // Mantem os defaults caso o backend de configuracoes nao responda.
       });
   }, []);
+
+  useEffect(() => {
+    if (deliveryMethod !== 'delivery') {
+      setShippingQuote(null);
+      setShippingError('');
+      setShippingLoading(false);
+      return;
+    }
+    if (cepDigits.length !== 8) {
+      setShippingQuote(null);
+      setShippingError('');
+      setShippingLoading(false);
+      return;
+    }
+
+    let cancelled = false;
+    setShippingLoading(true);
+    setShippingError('');
+    const timer = window.setTimeout(() => {
+      api.shipping.quote({
+        cepDestino: cepDigits,
+        subtotal,
+        serviceCode: shippingQuote?.selected.serviceCode,
+        freeShipping: freeShipPromo || subtotal >= freeShipThreshold || couponFreeShipping,
+      })
+        .then((quote) => {
+          if (cancelled) return;
+          setShippingQuote(quote);
+          setShippingError('');
+        })
+        .catch((error) => {
+          if (cancelled) return;
+          setShippingQuote(null);
+          setShippingError(error instanceof Error ? error.message : 'Nao foi possivel calcular o frete.');
+        })
+        .finally(() => {
+          if (!cancelled) setShippingLoading(false);
+        });
+    }, 450);
+
+    return () => {
+      cancelled = true;
+      window.clearTimeout(timer);
+    };
+  }, [cepDigits, deliveryMethod, subtotal, freeShipPromo, freeShipThreshold, couponFreeShipping]);
 
   useEffect(() => {
     if (!redirectingCheckout) return;
@@ -137,6 +188,10 @@ export default function CheckoutPage() {
         const required = [form.cep, form.rua, form.num, form.bairro, form.cidade, form.estado];
         if (required.some((value) => !value.trim())) {
           showToast('Preencha todos os dados de entrega.', 'error');
+          return false;
+        }
+        if (cepDigits.length === 8 && shippingLoading) {
+          showToast('Aguarde o calculo do frete.', 'error');
           return false;
         }
       }
@@ -191,6 +246,15 @@ export default function CheckoutPage() {
           cidade: form.cidade,
           estado: form.estado,
         } : undefined,
+        shippingQuote: shippingQuote?.selected
+          ? {
+              serviceCode: shippingQuote.selected.serviceCode,
+              serviceName: shippingQuote.selected.serviceName,
+              price: shippingQuote.selected.price,
+              deadlineDays: shippingQuote.selected.deadlineDays,
+              deadlineText: shippingQuote.selected.deadlineText,
+            }
+          : undefined,
         couponCode: couponApplied ? coupon.toUpperCase() : undefined,
         discount: couponDiscount,
       });
@@ -260,7 +324,11 @@ export default function CheckoutPage() {
     ? 'Retirada · Gratis'
     : freeShippingApplied
       ? 'Frete gratis'
-      : 'Avisado no WhatsApp';
+      : shippingQuote
+        ? `R$ ${shippingAmount.toFixed(2).replace('.', ',')}`
+        : shippingLoading
+          ? 'Calculando...'
+          : 'A calcular';
 
   const Stepper = () => (
     <div className="checkout-stepper-shell">
@@ -326,7 +394,9 @@ export default function CheckoutPage() {
               {deliveryEnabled && (
                 <button onClick={() => setDeliveryMethod('delivery')} style={{ padding: '16px 18px', borderRadius: 14, border: `1.5px solid ${deliveryMethod === 'delivery' ? '#32718d' : 'rgba(12,46,42,0.13)'}`, background: deliveryMethod === 'delivery' ? 'rgba(50,113,141,0.1)' : '#fffdf7', textAlign: 'left', cursor: 'pointer', fontFamily: 'inherit', boxShadow: deliveryMethod === 'delivery' ? '0 12px 26px rgba(50,113,141,0.12)' : 'none' }}>
                   <p style={{ fontSize: 14, fontWeight: 900, color: '#0b2f2b', marginBottom: 4 }}>Entrega</p>
-                  <p style={{ fontSize: 11, color: deliveryMethod === 'delivery' ? '#32718d' : '#596760', fontWeight: deliveryMethod === 'delivery' ? 800 : 500 }}>{freeShippingApplied ? 'Frete gratis para este pedido' : 'Valor avisado no WhatsApp'}</p>
+                  <p style={{ fontSize: 11, color: deliveryMethod === 'delivery' ? '#32718d' : '#596760', fontWeight: deliveryMethod === 'delivery' ? 800 : 500 }}>
+                    {freeShippingApplied ? 'Frete gratis para este pedido' : shippingQuote ? `${shippingQuote.selected.serviceName} · R$ ${shippingAmount.toFixed(2).replace('.', ',')}` : 'Frete calculado pelo CEP'}
+                  </p>
                 </button>
               )}
               {pickupEnabled && (
@@ -368,14 +438,22 @@ export default function CheckoutPage() {
                   <input style={inp} value={form.cidade} onChange={set('cidade')} placeholder="Imperatriz" onFocus={focusIn} onBlur={focusOut} />
                 </div>
                 <div style={{ gridColumn: 'span 2' }} className="checkout-full">
-                  <div style={{ padding: '12px 14px', borderRadius: 12, background: 'rgba(50,113,141,0.08)', border: '1px solid rgba(50,113,141,0.16)' }}>
-                    <p style={{ fontSize: 12, color: '#32718d', lineHeight: 1.6 }}>
-                      {freeShippingApplied
-                        ? 'Frete gratis aplicado neste pedido.'
-                        : whatsapp
-                          ? `O valor do frete sera informado manualmente no WhatsApp ${whatsapp} antes do pagamento.`
-                          : 'O valor do frete sera informado manualmente pelo WhatsApp apos o pedido.'}
-                    </p>
+                  <div style={{ padding: '14px 16px', borderRadius: 14, background: shippingError ? 'rgba(184,132,44,0.1)' : 'rgba(50,113,141,0.08)', border: `1px solid ${shippingError ? 'rgba(184,132,44,0.22)' : 'rgba(50,113,141,0.16)'}`, display: 'flex', alignItems: 'flex-start', gap: 10 }}>
+                    {shippingLoading ? <Loader2 size={16} style={{ color: '#32718d', flexShrink: 0, marginTop: 1, animation: 'spin 1s linear infinite' }} /> : <MapPin size={16} style={{ color: shippingError ? '#9b6d22' : '#32718d', flexShrink: 0, marginTop: 1 }} />}
+                    <div>
+                      <p style={{ fontSize: 12, color: '#0b2f2b', fontWeight: 900, marginBottom: 3 }}>
+                        {freeShippingApplied ? 'Frete gratis aplicado' : shippingQuote ? `Frete ${shippingQuote.selected.serviceName} calculado` : shippingLoading ? 'Calculando frete pelos Correios' : 'Calculo automatico de frete'}
+                      </p>
+                      <p style={{ fontSize: 12, color: shippingError ? '#6d5425' : '#32718d', lineHeight: 1.6 }}>
+                        {freeShippingApplied
+                          ? 'Este pedido atingiu uma regra de frete gratis. O valor da entrega fica zerado no Mercado Pago.'
+                          : shippingQuote
+                            ? `Valor: R$ ${shippingAmount.toFixed(2).replace('.', ',')}${shippingQuote.selected.deadlineText ? ` · Prazo estimado: ${shippingQuote.selected.deadlineText}` : ''}. Esse frete ja entra no total.`
+                            : shippingError
+                              ? `${shippingError}${whatsapp ? ` Se precisar, finalize com retirada ou fale conosco no WhatsApp ${whatsapp}.` : ''}`
+                              : 'Digite um CEP valido para buscar valor e prazo antes de seguir para pagamento.'}
+                      </p>
+                    </div>
                   </div>
                 </div>
               </>
@@ -487,7 +565,7 @@ export default function CheckoutPage() {
               {deliveryMethod === 'pickup' ? <Store size={16} style={{ color: '#0f9f5f', flexShrink: 0, marginTop: 2 }} /> : <MapPin size={16} style={{ color: '#32718d', flexShrink: 0, marginTop: 2 }} />}
               <div>
                 <p style={{ fontSize: 12, fontWeight: 900, color: '#0b2f2b', marginBottom: 3 }}>
-                  {deliveryMethod === 'pickup' ? 'Retirada na loja · Gratuita' : freeShippingApplied ? 'Entrega com frete gratis' : 'Entrega com frete avisado no WhatsApp'}
+                  {deliveryMethod === 'pickup' ? 'Retirada na loja · Gratuita' : freeShippingApplied ? 'Entrega com frete gratis' : shippingQuote ? `Entrega Correios · ${shippingQuote.selected.serviceName}` : 'Entrega com frete pelo CEP'}
                 </p>
                 {deliveryMethod === 'pickup' ? (
                   <>
@@ -502,7 +580,7 @@ export default function CheckoutPage() {
                   </>
                 ) : (
                   <span style={{ fontSize: 11, color: '#596760' }}>
-                    {freeShippingApplied ? 'Sua entrega entrou em promoção de frete grátis.' : whatsapp ? `A loja confirma o valor do frete pelo WhatsApp ${whatsapp}.` : 'A loja confirma o valor do frete pelo WhatsApp após o pedido.'}
+                    {freeShippingApplied ? 'Sua entrega entrou em promoção de frete grátis.' : shippingQuote ? `R$ ${shippingAmount.toFixed(2).replace('.', ',')}${shippingQuote.selected.deadlineText ? ` · ${shippingQuote.selected.deadlineText}` : ''}. Valor incluido no total.` : 'Informe um CEP valido para calcular automaticamente.'}
                   </span>
                 )}
               </div>
@@ -542,10 +620,18 @@ export default function CheckoutPage() {
                     </span>
                   </div>
                 )}
-                {!freeShippingApplied && deliveryMethod === 'delivery' && (
+                {!freeShippingApplied && deliveryMethod === 'delivery' && !shippingQuote && (
                   <p style={{ fontSize: 11, color: '#596760', lineHeight: 1.5 }}>
-                    O frete não entra nesse total. A loja informa o valor manualmente antes do pagamento e o checkout online só será liberado depois dessa confirmação.
+                    Informe um CEP valido para calcular o frete automaticamente antes do pagamento.
                   </p>
+                )}
+                {shippingQuote && deliveryMethod === 'delivery' && !freeShippingApplied && (
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12 }}>
+                    <span style={{ color: '#596760' }}>Frete</span>
+                    <span style={{ color: '#0e5a51', fontWeight: 900 }}>
+                      R$ {shippingAmount.toFixed(2).replace('.', ',')} {shippingQuote.selected.deadlineText ? `· ${shippingQuote.selected.deadlineText}` : ''}
+                    </span>
+                  </div>
                 )}
                 <div style={{ height: 1, background: 'rgba(12,46,42,0.1)' }} />
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -617,9 +703,15 @@ export default function CheckoutPage() {
           <span>Entrega</span>
           <span style={{ color: freeShippingApplied || deliveryMethod === 'pickup' ? '#22C55E' : '#60a5fa', fontWeight: 700 }}>{deliverySummary}</span>
         </div>
-        {deliveryMethod === 'delivery' && !freeShippingApplied && (
+        {shippingQuote && deliveryMethod === 'delivery' && !freeShippingApplied && (
+          <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, color: '#596760' }}>
+            <span>{shippingQuote.selected.serviceName}</span>
+            <span>{shippingQuote.selected.deadlineText || 'Prazo Correios'}</span>
+          </div>
+        )}
+        {deliveryMethod === 'delivery' && !freeShippingApplied && !shippingQuote && (
           <p style={{ fontSize: 11, color: '#596760', lineHeight: 1.5 }}>
-            O frete nao entra nesse total. A loja informa o valor manualmente antes do pagamento e o checkout online só é liberado depois disso.
+            Digite o CEP para calcular o frete automaticamente antes de pagar.
           </p>
         )}
         <div style={{ height: 1, background: 'rgba(12,46,42,0.1)' }} />
