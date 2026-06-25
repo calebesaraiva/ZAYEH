@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { InvalidWebhookSignatureError, WebhookSignatureValidator } from 'mercadopago';
 import { prisma } from '../lib/prisma';
 import {
   getMercadoPagoConfig,
@@ -18,6 +19,10 @@ function getStringValue(value: unknown) {
   return typeof value === 'string' ? value : '';
 }
 
+function getHeaderValue(value: string | string[] | undefined) {
+  return Array.isArray(value) ? value[0] : value;
+}
+
 router.post('/mercadopago/webhook', async (req, res) => {
   try {
     const config = await getMercadoPagoConfig(prisma);
@@ -27,6 +32,22 @@ router.post('/mercadopago/webhook', async (req, res) => {
     const data = payload.data && typeof payload.data === 'object' ? payload.data as Record<string, unknown> : {};
     const paymentId = String(req.query['data.id'] || req.query.data_id || data.id || '');
     if (!paymentId) return res.status(200).json({ ok: true });
+
+    if (config.webhookSecret) {
+      try {
+        WebhookSignatureValidator.validate({
+          xSignature: getHeaderValue(req.headers['x-signature']),
+          xRequestId: getHeaderValue(req.headers['x-request-id']),
+          dataId: paymentId,
+          secret: config.webhookSecret,
+        });
+      } catch (error) {
+        if (error instanceof InvalidWebhookSignatureError) {
+          return res.status(401).json({ error: 'Assinatura Mercado Pago inválida' });
+        }
+        throw error;
+      }
+    }
 
     const providerStatus = await getMercadoPagoPaymentStatus(config, paymentId);
     const orderId = providerStatus.externalReference || String(req.query.order || '');
