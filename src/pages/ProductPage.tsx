@@ -249,10 +249,10 @@ export default function ProductPage() {
               }}
             >
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 14 }}>
-                <span style={{ padding: '8px 12px', borderRadius: 999, background: 'rgba(216,168,74,0.12)', border: '1px solid rgba(216,168,74,0.2)', color: '#ddc0ff', fontSize: 11, fontWeight: 800 }}>
+                <span style={{ padding: '8px 12px', borderRadius: 999, background: 'rgba(216,168,74,0.12)', border: '1px solid rgba(216,168,74,0.2)', color: '#9b6d22', fontSize: 11, fontWeight: 800 }}>
                   {product.category}
                 </span>
-                <span style={{ padding: '8px 12px', borderRadius: 999, background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', color: '#c8c8c8', fontSize: 11, fontWeight: 700 }}>
+                <span style={{ padding: '8px 12px', borderRadius: 999, background: 'rgba(255,253,247,0.72)', border: '1px solid rgba(12,46,42,0.1)', color: '#87918a', fontSize: 11, fontWeight: 700 }}>
                   SKU {product.sku}
                 </span>
                 <span style={{ padding: '8px 12px', borderRadius: 999, background: product.stock > 3 ? 'rgba(34,197,94,0.12)' : 'rgba(255,184,0,0.12)', border: `1px solid ${product.stock > 3 ? 'rgba(34,197,94,0.22)' : 'rgba(255,184,0,0.22)'}`, color: product.stock > 3 ? '#9df1b6' : '#ffd880', fontSize: 11, fontWeight: 800 }}>
@@ -329,15 +329,15 @@ export default function ProductPage() {
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(170px, 1fr))', gap: 10, marginBottom: 18 }}>
                 <div style={{ padding: '14px 15px', borderRadius: 18, background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.06)' }}>
                   <p style={{ fontSize: 10.5, color: '#7b7b7b', fontWeight: 800, letterSpacing: '0.08em', marginBottom: 4 }}>IDEAL PARA</p>
-                  <p style={{ fontSize: 13.5, fontWeight: 700, color: '#fff' }}>{isPerfumaria ? 'Presentear ou marcar presença' : 'Uso diário e looks de destaque'}</p>
+                  <p style={{ fontSize: 13.5, fontWeight: 700, color: '#0b2f2b' }}>{isPerfumaria ? 'Presentear ou marcar presença' : 'Uso diário e looks de destaque'}</p>
                 </div>
                 <div style={{ padding: '14px 15px', borderRadius: 18, background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.06)' }}>
                   <p style={{ fontSize: 10.5, color: '#7b7b7b', fontWeight: 800, letterSpacing: '0.08em', marginBottom: 4 }}>DISPONIBILIDADE</p>
-                  <p style={{ fontSize: 13.5, fontWeight: 700, color: '#fff' }}>{product.stock > 0 ? `${product.stock} unidade${product.stock > 1 ? 's' : ''}` : 'Sob consulta'}</p>
+                  <p style={{ fontSize: 13.5, fontWeight: 700, color: '#0b2f2b' }}>{product.stock > 0 ? `${product.stock} unidade${product.stock > 1 ? 's' : ''}` : 'Sob consulta'}</p>
                 </div>
                 <div style={{ padding: '14px 15px', borderRadius: 18, background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.06)' }}>
                   <p style={{ fontSize: 10.5, color: '#7b7b7b', fontWeight: 800, letterSpacing: '0.08em', marginBottom: 4 }}>ATENDIMENTO</p>
-                  <p style={{ fontSize: 13.5, fontWeight: 700, color: '#fff' }}>Confirmação manual no WhatsApp</p>
+                  <p style={{ fontSize: 13.5, fontWeight: 700, color: '#0b2f2b' }}>Confirmação manual no WhatsApp</p>
                 </div>
               </div>
 
@@ -420,8 +420,8 @@ export default function ProductPage() {
                       <Icon size={16} />
                     </div>
                     <div>
-                      <p style={{ fontSize: 12.5, fontWeight: 800, color: '#fff', marginBottom: 3 }}>{label}</p>
-                      <p style={{ fontSize: 11.5, color: '#7c7c7c', lineHeight: 1.45 }}>{note}</p>
+                      <p style={{ fontSize: 12.5, fontWeight: 800, color: '#0b2f2b', marginBottom: 3 }}>{label}</p>
+                      <p style={{ fontSize: 11.5, color: '#596760', lineHeight: 1.45 }}>{note}</p>
                     </div>
                   </div>
                 ))}
@@ -432,27 +432,27 @@ export default function ProductPage() {
               <div style={{ padding: '18px 16px', borderRadius: 22, background: 'linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.01))', border: '1px solid rgba(255,255,255,0.06)' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
                   <Truck size={16} color="#22C55E" />
-                  <span style={{ fontSize: 12, fontWeight: 800, color: '#fff' }}>Entrega nacional</span>
+                  <span style={{ fontSize: 12, fontWeight: 800, color: '#0b2f2b' }}>Entrega nacional</span>
                 </div>
-                <p style={{ fontSize: 11.5, color: '#7f7f7f', lineHeight: 1.55 }}>
-                  Frete grátis acima de <strong style={{ color: '#fff' }}>{brl(pricing.freeShipThreshold)}</strong>. Abaixo disso, o valor é informado manualmente pelo WhatsApp.
+                <p style={{ fontSize: 11.5, color: '#596760', lineHeight: 1.55 }}>
+                  Frete grátis acima de <strong style={{ color: '#0b2f2b' }}>{brl(pricing.freeShipThreshold)}</strong>. Abaixo disso, o valor é informado manualmente pelo WhatsApp.
                 </p>
               </div>
               <div style={{ padding: '18px 16px', borderRadius: 22, background: 'linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.01))', border: '1px solid rgba(255,255,255,0.06)' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
                   <Store size={16} color="#FFB800" />
-                  <span style={{ fontSize: 12, fontWeight: 800, color: '#fff' }}>Retirada sem custo</span>
+                  <span style={{ fontSize: 12, fontWeight: 800, color: '#0b2f2b' }}>Retirada sem custo</span>
                 </div>
-                <p style={{ fontSize: 11.5, color: '#7f7f7f', lineHeight: 1.55 }}>
-                  Retire grátis em <strong style={{ color: '#fff' }}>Imperatriz - MA</strong> e agilize seu recebimento.
+                <p style={{ fontSize: 11.5, color: '#596760', lineHeight: 1.55 }}>
+                  Retire grátis em <strong style={{ color: '#0b2f2b' }}>Imperatriz - MA</strong> e agilize seu recebimento.
                 </p>
               </div>
               <div style={{ padding: '18px 16px', borderRadius: 22, background: 'linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.01))', border: '1px solid rgba(255,255,255,0.06)' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
                   <Clock3 size={16} color="#d8a84a" />
-                  <span style={{ fontSize: 12, fontWeight: 800, color: '#fff' }}>Confirmação rápida</span>
+                  <span style={{ fontSize: 12, fontWeight: 800, color: '#0b2f2b' }}>Confirmação rápida</span>
                 </div>
-                <p style={{ fontSize: 11.5, color: '#7f7f7f', lineHeight: 1.55 }}>
+                <p style={{ fontSize: 11.5, color: '#596760', lineHeight: 1.55 }}>
                   Pedido recebido com atendimento humanizado para validar entrega e pagamento.
                 </p>
               </div>
@@ -470,8 +470,8 @@ export default function ProductPage() {
               <div style={{ width: 38, height: 38, borderRadius: 12, background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.06)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 12 }}>
                 <Icon size={16} color="#FFB800" />
               </div>
-              <p style={{ fontSize: 14, fontWeight: 800, color: '#fff', marginBottom: 6 }}>{title}</p>
-              <p style={{ fontSize: 12, color: '#7f7f7f', lineHeight: 1.6 }}>{text}</p>
+              <p style={{ fontSize: 14, fontWeight: 800, color: '#0b2f2b', marginBottom: 6 }}>{title}</p>
+              <p style={{ fontSize: 12, color: '#596760', lineHeight: 1.6 }}>{text}</p>
             </div>
           ))}
         </div>
