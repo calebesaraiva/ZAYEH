@@ -9,6 +9,20 @@ const isPerfumariaCategory = (value: unknown) =>
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '')
     .includes('perfumaria');
+const normalizePaymentMethod = (value: unknown) =>
+  String(value || '')
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '');
+const resolvePaymentMethodColor = (method: string) => {
+  const normalizedMethod = normalizePaymentMethod(method);
+
+  if (normalizedMethod.includes('pix')) return '#22C55E';
+  if (normalizedMethod.includes('cartao') || normalizedMethod.includes('credito')) return '#d8a84a';
+  if (normalizedMethod.includes('debito')) return '#b8842c';
+
+  return '#555';
+};
 
 // Todas as rotas do painel exigem autenticação E perfil admin
 router.use(requireAuth, requireAdmin);
@@ -340,17 +354,12 @@ router.get('/finance', async (req, res) => {
     }
     const grandTotal = Object.values(pmMap).reduce((s, v) => s + v.total, 0) || 1;
 
-    const pmColors: Record<string, string> = {
-      cartao: '#d8a84a', credito: '#d8a84a', 'cartão': '#d8a84a',
-      pix: '#22C55E',
-      debito: '#b8842c', 'débito': '#b8842c',
-    };
     const paymentMethods = Object.entries(pmMap).map(([method, v]) => ({
       method,
       count: v.count,
       total: v.total,
       pct: Math.round((v.total / grandTotal) * 100),
-      color: pmColors[method.toLowerCase()] || '#555',
+      color: resolvePaymentMethodColor(method),
     })).sort((a, b) => b.total - a.total);
 
     const [totalsAgg, activeCustomers] = await Promise.all([
