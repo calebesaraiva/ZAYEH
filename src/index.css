@@ -1601,6 +1601,7 @@ body {
 .checkout-page { padding-bottom: 48px; }
 @media (max-width: 767px) {
   .checkout-page { padding-bottom: calc(84px + env(safe-area-inset-bottom)); }
+  .checkout-main .checkout-page { padding-bottom: calc(28px + env(safe-area-inset-bottom)); }
   .checkout-stepper-shell {
     margin-bottom: 18px;
     padding: 10px;

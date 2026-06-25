@@ -15,20 +15,20 @@ type PayMethod = 'cartao' | 'pix';
 type DeliveryMethod = 'delivery' | 'pickup';
 
 const inp: React.CSSProperties = {
-  width: '100%', background: '#0d0d0d',
-  border: '1px solid rgba(255,255,255,0.09)',
+  width: '100%', background: '#fffdf7',
+  border: '1px solid rgba(12,46,42,0.16)',
   borderRadius: 10, padding: '13px 14px',
-  color: '#fff', fontSize: 14, fontFamily: 'inherit', outline: 'none',
+  color: '#0b2f2b', fontSize: 14, fontFamily: 'inherit', outline: 'none',
   transition: 'border-color 0.2s',
 };
 const lbl: React.CSSProperties = {
-  display: 'block', fontSize: 11, fontWeight: 700, color: '#555',
+  display: 'block', fontSize: 11, fontWeight: 800, color: '#596760',
   letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 6,
 };
 const focusIn = (e: React.FocusEvent<HTMLInputElement | HTMLSelectElement>) =>
-  (e.target.style.borderColor = 'rgba(216,168,74,0.5)');
+  (e.target.style.borderColor = 'rgba(184,132,44,0.48)');
 const focusOut = (e: React.FocusEvent<HTMLInputElement | HTMLSelectElement>) =>
-  (e.target.style.borderColor = 'rgba(255,255,255,0.09)');
+  (e.target.style.borderColor = 'rgba(12,46,42,0.16)');
 
 export default function CheckoutPage() {
   const { cart, clearCart, showToast } = useStore();
@@ -97,6 +97,10 @@ export default function CheckoutPage() {
     if (!redirectingCheckout) return;
     window.location.assign(redirectingCheckout);
   }, [redirectingCheckout]);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [step]);
 
   const set = (k: keyof typeof form) =>
     (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) =>
@@ -316,15 +320,15 @@ export default function CheckoutPage() {
 
             <div style={{ gridColumn: 'span 2', display: 'grid', gridTemplateColumns: pickupEnabled && deliveryEnabled ? '1fr 1fr' : '1fr', gap: 12 }} className="checkout-full">
               {deliveryEnabled && (
-                <button onClick={() => setDeliveryMethod('delivery')} style={{ padding: '16px 18px', borderRadius: 12, border: `1.5px solid ${deliveryMethod === 'delivery' ? '#3b82f6' : 'rgba(255,255,255,0.07)'}`, background: deliveryMethod === 'delivery' ? 'rgba(59,130,246,0.08)' : 'rgba(255,255,255,0.02)', textAlign: 'left', cursor: 'pointer', fontFamily: 'inherit' }}>
-                  <p style={{ fontSize: 14, fontWeight: 800, color: '#fff', marginBottom: 4 }}>Entrega</p>
-                  <p style={{ fontSize: 11, color: deliveryMethod === 'delivery' ? '#60a5fa' : '#555' }}>{freeShippingApplied ? 'Frete gratis para este pedido' : 'Valor avisado no WhatsApp'}</p>
+                <button onClick={() => setDeliveryMethod('delivery')} style={{ padding: '16px 18px', borderRadius: 14, border: `1.5px solid ${deliveryMethod === 'delivery' ? '#32718d' : 'rgba(12,46,42,0.13)'}`, background: deliveryMethod === 'delivery' ? 'rgba(50,113,141,0.1)' : '#fffdf7', textAlign: 'left', cursor: 'pointer', fontFamily: 'inherit', boxShadow: deliveryMethod === 'delivery' ? '0 12px 26px rgba(50,113,141,0.12)' : 'none' }}>
+                  <p style={{ fontSize: 14, fontWeight: 900, color: '#0b2f2b', marginBottom: 4 }}>Entrega</p>
+                  <p style={{ fontSize: 11, color: deliveryMethod === 'delivery' ? '#32718d' : '#596760', fontWeight: deliveryMethod === 'delivery' ? 800 : 500 }}>{freeShippingApplied ? 'Frete gratis para este pedido' : 'Valor avisado no WhatsApp'}</p>
                 </button>
               )}
               {pickupEnabled && (
-                <button onClick={() => setDeliveryMethod('pickup')} style={{ padding: '16px 18px', borderRadius: 12, border: `1.5px solid ${deliveryMethod === 'pickup' ? '#22C55E' : 'rgba(255,255,255,0.07)'}`, background: deliveryMethod === 'pickup' ? 'rgba(34,197,94,0.08)' : 'rgba(255,255,255,0.02)', textAlign: 'left', cursor: 'pointer', fontFamily: 'inherit' }}>
-                  <p style={{ fontSize: 14, fontWeight: 800, color: '#fff', marginBottom: 4 }}>Retirar na loja</p>
-                  <p style={{ fontSize: 11, color: deliveryMethod === 'pickup' ? '#22C55E' : '#555' }}>Sem custo de frete</p>
+                <button onClick={() => setDeliveryMethod('pickup')} style={{ padding: '16px 18px', borderRadius: 14, border: `1.5px solid ${deliveryMethod === 'pickup' ? '#0f9f5f' : 'rgba(12,46,42,0.13)'}`, background: deliveryMethod === 'pickup' ? 'rgba(15,159,95,0.1)' : '#fffdf7', textAlign: 'left', cursor: 'pointer', fontFamily: 'inherit', boxShadow: deliveryMethod === 'pickup' ? '0 12px 26px rgba(15,159,95,0.12)' : 'none' }}>
+                  <p style={{ fontSize: 14, fontWeight: 900, color: '#0b2f2b', marginBottom: 4 }}>Retirar na loja</p>
+                  <p style={{ fontSize: 11, color: deliveryMethod === 'pickup' ? '#0f9f5f' : '#596760', fontWeight: deliveryMethod === 'pickup' ? 800 : 500 }}>Sem custo de frete</p>
                 </button>
               )}
             </div>
@@ -360,8 +364,8 @@ export default function CheckoutPage() {
                   <input style={inp} value={form.cidade} onChange={set('cidade')} placeholder="Imperatriz" onFocus={focusIn} onBlur={focusOut} />
                 </div>
                 <div style={{ gridColumn: 'span 2' }} className="checkout-full">
-                  <div style={{ padding: '12px 14px', borderRadius: 12, background: 'rgba(59,130,246,0.06)', border: '1px solid rgba(59,130,246,0.15)' }}>
-                    <p style={{ fontSize: 12, color: '#60a5fa', lineHeight: 1.6 }}>
+                  <div style={{ padding: '12px 14px', borderRadius: 12, background: 'rgba(50,113,141,0.08)', border: '1px solid rgba(50,113,141,0.16)' }}>
+                    <p style={{ fontSize: 12, color: '#32718d', lineHeight: 1.6 }}>
                       {freeShippingApplied
                         ? 'Frete gratis aplicado neste pedido.'
                         : whatsapp
@@ -373,17 +377,17 @@ export default function CheckoutPage() {
               </>
             ) : (
               <div style={{ gridColumn: 'span 2' }} className="checkout-full">
-                <div style={{ padding: '14px 16px', borderRadius: 12, background: 'rgba(34,197,94,0.05)', border: '1px solid rgba(34,197,94,0.15)', display: 'flex', alignItems: 'flex-start', gap: 12 }}>
-                  <Store size={16} style={{ color: '#22C55E', flexShrink: 0, marginTop: 2 }} />
+                <div style={{ padding: '14px 16px', borderRadius: 14, background: 'rgba(15,159,95,0.08)', border: '1px solid rgba(15,159,95,0.16)', display: 'flex', alignItems: 'flex-start', gap: 12 }}>
+                  <Store size={16} style={{ color: '#0f9f5f', flexShrink: 0, marginTop: 2 }} />
                   <div>
-                    <p style={{ fontSize: 12, fontWeight: 800, color: '#fff', marginBottom: 3 }}>Retirada gratuita</p>
+                    <p style={{ fontSize: 12, fontWeight: 900, color: '#0b2f2b', marginBottom: 3 }}>Retirada gratuita</p>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
-                      <MapPin size={10} style={{ color: '#22C55E' }} />
-                      <span style={{ fontSize: 11, color: '#888' }}>{storeAddress}</span>
+                      <MapPin size={10} style={{ color: '#0f9f5f' }} />
+                      <span style={{ fontSize: 11, color: '#596760' }}>{storeAddress}</span>
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 5, marginTop: 3 }}>
-                      <Clock size={10} style={{ color: '#22C55E' }} />
-                      <span style={{ fontSize: 11, color: '#888' }}>{storeHours}</span>
+                      <Clock size={10} style={{ color: '#0f9f5f' }} />
+                      <span style={{ fontSize: 11, color: '#596760' }}>{storeHours}</span>
                     </div>
                   </div>
                 </div>
@@ -396,24 +400,24 @@ export default function CheckoutPage() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
             <div style={{ display: 'grid', gridTemplateColumns: `${cardEnabled ? '1fr' : ''}${cardEnabled && pixEnabled ? ' 1fr' : ''}${pixEnabled ? '' : ''}`.trim() || '1fr', gap: 12 }}>
               {cardEnabled && (
-                <button onClick={() => setPayMethod('cartao')} style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '16px 18px', borderRadius: 12, cursor: 'pointer', fontFamily: 'inherit', border: `1.5px solid ${resolvedPayMethod === 'cartao' ? '#d8a84a' : 'rgba(255,255,255,0.07)'}`, background: resolvedPayMethod === 'cartao' ? 'rgba(216,168,74,0.08)' : 'rgba(255,255,255,0.02)', transition: 'all 0.2s', textAlign: 'left' }}>
-                  <div style={{ width: 40, height: 40, borderRadius: 10, background: resolvedPayMethod === 'cartao' ? 'rgba(216,168,74,0.15)' : 'rgba(255,255,255,0.04)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                    <CreditCard size={20} style={{ color: resolvedPayMethod === 'cartao' ? '#d8a84a' : '#444' }} />
+                <button onClick={() => setPayMethod('cartao')} style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '16px 18px', borderRadius: 14, cursor: 'pointer', fontFamily: 'inherit', border: `1.5px solid ${resolvedPayMethod === 'cartao' ? '#b8842c' : 'rgba(12,46,42,0.13)'}`, background: resolvedPayMethod === 'cartao' ? 'rgba(216,168,74,0.12)' : '#fffdf7', transition: 'all 0.2s', textAlign: 'left', boxShadow: resolvedPayMethod === 'cartao' ? '0 12px 26px rgba(184,132,44,0.12)' : 'none' }}>
+                  <div style={{ width: 40, height: 40, borderRadius: 12, background: resolvedPayMethod === 'cartao' ? 'rgba(216,168,74,0.18)' : 'rgba(12,46,42,0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                    <CreditCard size={20} style={{ color: resolvedPayMethod === 'cartao' ? '#9b6d22' : '#596760' }} />
                   </div>
                   <div>
-                  <p style={{ fontSize: 14, fontWeight: 800, color: resolvedPayMethod === 'cartao' ? '#fff' : '#666', marginBottom: 2 }}>Cartão</p>
-                  <p style={{ fontSize: 11, color: resolvedPayMethod === 'cartao' ? '#d8a84a' : '#333' }}>Parcele em até {maxInstallments}x</p>
+                  <p style={{ fontSize: 14, fontWeight: 900, color: '#0b2f2b', marginBottom: 2 }}>Cartão</p>
+                  <p style={{ fontSize: 11, color: resolvedPayMethod === 'cartao' ? '#9b6d22' : '#596760', fontWeight: resolvedPayMethod === 'cartao' ? 800 : 500 }}>Parcele em até {maxInstallments}x</p>
                   </div>
                 </button>
               )}
               {pixEnabled && (
-                <button onClick={() => setPayMethod('pix')} style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '16px 18px', borderRadius: 12, cursor: 'pointer', fontFamily: 'inherit', border: `1.5px solid ${resolvedPayMethod === 'pix' ? '#22C55E' : 'rgba(255,255,255,0.07)'}`, background: resolvedPayMethod === 'pix' ? 'rgba(34,197,94,0.08)' : 'rgba(255,255,255,0.02)', transition: 'all 0.2s', textAlign: 'left' }}>
-                  <div style={{ width: 40, height: 40, borderRadius: 10, background: resolvedPayMethod === 'pix' ? 'rgba(34,197,94,0.15)' : 'rgba(255,255,255,0.04)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                    <QrCode size={20} style={{ color: resolvedPayMethod === 'pix' ? '#22C55E' : '#444' }} />
+                <button onClick={() => setPayMethod('pix')} style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '16px 18px', borderRadius: 14, cursor: 'pointer', fontFamily: 'inherit', border: `1.5px solid ${resolvedPayMethod === 'pix' ? '#0f9f5f' : 'rgba(12,46,42,0.13)'}`, background: resolvedPayMethod === 'pix' ? 'rgba(15,159,95,0.1)' : '#fffdf7', transition: 'all 0.2s', textAlign: 'left', boxShadow: resolvedPayMethod === 'pix' ? '0 12px 26px rgba(15,159,95,0.12)' : 'none' }}>
+                  <div style={{ width: 40, height: 40, borderRadius: 12, background: resolvedPayMethod === 'pix' ? 'rgba(15,159,95,0.16)' : 'rgba(12,46,42,0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                    <QrCode size={20} style={{ color: resolvedPayMethod === 'pix' ? '#0f9f5f' : '#596760' }} />
                   </div>
                   <div>
-                    <p style={{ fontSize: 14, fontWeight: 800, color: resolvedPayMethod === 'pix' ? '#fff' : '#666', marginBottom: 2 }}>PIX</p>
-                    <p style={{ fontSize: 11, color: resolvedPayMethod === 'pix' ? '#22C55E' : '#333' }}>Desconto na hora</p>
+                    <p style={{ fontSize: 14, fontWeight: 900, color: '#0b2f2b', marginBottom: 2 }}>PIX</p>
+                    <p style={{ fontSize: 11, color: resolvedPayMethod === 'pix' ? '#0f9f5f' : '#596760', fontWeight: resolvedPayMethod === 'pix' ? 800 : 500 }}>Desconto na hora</p>
                   </div>
                 </button>
               )}
@@ -425,14 +429,14 @@ export default function CheckoutPage() {
                   <label style={lbl}>Parcelamento</label>
                   <select style={{ ...inp, cursor: 'pointer', appearance: 'none' as const }} value={form.parcelas} onChange={set('parcelas')} onFocus={focusIn} onBlur={focusOut}>
                     {Array.from({ length: maxInstallments }, (_, idx) => idx + 1).map((n) => (
-                      <option key={n} value={n} style={{ background: '#111' }}>
+                      <option key={n} value={n} style={{ background: '#fffdf7', color: '#0b2f2b' }}>
                         {n}x {n === 1 ? '(à vista)' : n <= interestFreeInstallments ? '(sem juros)' : '(juros no checkout)'}
                       </option>
                     ))}
                   </select>
                 </div>
-                <div style={{ padding: '14px 16px', borderRadius: 12, background: 'rgba(216,168,74,0.07)', border: '1px solid rgba(216,168,74,0.18)' }}>
-                  <p style={{ fontSize: 12, color: '#d7b8ff', lineHeight: 1.7 }}>
+                <div style={{ padding: '14px 16px', borderRadius: 12, background: 'rgba(216,168,74,0.1)', border: '1px solid rgba(216,168,74,0.2)' }}>
+                  <p style={{ fontSize: 12, color: '#6d5425', lineHeight: 1.7 }}>
                     Os dados do cartão serão preenchidos com segurança no checkout oficial do Mercado Pago. Na sua loja o cliente escolhe apenas a quantidade de parcelas.
                   </p>
                 </div>
@@ -441,39 +445,39 @@ export default function CheckoutPage() {
 
             {resolvedPayMethod === 'pix' && pixEnabled && (
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 14, padding: '8px 0' }}>
-                <div style={{ width: 110, height: 110, borderRadius: 12, background: '#fff', padding: 10, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <QrCode size={82} style={{ color: '#000' }} />
+                <div style={{ width: 110, height: 110, borderRadius: 16, background: '#fffdf7', padding: 10, display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid rgba(12,46,42,0.12)', boxShadow: '0 16px 32px rgba(12,46,42,0.08)' }}>
+                  <QrCode size={82} style={{ color: '#0b2f2b' }} />
                 </div>
-                <div style={{ textAlign: 'center', padding: '12px 24px', borderRadius: 10, background: 'rgba(34,197,94,0.07)', border: '1px solid rgba(34,197,94,0.18)' }}>
+                <div style={{ textAlign: 'center', padding: '12px 24px', borderRadius: 12, background: 'rgba(15,159,95,0.08)', border: '1px solid rgba(15,159,95,0.18)' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 6, justifyContent: 'center', marginBottom: 4 }}>
-                    <Zap size={14} style={{ color: '#22C55E' }} />
-                    <p style={{ fontWeight: 900, fontSize: 22, color: '#22C55E' }}>R$ {pixTotal.toFixed(2).replace('.', ',')}</p>
+                    <Zap size={14} style={{ color: '#0f9f5f' }} />
+                    <p style={{ fontWeight: 950, fontSize: 22, color: '#0f9f5f' }}>R$ {pixTotal.toFixed(2).replace('.', ',')}</p>
                   </div>
-                  <p style={{ fontSize: 12, color: '#22C55E', fontWeight: 600 }}>Economia de R$ {pixDiscount.toFixed(2).replace('.', ',')}</p>
+                  <p style={{ fontSize: 12, color: '#0f9f5f', fontWeight: 800 }}>Economia de R$ {pixDiscount.toFixed(2).replace('.', ',')}</p>
                 </div>
-                <p style={{ fontSize: 11, color: '#999', textAlign: 'center' }}>O QR Code real será exibido no checkout seguro do Mercado Pago.</p>
+                <p style={{ fontSize: 11, color: '#596760', textAlign: 'center' }}>O QR Code real será exibido no checkout seguro do Mercado Pago.</p>
               </div>
             )}
 
-            <div style={{ padding: '14px 16px', borderRadius: 12, background: deliveryMethod === 'pickup' ? 'rgba(34,197,94,0.05)' : 'rgba(59,130,246,0.05)', border: `1px solid ${deliveryMethod === 'pickup' ? 'rgba(34,197,94,0.15)' : 'rgba(59,130,246,0.15)'}`, display: 'flex', alignItems: 'flex-start', gap: 12 }}>
-              {deliveryMethod === 'pickup' ? <Store size={16} style={{ color: '#22C55E', flexShrink: 0, marginTop: 2 }} /> : <MapPin size={16} style={{ color: '#60a5fa', flexShrink: 0, marginTop: 2 }} />}
+            <div style={{ padding: '14px 16px', borderRadius: 14, background: deliveryMethod === 'pickup' ? 'rgba(15,159,95,0.08)' : 'rgba(50,113,141,0.08)', border: `1px solid ${deliveryMethod === 'pickup' ? 'rgba(15,159,95,0.16)' : 'rgba(50,113,141,0.16)'}`, display: 'flex', alignItems: 'flex-start', gap: 12 }}>
+              {deliveryMethod === 'pickup' ? <Store size={16} style={{ color: '#0f9f5f', flexShrink: 0, marginTop: 2 }} /> : <MapPin size={16} style={{ color: '#32718d', flexShrink: 0, marginTop: 2 }} />}
               <div>
-                <p style={{ fontSize: 12, fontWeight: 800, color: '#fff', marginBottom: 3 }}>
+                <p style={{ fontSize: 12, fontWeight: 900, color: '#0b2f2b', marginBottom: 3 }}>
                   {deliveryMethod === 'pickup' ? 'Retirada na loja · Gratuita' : freeShippingApplied ? 'Entrega com frete gratis' : 'Entrega com frete avisado no WhatsApp'}
                 </p>
                 {deliveryMethod === 'pickup' ? (
                   <>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
-                      <MapPin size={10} style={{ color: '#22C55E' }} />
-                      <span style={{ fontSize: 11, color: '#888' }}>{storeAddress}</span>
+                      <MapPin size={10} style={{ color: '#0f9f5f' }} />
+                      <span style={{ fontSize: 11, color: '#596760' }}>{storeAddress}</span>
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 5, marginTop: 3 }}>
-                      <Clock size={10} style={{ color: '#22C55E' }} />
-                      <span style={{ fontSize: 11, color: '#888' }}>{storeHours}</span>
+                      <Clock size={10} style={{ color: '#0f9f5f' }} />
+                      <span style={{ fontSize: 11, color: '#596760' }}>{storeHours}</span>
                     </div>
                   </>
                 ) : (
-                  <span style={{ fontSize: 11, color: '#888' }}>
+                  <span style={{ fontSize: 11, color: '#596760' }}>
                     {freeShippingApplied ? 'Sua entrega entrou em promoção de frete grátis.' : whatsapp ? `A loja confirma o valor do frete pelo WhatsApp ${whatsapp}.` : 'A loja confirma o valor do frete pelo WhatsApp após o pedido.'}
                   </span>
                 )}
@@ -483,46 +487,46 @@ export default function CheckoutPage() {
         )}
 
         {step === 2 && (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
             {cart.map((item) => (
-              <div key={`${item.product.id}-${item.size}`} style={{ display: 'flex', gap: 12, padding: '12px', borderRadius: 12, background: '#0d0d0d', border: '1px solid rgba(255,255,255,0.05)' }}>
-                <img src={item.product.image} alt={item.product.name} style={{ width: 52, height: 64, objectFit: 'cover', borderRadius: 8, flexShrink: 0 }} />
+              <div key={`${item.product.id}-${item.size}`} style={{ display: 'flex', gap: 12, padding: '12px', borderRadius: 14, background: 'linear-gradient(135deg,#fffdf7,#f3ead6)', border: '1px solid rgba(12,46,42,0.12)', boxShadow: '0 14px 28px rgba(12,46,42,0.07)' }}>
+                <img src={item.product.image} alt={item.product.name} style={{ width: 52, height: 64, objectFit: 'contain', borderRadius: 10, flexShrink: 0, background: 'linear-gradient(160deg,#f8f1df,#dce7df)', border: '1px solid rgba(12,46,42,0.1)' }} />
                 <div style={{ flex: 1, minWidth: 0 }}>
-                  <p style={{ fontWeight: 700, color: '#fff', fontSize: 13, marginBottom: 3 }}>{item.product.name}</p>
-                  <p style={{ fontSize: 11, color: '#444', marginBottom: 4 }}>
+                  <p style={{ fontWeight: 900, color: '#0b2f2b', fontSize: 13, marginBottom: 3 }}>{item.product.name}</p>
+                  <p style={{ fontSize: 11, color: '#596760', marginBottom: 4 }}>
                     {item.color ? `${item.color} · ` : ''}{item.size} · Qtd: {item.quantity}
                   </p>
-                  <p style={{ fontWeight: 900, color: '#fff', fontSize: 14 }}>R$ {((resolvedPayMethod === 'pix' ? getProductPricing(item.product, pricingSettings).pixPrice : item.product.price) * item.quantity).toFixed(2).replace('.', ',')}</p>
+                  <p style={{ fontWeight: 950, color: '#0e5a51', fontSize: 14 }}>R$ {((resolvedPayMethod === 'pix' ? getProductPricing(item.product, pricingSettings).pixPrice : item.product.price) * item.quantity).toFixed(2).replace('.', ',')}</p>
                 </div>
               </div>
             ))}
-            <div style={{ padding: '14px 16px', borderRadius: 12, background: '#0d0d0d', border: '1px solid rgba(255,255,255,0.05)', marginTop: 4 }}>
+            <div style={{ padding: '16px', borderRadius: 14, background: '#fffdf7', border: '1px solid rgba(12,46,42,0.12)', marginTop: 4, boxShadow: '0 14px 30px rgba(12,46,42,0.07)' }}>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12 }}>
-                  <span style={{ color: '#555' }}>Entrega</span>
-                  <span style={{ color: freeShippingApplied || deliveryMethod === 'pickup' ? '#22C55E' : '#60a5fa', fontWeight: 700 }}>{deliverySummary}</span>
+                  <span style={{ color: '#596760' }}>Entrega</span>
+                  <span style={{ color: freeShippingApplied || deliveryMethod === 'pickup' ? '#0f9f5f' : '#32718d', fontWeight: 800 }}>{deliverySummary}</span>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12 }}>
-                  <span style={{ color: '#555' }}>Pagamento</span>
-                  <span style={{ color: '#ccc' }}>{resolvedPayMethod === 'cartao' ? `Cartão ${form.parcelas}x${Number(form.parcelas) > interestFreeInstallments ? ' com juros' : ''}` : 'PIX'}</span>
+                  <span style={{ color: '#596760' }}>Pagamento</span>
+                  <span style={{ color: '#0b2f2b', fontWeight: 700 }}>{resolvedPayMethod === 'cartao' ? `Cartão ${form.parcelas}x${Number(form.parcelas) > interestFreeInstallments ? ' com juros' : ''}` : 'PIX'}</span>
                 </div>
                 {deliveryMethod === 'delivery' && (
                   <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, gap: 12 }}>
-                    <span style={{ color: '#555' }}>Entrega em</span>
-                    <span style={{ color: '#ccc', textAlign: 'right' }}>
+                    <span style={{ color: '#596760' }}>Entrega em</span>
+                    <span style={{ color: '#0b2f2b', textAlign: 'right', fontWeight: 650 }}>
                       {`${form.rua}, ${form.num}${form.comp ? ` · ${form.comp}` : ''} - ${form.bairro} · ${form.cidade}/${form.estado}`}
                     </span>
                   </div>
                 )}
                 {!freeShippingApplied && deliveryMethod === 'delivery' && (
-                  <p style={{ fontSize: 11, color: '#666', lineHeight: 1.5 }}>
+                  <p style={{ fontSize: 11, color: '#596760', lineHeight: 1.5 }}>
                     O frete não entra nesse total. A loja informa o valor manualmente antes do pagamento e o checkout online só será liberado depois dessa confirmação.
                   </p>
                 )}
-                <div style={{ height: 1, background: 'rgba(255,255,255,0.05)' }} />
+                <div style={{ height: 1, background: 'rgba(12,46,42,0.1)' }} />
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                  <span style={{ fontWeight: 800, color: '#fff', fontSize: 14 }}>Total</span>
-                  <span style={{ fontWeight: 900, color: '#fff', fontSize: 18 }}>R$ {total.toFixed(2).replace('.', ',')}</span>
+                  <span style={{ fontWeight: 900, color: '#0b2f2b', fontSize: 14 }}>Total</span>
+                  <span style={{ fontWeight: 950, color: '#0e5a51', fontSize: 18 }}>R$ {total.toFixed(2).replace('.', ',')}</span>
                 </div>
               </div>
             </div>
@@ -537,27 +541,27 @@ export default function CheckoutPage() {
       <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
         {cart.map((item) => (
           <div key={`${item.product.id}-${item.size}`} style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
-            <img src={item.product.image} alt={item.product.name} style={{ width: 44, height: 52, objectFit: 'cover', borderRadius: 6, flexShrink: 0 }} />
+            <img src={item.product.image} alt={item.product.name} style={{ width: 44, height: 52, objectFit: 'contain', borderRadius: 8, flexShrink: 0, background: 'linear-gradient(160deg,#f8f1df,#dce7df)', border: '1px solid rgba(12,46,42,0.1)' }} />
             <div style={{ flex: 1, minWidth: 0 }}>
-              <p style={{ fontSize: 12, fontWeight: 600, color: '#ccc', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{item.product.name}</p>
-              <p style={{ fontSize: 10.5, color: '#444', marginTop: 2 }}>{item.size} · ×{item.quantity}</p>
+              <p style={{ fontSize: 12, fontWeight: 800, color: '#0b2f2b', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{item.product.name}</p>
+              <p style={{ fontSize: 10.5, color: '#596760', marginTop: 2 }}>{item.size} · ×{item.quantity}</p>
             </div>
-            <p style={{ fontSize: 12, fontWeight: 800, color: '#fff', flexShrink: 0 }}>
+            <p style={{ fontSize: 12, fontWeight: 900, color: '#0e5a51', flexShrink: 0 }}>
               R$ {((resolvedPayMethod === 'pix' ? getProductPricing(item.product, pricingSettings).pixPrice : item.product.price) * item.quantity).toFixed(2).replace('.', ',')}
             </p>
           </div>
         ))}
       </div>
 
-      <div style={{ height: 1, background: 'rgba(255,255,255,0.06)' }} />
+      <div style={{ height: 1, background: 'rgba(12,46,42,0.1)' }} />
 
       {!couponApplied ? (
         <div style={{ display: 'flex', gap: 8 }}>
           <div style={{ position: 'relative', flex: 1 }}>
-            <Tag size={12} style={{ position: 'absolute', left: 11, top: '50%', transform: 'translateY(-50%)', color: '#444', pointerEvents: 'none' }} />
+            <Tag size={12} style={{ position: 'absolute', left: 11, top: '50%', transform: 'translateY(-50%)', color: '#596760', pointerEvents: 'none' }} />
             <input value={coupon} onChange={(e) => setCoupon(e.target.value)} placeholder="Cupom de desconto" style={{ ...inp, paddingLeft: 30, fontSize: 12 }} onFocus={focusIn} onBlur={focusOut} onKeyDown={(e) => e.key === 'Enter' && applyCoupon()} />
           </div>
-          <button onClick={applyCoupon} style={{ padding: '0 14px', borderRadius: 10, border: '1px solid rgba(255,255,255,0.1)', background: 'transparent', color: '#aaa', fontSize: 11, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit', whiteSpace: 'nowrap' }}>
+          <button onClick={applyCoupon} style={{ padding: '0 14px', borderRadius: 10, border: '1px solid rgba(12,46,42,0.16)', background: '#fffdf7', color: '#0e5a51', fontSize: 11, fontWeight: 900, cursor: 'pointer', fontFamily: 'inherit', whiteSpace: 'nowrap' }}>
             USAR
           </button>
         </div>
@@ -565,7 +569,7 @@ export default function CheckoutPage() {
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 12px', borderRadius: 8, background: 'rgba(34,197,94,0.06)', border: '1px solid rgba(34,197,94,0.2)' }}>
           <CheckCircle size={13} style={{ color: '#22C55E' }} />
           <span style={{ fontSize: 12, color: '#22C55E', fontWeight: 700, flex: 1 }}>{coupon.toUpperCase()} aplicado!</span>
-          <button onClick={resetCoupon} style={{ fontSize: 13, color: '#444', background: 'none', border: 'none', cursor: 'pointer' }}>✕</button>
+          <button onClick={resetCoupon} style={{ fontSize: 13, color: '#596760', background: 'none', border: 'none', cursor: 'pointer' }}>✕</button>
         </div>
       )}
 
@@ -590,14 +594,14 @@ export default function CheckoutPage() {
           <span style={{ color: freeShippingApplied || deliveryMethod === 'pickup' ? '#22C55E' : '#60a5fa', fontWeight: 700 }}>{deliverySummary}</span>
         </div>
         {deliveryMethod === 'delivery' && !freeShippingApplied && (
-          <p style={{ fontSize: 11, color: '#666', lineHeight: 1.5 }}>
+          <p style={{ fontSize: 11, color: '#596760', lineHeight: 1.5 }}>
             O frete nao entra nesse total. A loja informa o valor manualmente antes do pagamento e o checkout online só é liberado depois disso.
           </p>
         )}
-        <div style={{ height: 1, background: 'rgba(255,255,255,0.06)' }} />
+        <div style={{ height: 1, background: 'rgba(12,46,42,0.1)' }} />
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <span style={{ fontWeight: 800, fontSize: 14, color: '#fff' }}>Total</span>
-          <span style={{ fontWeight: 900, fontSize: 20, color: '#fff' }}>R$ {total.toFixed(2).replace('.', ',')}</span>
+          <span style={{ fontWeight: 900, fontSize: 14, color: '#0b2f2b' }}>Total</span>
+          <span style={{ fontWeight: 950, fontSize: 20, color: '#0e5a51' }}>R$ {total.toFixed(2).replace('.', ',')}</span>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '8px 12px', borderRadius: 8, background: 'rgba(216,168,74,0.07)', border: '1px solid rgba(216,168,74,0.15)' }}>
           <Coins size={13} style={{ color: '#d8a84a', flexShrink: 0 }} />
@@ -617,7 +621,7 @@ export default function CheckoutPage() {
       {Stepper()}
 
       <div className="checkout-layout">
-        <div style={{ background: '#111', borderRadius: 16, border: '1px solid rgba(255,255,255,0.06)', padding: '24px' }}>
+        <div style={{ background: 'rgba(255,253,247,0.9)', borderRadius: 18, border: '1px solid rgba(12,46,42,0.12)', padding: '24px', boxShadow: '0 22px 60px rgba(12,46,42,0.1)' }}>
           <p style={{ fontSize: 10, fontWeight: 900, color: '#d8a84a', letterSpacing: '0.16em', textTransform: 'uppercase', marginBottom: 20 }}>
             {STEPS[step]}
           </p>
@@ -625,25 +629,25 @@ export default function CheckoutPage() {
 
           <div style={{ display: 'flex', gap: 10, marginTop: 24 }}>
             {step > 0 && (
-              <button onClick={prev} style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '13px 18px', borderRadius: 10, border: '1px solid rgba(255,255,255,0.09)', background: 'transparent', color: '#777', fontWeight: 700, fontSize: 12, cursor: 'pointer', fontFamily: 'inherit', letterSpacing: '0.06em', transition: 'all 0.2s' }}>
+              <button onClick={prev} style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '13px 18px', borderRadius: 12, border: '1px solid rgba(12,46,42,0.14)', background: '#fffdf7', color: '#596760', fontWeight: 800, fontSize: 12, cursor: 'pointer', fontFamily: 'inherit', letterSpacing: '0.06em', transition: 'all 0.2s' }}>
                 <ChevronLeft size={14} /> VOLTAR
               </button>
             )}
-            <button onClick={next} style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, padding: '14px', borderRadius: 10, border: 'none', background: 'linear-gradient(135deg,#d8a84a,#b8842c)', color: '#fff', fontWeight: 900, fontSize: 13, letterSpacing: '0.06em', cursor: 'pointer', fontFamily: 'inherit' }}>
+            <button onClick={next} style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, padding: '14px', borderRadius: 12, border: 'none', background: step === 2 ? 'linear-gradient(135deg,#0d2f2b,#15564e)' : 'linear-gradient(135deg,#b8842c,#f0cf82)', color: step === 2 ? '#fffdf7' : '#111', fontWeight: 950, fontSize: 13, letterSpacing: '0.06em', cursor: 'pointer', fontFamily: 'inherit', boxShadow: '0 16px 30px rgba(12,46,42,0.15)' }}>
               {submitting ? <><Loader2 size={14} style={{ animation: 'spin 1s linear infinite' }} /> PROCESSANDO...</> : step === 2 ? <><Lock size={14} /> {resolvedPayMethod === 'cartao' || resolvedPayMethod === 'pix' ? 'IR PARA PAGAMENTO' : 'CONFIRMAR PEDIDO'}</> : <>CONTINUAR <ChevronRight size={14} /></>}
             </button>
           </div>
         </div>
 
         <div>
-          <button onClick={() => setSummaryOpen((v) => !v)} className="checkout-summary-toggle" style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '14px 18px', borderRadius: 12, border: '1px solid rgba(255,255,255,0.08)', background: '#111', cursor: 'pointer', fontFamily: 'inherit', marginBottom: 10 }}>
-            <span style={{ fontSize: 12, color: '#888', fontWeight: 600 }}>Resumo do pedido</span>
+          <button onClick={() => setSummaryOpen((v) => !v)} className="checkout-summary-toggle" style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '14px 18px', borderRadius: 14, border: '1px solid rgba(12,46,42,0.12)', background: '#fffdf7', cursor: 'pointer', fontFamily: 'inherit', marginBottom: 10, boxShadow: '0 12px 28px rgba(12,46,42,0.08)' }}>
+            <span style={{ fontSize: 12, color: '#596760', fontWeight: 800 }}>Resumo do pedido</span>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-              <span style={{ fontWeight: 900, color: '#fff', fontSize: 15 }}>R$ {total.toFixed(2).replace('.', ',')}</span>
-              <ChevronRight size={14} style={{ color: '#555', transform: summaryOpen ? 'rotate(90deg)' : 'none', transition: 'transform 0.2s' }} />
+              <span style={{ fontWeight: 950, color: '#0e5a51', fontSize: 15 }}>R$ {total.toFixed(2).replace('.', ',')}</span>
+              <ChevronRight size={14} style={{ color: '#596760', transform: summaryOpen ? 'rotate(90deg)' : 'none', transition: 'transform 0.2s' }} />
             </div>
           </button>
-          <div className={`checkout-summary-card${summaryOpen ? ' open' : ''}`} style={{ background: '#111', borderRadius: 16, border: '1px solid rgba(255,255,255,0.06)', padding: '20px' }}>
+          <div className={`checkout-summary-card${summaryOpen ? ' open' : ''}`} style={{ background: '#fffdf7', borderRadius: 18, border: '1px solid rgba(12,46,42,0.12)', padding: '20px', boxShadow: '0 22px 54px rgba(12,46,42,0.1)' }}>
             {Summary()}
           </div>
         </div>

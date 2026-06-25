@@ -31,7 +31,7 @@ export default function StoreLayout() {
       </main>
 
       {!isCheckout && <Footer />}
-      <MobileBottomNav />
+      {!isCheckout && <MobileBottomNav />}
       <MobileDrawer open={drawerOpen} onClose={() => setDrawerOpen(false)} onAccountOpen={() => setAccountOpen(true)} />
       <CartDrawer open={cartOpen} onClose={() => setCartOpen(false)} />
       <AccountModal open={accountOpen} onClose={() => setAccountOpen(false)} />

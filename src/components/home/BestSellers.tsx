@@ -5,8 +5,10 @@ import { useProducts } from '../../lib/useApi';
 import ProductCard from '../ui/ProductCard';
 
 export default function BestSellers() {
-  const { data } = useProducts({ bestSeller: 'true', limit: '8' });
+  const { data, loading } = useProducts({ bestSeller: 'true', limit: '8' });
   const items = data?.products ?? [];
+
+  if (!loading && items.length === 0) return null;
 
   return (
     <section className="section-gap">
