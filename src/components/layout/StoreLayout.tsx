@@ -18,8 +18,8 @@ export default function StoreLayout() {
   const isCheckout = pathname === '/checkout';
 
   return (
-    <div className="zayeh-light" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', background: '#f4efe4' }}>
-      <div className="zayeh-light-header" style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50, background: '#f4efe4' }}>
+    <div className="zayeh-light" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', background: '#f7f3ea' }}>
+      <div className="zayeh-light-header" style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50, background: '#f7f3ea' }}>
         <TopBar />
         <Header onMenuOpen={() => setDrawerOpen(true)} onCartOpen={() => setCartOpen(true)} onAccountOpen={() => setAccountOpen(true)} />
         <Navigation />

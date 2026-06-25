@@ -13,11 +13,11 @@ export default function TopBar() {
 
   return (
     <div style={{
-      background: 'linear-gradient(90deg, #17201d 0%, #241a10 50%, #17201d 100%)',
+      background: 'linear-gradient(90deg, #061c1a 0%, #0c2e2a 46%, #1d140c 100%)',
       borderBottom: '1px solid rgba(216,168,74,0.18)',
       overflow: 'hidden',
     }}>
-      <div style={{ height: 2, background: 'linear-gradient(90deg, #d8a84a 0%, #f5df9b 50%, #b8842c 100%)' }} />
+      <div style={{ height: 2, background: 'linear-gradient(90deg, #0e5a51 0%, #d6b46a 46%, #b65f2a 100%)' }} />
 
       {/* Desktop: all items in a row */}
       <div className="hdr-desktop-only" style={{ alignItems: 'center', justifyContent: 'center', gap: 0, padding: '0 24px', height: 36 }}>

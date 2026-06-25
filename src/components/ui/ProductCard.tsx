@@ -32,11 +32,11 @@ export default function ProductCard({ product }: Props) {
           cursor: 'pointer',
           borderRadius: 22,
           overflow: 'hidden',
-          background: 'linear-gradient(180deg, #fffaf0 0%, #f0e1c4 100%)',
-          border: '1px solid rgba(92, 66, 22, 0.14)',
+          background: 'linear-gradient(180deg, #fffdf7 0%, #f6eee0 100%)',
+          border: '1px solid rgba(12, 46, 42, 0.16)',
           transition: 'box-shadow 0.25s, transform 0.25s, border-color 0.25s',
           transform: hovered ? 'translateY(-5px)' : 'translateY(0)',
-          boxShadow: hovered ? '0 24px 58px rgba(95, 67, 21, 0.18)' : '0 14px 34px rgba(95, 67, 21, 0.08)',
+          boxShadow: hovered ? '0 24px 58px rgba(12, 46, 42, 0.16)' : '0 14px 34px rgba(12, 46, 42, 0.07)',
         }}
         onClick={openModal}>
 
@@ -46,9 +46,9 @@ export default function ProductCard({ product }: Props) {
           aspectRatio: '3/4',
           overflow: 'hidden',
           background: isPerfumaria
-            ? 'radial-gradient(circle at 50% 18%, rgba(232, 196, 121, 0.42), transparent 42%), linear-gradient(180deg, #fff6e4 0%, #ead8b5 100%)'
-            : 'linear-gradient(180deg, #f5ead6 0%, #e9d8b9 100%)',
-          borderBottom: '1px solid rgba(92, 66, 22, 0.1)',
+            ? 'radial-gradient(circle at 50% 16%, rgba(215, 177, 91, 0.36), transparent 42%), linear-gradient(160deg, #f8f1df 0%, #e4ebdf 100%)'
+            : 'linear-gradient(160deg, #f8f1df 0%, #e5ece1 100%)',
+          borderBottom: '1px solid rgba(12, 46, 42, 0.12)',
         }}>
           <img
             src={product.image}
@@ -71,7 +71,7 @@ export default function ProductCard({ product }: Props) {
           {/* Badges */}
           <div style={{ position: 'absolute', top: 10, left: 10, display: 'flex', flexDirection: 'column', gap: 5 }}>
             {product.discount && (
-              <span style={{ background: '#b8862f', color: '#17120a', fontSize: 9.5, fontWeight: 900, padding: '4px 10px', borderRadius: 99, letterSpacing: '0.06em', boxShadow: '0 8px 20px rgba(184,134,47,0.24)' }}>
+              <span style={{ background: '#b65f2a', color: '#fffaf0', fontSize: 9.5, fontWeight: 900, padding: '4px 10px', borderRadius: 99, letterSpacing: '0.06em', boxShadow: '0 8px 20px rgba(182,95,42,0.22)' }}>
                 {product.discount}% OFF
               </span>
             )}
@@ -114,7 +114,7 @@ export default function ProductCard({ product }: Props) {
 
         {/* Info */}
         <div style={{ padding: '16px 16px 18px' }}>
-          <p style={{ fontSize: 10, color: '#a0772c', letterSpacing: '0.16em', textTransform: 'uppercase', marginBottom: 6, fontWeight: 800 }}>
+          <p style={{ fontSize: 10, color: '#0e5a51', letterSpacing: '0.16em', textTransform: 'uppercase', marginBottom: 6, fontWeight: 800 }}>
             {product.category}
           </p>
           <h3 style={{ fontSize: 14.5, fontWeight: 900, color: '#171d1b', lineHeight: 1.28, marginBottom: 9, overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' }}>
@@ -136,7 +136,7 @@ export default function ProductCard({ product }: Props) {
                 R$ {product.originalPrice.toFixed(2).replace('.', ',')}
               </p>
             )}
-            <p style={{ fontSize: 18, fontWeight: 900, color: '#171d1b', lineHeight: 1.2, marginBottom: 3 }}>
+            <p style={{ fontSize: 18, fontWeight: 900, color: '#0b2f2b', lineHeight: 1.2, marginBottom: 3 }}>
               R$ {product.price.toFixed(2).replace('.', ',')}
             </p>
             <p style={{ fontSize: 11, color: '#22C55E', fontWeight: 600 }}>
@@ -148,9 +148,9 @@ export default function ProductCard({ product }: Props) {
           </div>
 
           {/* Cashback */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 5, marginTop: 11, padding: '7px 9px', borderRadius: 10, background: 'rgba(196,148,56,0.12)', border: '1px solid rgba(196,148,56,0.2)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 5, marginTop: 11, padding: '7px 9px', borderRadius: 10, background: 'rgba(14,90,81,0.08)', border: '1px solid rgba(14,90,81,0.16)' }}>
             <Coins size={10} style={{ color: '#a87724', flexShrink: 0 }} />
-            <span style={{ fontSize: 10.5, color: '#8a641e', fontWeight: 800 }}>
+            <span style={{ fontSize: 10.5, color: '#0e5a51', fontWeight: 800 }}>
               5% cashback · R$ {(product.price * 0.05).toFixed(2).replace('.', ',')}
             </span>
           </div>

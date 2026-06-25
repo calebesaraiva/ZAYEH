@@ -1010,87 +1010,90 @@ body {
 
 /* ZAYEH light editorial theme */
 .zayeh-light {
-  --bg: #f4efe4;
-  --bg2: #fffaf0;
-  --bg3: #efe3c9;
-  --border: rgba(71, 56, 28, 0.12);
-  --border2: rgba(71, 56, 28, 0.18);
-  --text: #171d1b;
-  --muted: #6f6658;
-  --muted2: #948872;
+  --bg: #f7f3ea;
+  --bg2: #fffdf7;
+  --bg3: #e6ece2;
+  --border: rgba(12, 46, 42, 0.14);
+  --border2: rgba(12, 46, 42, 0.2);
+  --text: #0b2f2b;
+  --muted: #596760;
+  --muted2: #87918a;
   background:
-    linear-gradient(180deg, #f8f3ea 0%, #efe3cf 46%, #f6efe1 100%) !important;
-  color: #171d1b !important;
+    radial-gradient(circle at 12% 8%, rgba(14, 90, 81, 0.08), transparent 28%),
+    radial-gradient(circle at 86% 22%, rgba(214, 180, 106, 0.16), transparent 30%),
+    linear-gradient(180deg, #fbf8f0 0%, #f0eadf 48%, #f7f3ea 100%) !important;
+  color: #0b2f2b !important;
 }
 .zayeh-light-header,
 .zayeh-light-header header,
 .zayeh-light-header nav,
 .zayeh-light .hdr-mobile-search-bar {
-  background: rgba(250, 245, 236, 0.96) !important;
-  border-color: rgba(71, 56, 28, 0.12) !important;
-  box-shadow: 0 12px 34px rgba(62, 46, 18, 0.08) !important;
+  background: rgba(255, 253, 247, 0.96) !important;
+  border-color: rgba(12, 46, 42, 0.13) !important;
+  box-shadow: 0 12px 34px rgba(12, 46, 42, 0.08) !important;
   backdrop-filter: blur(18px);
 }
 .zayeh-light-header input {
-  background: #fffaf0 !important;
-  border-color: rgba(71, 56, 28, 0.14) !important;
-  color: #171d1b !important;
+  background: #fffdf7 !important;
+  border-color: rgba(12, 46, 42, 0.16) !important;
+  color: #0b2f2b !important;
 }
 .zayeh-light-header input::placeholder {
   color: #8a806d !important;
 }
 .zayeh-light .hdr-logo-img {
-  background: linear-gradient(135deg, #fffaf0, #ead8ad) !important;
-  border-color: rgba(184, 132, 44, 0.3) !important;
-  box-shadow: 0 12px 34px rgba(116, 82, 27, 0.14) !important;
+  background: linear-gradient(135deg, #0d2f2b, #123f39) !important;
+  border-color: rgba(214, 180, 106, 0.38) !important;
+  box-shadow: 0 12px 34px rgba(12, 46, 42, 0.18) !important;
 }
 .zayeh-light .hdr-logo-img span {
-  color: #181511;
+  color: #fffdf7;
 }
 .zayeh-light .hdr-logo-img > div > span:first-child {
-  color: #171d1b !important;
+  color: #fffdf7 !important;
 }
 .zayeh-light .hdr-menu-btn,
 .zayeh-light .hdr-sacola,
 .zayeh-light .hdr-icon,
 .zayeh-light .hdr-entrar {
-  background: #fffaf0 !important;
-  border: 1px solid rgba(71, 56, 28, 0.14) !important;
-  color: #1d2522 !important;
-  box-shadow: 0 10px 24px rgba(86, 63, 26, 0.08) !important;
+  background: #fffdf7 !important;
+  border: 1px solid rgba(12, 46, 42, 0.16) !important;
+  color: #0b2f2b !important;
+  box-shadow: 0 10px 24px rgba(12, 46, 42, 0.08) !important;
 }
 .zayeh-light .hdr-sacola {
-  background: linear-gradient(135deg, #d8a84a, #f5df9b) !important;
+  background: linear-gradient(135deg, #0d2f2b, #123f39) !important;
+  color: #fffdf7 !important;
 }
 .zayeh-light .nav-link,
 .zayeh-light-header nav a {
-  color: #5c5548 !important;
+  color: #44544d !important;
 }
 .zayeh-light-header nav a:hover,
 .zayeh-light-header nav a[aria-current="page"] {
-  color: #171d1b !important;
+  color: #0b2f2b !important;
 }
 .zayeh-light .topbar-mobile-item {
-  background: rgba(255, 250, 240, 0.72) !important;
-  border-color: rgba(71, 56, 28, 0.12) !important;
-  color: #4e493f !important;
+  background: rgba(255, 253, 247, 0.12) !important;
+  border-color: rgba(214, 180, 106, 0.22) !important;
+  color: #f7f3ea !important;
 }
 .zayeh-light .hero-section {
-  background: linear-gradient(135deg, #f8f3ea, #ead7b5) !important;
-  border-bottom: 1px solid rgba(71, 56, 28, 0.1);
+  background: linear-gradient(135deg, #fbf8f0, #e6ece2) !important;
+  border-bottom: 1px solid rgba(12, 46, 42, 0.1);
 }
 .zayeh-light .hero-section .btn-primary,
 .zayeh-light .btn-primary {
-  background: linear-gradient(135deg, #c49438, #f0cf82) !important;
-  color: #181511 !important;
+  background: linear-gradient(135deg, #0d2f2b, #123f39) !important;
+  color: #fffdf7 !important;
   border-radius: 999px !important;
   box-shadow: 0 16px 36px rgba(153, 109, 37, 0.22) !important;
 }
 .zayeh-light .hero-section .btn-outline,
 .zayeh-light .btn-outline {
-  background: rgba(255, 250, 240, 0.82) !important;
-  color: #1d2522 !important;
-  border: 1px solid rgba(71, 56, 28, 0.18) !important;
+  background: rgba(255, 253, 247, 0.88) !important;
+  color: #0d2f2b !important;
+  border: 1px solid rgba(12, 46, 42, 0.18) !important;
   border-radius: 999px !important;
 }
 .zayeh-light .section-gap {
@@ -1100,56 +1103,73 @@ body {
 .zayeh-light h1,
 .zayeh-light h2,
 .zayeh-light h3 {
-  color: #171d1b !important;
+  color: #0b2f2b !important;
 }
 .zayeh-light .section-label,
 .zayeh-light .gold-text {
-  color: #b8842c !important;
+  color: #0e5a51 !important;
 }
 .zayeh-light .product-card,
 .zayeh-light .testimonial-card,
 .zayeh-light .card,
 .zayeh-light .collections-grid a,
 .zayeh-light .benefits-grid > div {
-  background: rgba(255, 250, 240, 0.86) !important;
-  border-color: rgba(71, 56, 28, 0.12) !important;
-  color: #171d1b !important;
-  box-shadow: 0 18px 48px rgba(70, 48, 15, 0.08) !important;
+  background: rgba(255, 253, 247, 0.9) !important;
+  border-color: rgba(12, 46, 42, 0.13) !important;
+  color: #0b2f2b !important;
+  box-shadow: 0 18px 48px rgba(12, 46, 42, 0.08) !important;
 }
 .zayeh-light .testimonial-card p,
 .zayeh-light .collections-grid p,
 .zayeh-light .benefits-grid p {
-  color: #5f5647 !important;
+  color: #596760 !important;
 }
 .zayeh-light .product-card strong,
 .zayeh-light .benefits-grid p:first-child,
 .zayeh-light .collections-grid h3 {
-  color: #171d1b !important;
+  color: #0b2f2b !important;
+}
+.zayeh-light .benefits-luxe .benefits-grid > div {
+  background: transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+  color: #fffdf7 !important;
+}
+.zayeh-light .benefits-luxe .benefits-grid p:first-child {
+  color: #fffdf7 !important;
+}
+.zayeh-light .benefits-luxe .benefits-grid p {
+  color: #d8cdb8 !important;
+}
+.zayeh-light .promo-invert {
+  background: #fffdf7 !important;
+  color: #0d2f2b !important;
+  box-shadow: 0 18px 34px rgba(0,0,0,0.18) !important;
 }
 .zayeh-light footer,
 .zayeh-light .store-footer {
-  background: #eee2cc !important;
-  border-color: rgba(71, 56, 28, 0.12) !important;
-  color: #171d1b !important;
+  background: #e9e4d9 !important;
+  border-color: rgba(12, 46, 42, 0.12) !important;
+  color: #0b2f2b !important;
 }
 .zayeh-light .bottom-nav {
-  background: rgba(255, 250, 240, 0.98) !important;
-  border-color: rgba(71, 56, 28, 0.14) !important;
-  box-shadow: 0 -12px 30px rgba(62, 46, 18, 0.1) !important;
+  background: rgba(255, 253, 247, 0.98) !important;
+  border-color: rgba(12, 46, 42, 0.14) !important;
+  box-shadow: 0 -12px 30px rgba(12, 46, 42, 0.1) !important;
 }
 .zayeh-light .bottom-nav a,
 .zayeh-light .bottom-nav button {
-  color: #5f5647 !important;
+  color: #44544d !important;
 }
 
 /* Premium light purchase flow */
 .zayeh-light .qv-modal {
-  background: linear-gradient(135deg, #fff8e8 0%, #ead8b5 100%) !important;
-  border: 1px solid rgba(92, 66, 22, 0.18) !important;
-  box-shadow: 0 42px 110px rgba(50, 35, 12, 0.32) !important;
+  background: linear-gradient(135deg, #fffdf7 0%, #e6ece2 100%) !important;
+  border: 1px solid rgba(12, 46, 42, 0.18) !important;
+  box-shadow: 0 42px 110px rgba(12, 46, 42, 0.28) !important;
 }
 .zayeh-light .qv-modal .qv-img-side {
-  background: radial-gradient(circle at 50% 18%, rgba(232, 196, 121, 0.45), transparent 44%), linear-gradient(180deg, #fff6e4, #e8d2ab) !important;
+  background: radial-gradient(circle at 50% 18%, rgba(214, 180, 106, 0.36), transparent 44%), linear-gradient(160deg, #f8f1df, #dce7df) !important;
 }
 .zayeh-light .qv-modal img {
   background: transparent !important;
@@ -1161,16 +1181,16 @@ body {
 .zayeh-light .qv-modal p,
 .zayeh-light .qv-modal span,
 .zayeh-light .qv-modal label {
-  color: #171d1b !important;
+  color: #0b2f2b !important;
 }
 .zayeh-light .qv-modal p[style*="letter-spacing"],
 .zayeh-light .qv-modal label,
 .zayeh-light .checkout-page label {
-  color: #9b6d22 !important;
+  color: #0e5a51 !important;
 }
 .zayeh-light .qv-modal button:not(.btn-primary),
 .zayeh-light .qv-modal a {
-  border-color: rgba(92, 66, 22, 0.16) !important;
+  border-color: rgba(12, 46, 42, 0.16) !important;
 }
 .zayeh-light .qv-modal > div,
 .zayeh-light .qv-modal div[style*="rgba(255,255,255,0.03)"],
@@ -1180,30 +1200,30 @@ body {
 }
 
 .zayeh-light .cart-drawer {
-  background: linear-gradient(180deg, #fff8e8 0%, #ead8b5 100%) !important;
-  border-left: 1px solid rgba(92, 66, 22, 0.18) !important;
-  box-shadow: -28px 0 90px rgba(50, 35, 12, 0.24) !important;
+  background: linear-gradient(180deg, #fffdf7 0%, #e6ece2 100%) !important;
+  border-left: 1px solid rgba(12, 46, 42, 0.18) !important;
+  box-shadow: -28px 0 90px rgba(12, 46, 42, 0.24) !important;
 }
 .zayeh-light .cart-drawer > div,
 .zayeh-light .cart-drawer div[style*="#0b0b0b"],
 .zayeh-light .cart-drawer div[style*="#111"],
 .zayeh-light .cart-drawer div[style*="#161616"],
 .zayeh-light .cart-drawer div[style*="#141414"] {
-  background: rgba(255, 250, 240, 0.72) !important;
-  border-color: rgba(92, 66, 22, 0.12) !important;
+  background: rgba(255, 253, 247, 0.78) !important;
+  border-color: rgba(12, 46, 42, 0.12) !important;
 }
 .zayeh-light .cart-drawer h2,
 .zayeh-light .cart-drawer h3,
 .zayeh-light .cart-drawer p,
 .zayeh-light .cart-drawer span {
-  color: #171d1b !important;
+  color: #0b2f2b !important;
 }
 .zayeh-light .cart-drawer input,
 .zayeh-light .checkout-page input,
 .zayeh-light .checkout-page select {
-  background: #fffaf0 !important;
-  color: #171d1b !important;
-  border-color: rgba(92, 66, 22, 0.18) !important;
+  background: #fffdf7 !important;
+  color: #0b2f2b !important;
+  border-color: rgba(12, 46, 42, 0.18) !important;
 }
 .zayeh-light .cart-drawer input::placeholder,
 .zayeh-light .checkout-page input::placeholder {
@@ -1211,56 +1231,56 @@ body {
 }
 .zayeh-light .cart-drawer img,
 .zayeh-light .checkout-page img {
-  background: linear-gradient(180deg, #fff6e4, #ead8b5) !important;
+  background: linear-gradient(160deg, #f8f1df, #dce7df) !important;
   object-fit: contain !important;
 }
 .zayeh-light .cart-drawer a[href="/checkout"],
 .zayeh-light .checkout-page button[style*="linear-gradient"] {
-  background: linear-gradient(135deg, #c49438, #f0cf82) !important;
-  color: #17120a !important;
-  box-shadow: 0 18px 34px rgba(153, 109, 37, 0.18) !important;
+  background: linear-gradient(135deg, #0d2f2b, #123f39) !important;
+  color: #fffdf7 !important;
+  box-shadow: 0 18px 34px rgba(12, 46, 42, 0.18) !important;
 }
 
 .zayeh-light .checkout-page {
-  color: #171d1b !important;
+  color: #0b2f2b !important;
 }
 .zayeh-light .checkout-page > .checkout-layout > div,
 .zayeh-light .checkout-summary-card,
 .zayeh-light .checkout-summary-toggle {
-  background: rgba(255, 250, 240, 0.82) !important;
-  border: 1px solid rgba(92, 66, 22, 0.14) !important;
-  box-shadow: 0 20px 54px rgba(95, 67, 21, 0.1) !important;
+  background: rgba(255, 253, 247, 0.88) !important;
+  border: 1px solid rgba(12, 46, 42, 0.14) !important;
+  box-shadow: 0 20px 54px rgba(12, 46, 42, 0.1) !important;
 }
 .zayeh-light .checkout-page h1,
 .zayeh-light .checkout-page h2,
 .zayeh-light .checkout-page h3,
 .zayeh-light .checkout-page p,
 .zayeh-light .checkout-page span {
-  color: #171d1b !important;
+  color: #0b2f2b !important;
 }
 .zayeh-light .checkout-page div[style*="#111"],
 .zayeh-light .checkout-page div[style*="#0d0d0d"],
 .zayeh-light .checkout-page div[style*="rgba(255,255,255,0.02)"],
 .zayeh-light .checkout-page div[style*="rgba(255,255,255,0.03)"] {
-  background: rgba(255, 250, 240, 0.72) !important;
-  border-color: rgba(92, 66, 22, 0.12) !important;
+  background: rgba(255, 253, 247, 0.76) !important;
+  border-color: rgba(12, 46, 42, 0.12) !important;
 }
 .zayeh-light .checkout-page button {
-  border-color: rgba(92, 66, 22, 0.16) !important;
+  border-color: rgba(12, 46, 42, 0.16) !important;
 }
 .zayeh-light .checkout-page button[style*="rgba(59,130,246"],
 .zayeh-light .checkout-page button[style*="rgba(34,197,94"],
 .zayeh-light .checkout-page button[style*="rgba(216,168,74"] {
-  background: rgba(255, 248, 232, 0.9) !important;
+  background: rgba(230, 236, 226, 0.82) !important;
 }
 .zayeh-light .checkout-page .checkout-summary-card div,
 .zayeh-light .checkout-page .checkout-summary-card p,
 .zayeh-light .checkout-page .checkout-summary-card span {
-  color: #171d1b !important;
+  color: #0b2f2b !important;
 }
 .zayeh-light .checkout-page option {
-  background: #fffaf0 !important;
-  color: #171d1b !important;
+  background: #fffdf7 !important;
+  color: #0b2f2b !important;
 }
 .zayeh-light .qv-modal [style*="#22C55E"],
 .zayeh-light .cart-drawer [style*="#22C55E"],
@@ -1270,7 +1290,7 @@ body {
 .zayeh-light .qv-modal [style*="#d8a84a"],
 .zayeh-light .cart-drawer [style*="#d8a84a"],
 .zayeh-light .checkout-page [style*="#d8a84a"] {
-  color: #9b6d22 !important;
+  color: #b65f2a !important;
 }
 .zayeh-light .checkout-page [style*="#60a5fa"] {
   color: #32718d !important;
