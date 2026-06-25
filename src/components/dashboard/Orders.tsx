@@ -11,7 +11,7 @@ const statusConfig: Record<string, { label: string; icon: LucideIcon; color: str
   pendente:             { label: 'Pendente',    icon: Clock,        color: '#f59e0b' },
   aguardando_pagamento: { label: 'Aguard. Pag', icon: Clock,        color: '#f59e0b' },
   pago:                 { label: 'Pago',        icon: CheckCircle2, color: '#22c55e' },
-  enviado:              { label: 'Enviado',     icon: Truck,        color: '#a855f7' },
+  enviado:              { label: 'Enviado',     icon: Truck,        color: '#d8a84a' },
   entregue:             { label: 'Entregue',    icon: Package,      color: '#3b82f6' },
   cancelado:            { label: 'Cancelado',   icon: XCircle,      color: '#ef4444' },
 };
@@ -67,7 +67,7 @@ export default function Orders() {
           <p style={{ fontSize: 13, color: '#999' }}>{data?.total ?? 0} pedidos no total</p>
         </div>
         <button onClick={refetch} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '11px 20px', borderRadius: 12, border: '1px solid rgba(255,255,255,0.08)', background: 'rgba(255,255,255,0.03)', color: '#ccc', fontSize: 13, fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit', transition: 'all 0.2s' }}
-          onMouseEnter={e => (e.currentTarget.style.borderColor = 'rgba(168,85,247,0.4)')}
+          onMouseEnter={e => (e.currentTarget.style.borderColor = 'rgba(216,168,74,0.4)')}
           onMouseLeave={e => (e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)')}>
           <RefreshCw size={14} style={{ animation: loading ? 'spin 1s linear infinite' : 'none' }} /> Atualizar
         </button>
@@ -76,11 +76,11 @@ export default function Orders() {
       {/* KPI cards */}
       <div className="dash-stats-5" style={{ gap: 12 }}>
         {[
-          { label: 'Total',    value: data?.total ?? 0,    color: '#a855f7', icon: Eye          },
+          { label: 'Total',    value: data?.total ?? 0,    color: '#d8a84a', icon: Eye          },
           { label: 'Pendente', value: statusCounts.pendente ?? 0, color: '#f59e0b', icon: Clock },
           { label: 'Pago',     value: statusCounts.pago ?? 0,     color: '#22c55e', icon: CheckCircle2 },
-          { label: 'Enviado',  value: statusCounts.enviado ?? 0,  color: '#a855f7', icon: Truck },
-          { label: 'Receita',  value: `R$ ${totalRevenue.toLocaleString('pt-BR', { minimumFractionDigits: 0 })}`, color: '#FF2DA0', icon: Package },
+          { label: 'Enviado',  value: statusCounts.enviado ?? 0,  color: '#d8a84a', icon: Truck },
+          { label: 'Receita',  value: `R$ ${totalRevenue.toLocaleString('pt-BR', { minimumFractionDigits: 0 })}`, color: '#b8842c', icon: Package },
         ].map(({ label, value, color, icon: Icon }, i) => (
           <motion.div key={label} initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.07 }}
             style={{ ...card, padding: '18px 20px', position: 'relative', overflow: 'hidden' }}>
@@ -100,13 +100,13 @@ export default function Orders() {
           <Search size={14} style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: '#999' }} />
           <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Buscar por ID, cliente ou e-mail..."
             style={{ width: '100%', background: '#111117', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 12, padding: '12px 14px 12px 40px', color: '#fff', fontSize: 13, fontFamily: 'inherit', outline: 'none', boxSizing: 'border-box' }}
-            onFocus={e => (e.target.style.borderColor = 'rgba(168,85,247,0.35)')}
+            onFocus={e => (e.target.style.borderColor = 'rgba(216,168,74,0.35)')}
             onBlur={e => (e.target.style.borderColor = 'rgba(255,255,255,0.07)')} />
         </div>
         <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
           {['todos', 'pendente', 'pago', 'enviado', 'entregue', 'cancelado'].map(s => {
             const active = filterStatus === s;
-            const col = s !== 'todos' ? (statusConfig[s]?.color ?? '#a855f7') : '#a855f7';
+            const col = s !== 'todos' ? (statusConfig[s]?.color ?? '#d8a84a') : '#d8a84a';
             return (
               <button key={s} onClick={() => setFilterStatus(s)}
                 style={{ padding: '7px 16px', borderRadius: 20, border: `1px solid ${active ? col : 'rgba(255,255,255,0.07)'}`, background: active ? `${col}18` : 'transparent', color: active ? col : '#555', fontSize: 11, fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit', transition: 'all 0.2s' }}>
@@ -147,7 +147,7 @@ export default function Orders() {
                       onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.02)')}
                       onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}>
                       <td style={{ padding: '14px 18px' }}>
-                        <span style={{ fontSize: 12, fontWeight: 800, color: '#a855f7', fontFamily: 'monospace', letterSpacing: '0.04em' }}>#{order.id.slice(-8).toUpperCase()}</span>
+                        <span style={{ fontSize: 12, fontWeight: 800, color: '#d8a84a', fontFamily: 'monospace', letterSpacing: '0.04em' }}>#{order.id.slice(-8).toUpperCase()}</span>
                       </td>
                       <td style={{ padding: '14px 18px' }}>
                         <p style={{ fontSize: 13, color: '#ccc', fontWeight: 600, marginBottom: 2 }}>{order.customerName}</p>
@@ -164,7 +164,7 @@ export default function Orders() {
                       </td>
                       <td style={{ padding: '14px 18px' }}>
                         <button onClick={() => setSelected(order)} style={{ width: 32, height: 32, borderRadius: 8, border: '1px solid rgba(255,255,255,0.06)', background: 'transparent', color: '#999', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'all 0.15s' }}
-                          onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.color = '#a855f7'; (e.currentTarget as HTMLButtonElement).style.borderColor = 'rgba(168,85,247,0.3)'; }}
+                          onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.color = '#d8a84a'; (e.currentTarget as HTMLButtonElement).style.borderColor = 'rgba(216,168,74,0.3)'; }}
                           onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.color = '#444'; (e.currentTarget as HTMLButtonElement).style.borderColor = 'rgba(255,255,255,0.06)'; }}>
                           <Eye size={13} />
                         </button>
@@ -190,7 +190,7 @@ export default function Orders() {
 
               <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 24 }}>
                 <div>
-                  <p style={{ fontSize: 10, color: '#a855f7', fontWeight: 700, letterSpacing: '0.12em', marginBottom: 5 }}>PEDIDO #{selected.id.slice(-8).toUpperCase()}</p>
+                  <p style={{ fontSize: 10, color: '#d8a84a', fontWeight: 700, letterSpacing: '0.12em', marginBottom: 5 }}>PEDIDO #{selected.id.slice(-8).toUpperCase()}</p>
                   <h3 style={{ fontSize: 18, fontWeight: 900, color: '#fff', marginBottom: 3 }}>{selected.customerName}</h3>
                   <p style={{ fontSize: 12, color: '#999' }}>{selected.customerEmail}</p>
                 </div>
@@ -219,7 +219,7 @@ export default function Orders() {
 
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '14px 0', borderTop: '1px solid rgba(255,255,255,0.06)', marginBottom: 22 }}>
                 <span style={{ fontWeight: 800, color: '#fff', fontSize: 15 }}>Total</span>
-                <span style={{ fontWeight: 900, color: '#a855f7', fontSize: 20 }}>R$ {selected.total.toFixed(2).replace('.', ',')}</span>
+                <span style={{ fontWeight: 900, color: '#d8a84a', fontSize: 20 }}>R$ {selected.total.toFixed(2).replace('.', ',')}</span>
               </div>
 
               {/* Status update */}
@@ -228,7 +228,7 @@ export default function Orders() {
                 <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
                   {STATUS_FLOW.map(s => {
                     const active = selected.status === s;
-                    const col = statusConfig[s]?.color ?? '#a855f7';
+                    const col = statusConfig[s]?.color ?? '#d8a84a';
                     return (
                       <button key={s} disabled={active || updatingStatus}
                         onClick={() => handleUpdateStatus(selected.id, s)}

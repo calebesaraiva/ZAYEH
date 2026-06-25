@@ -93,7 +93,7 @@ export default function ProductModal({ product, onClose }: Props) {
 
                 {/* Badges */}
                 <div className="absolute top-4 left-4 flex flex-col gap-2">
-                  {product.isNew && <span className="bg-purple-500 text-white text-xs font-bold px-3 py-1 rounded-full">NOVO</span>}
+                  {product.isNew && <span className="bg-amber-600 text-white text-xs font-bold px-3 py-1 rounded-full">NOVO</span>}
                   {product.discount && <span className="bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-full">-{product.discount}%</span>}
                 </div>
               </div>
@@ -103,7 +103,7 @@ export default function ProductModal({ product, onClose }: Props) {
             <div className="p-6 md:p-8 flex flex-col">
               <div className="flex items-start justify-between mb-4">
                 <div>
-                  <span className="text-xs text-purple-400 font-medium uppercase tracking-wider">{product.category}</span>
+                  <span className="text-xs text-amber-400 font-medium uppercase tracking-wider">{product.category}</span>
                   <h2 className="font-display text-2xl font-bold text-white mt-1">{product.name}</h2>
                 </div>
                 <button onClick={onClose} className="glass p-2 rounded-full text-gray-400 hover:text-white">
@@ -144,7 +144,7 @@ export default function ProductModal({ product, onClose }: Props) {
                 <div className="mb-5">
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-sm font-medium text-gray-300">Cor</span>
-                    {selectedColor && <span className="text-xs text-purple-400">{selectedColor}</span>}
+                    {selectedColor && <span className="text-xs text-amber-400">{selectedColor}</span>}
                   </div>
                   <div className="flex gap-2 flex-wrap">
                     {product.colors.map((color) => (
@@ -153,7 +153,7 @@ export default function ProductModal({ product, onClose }: Props) {
                         onClick={() => setSelectedColor(color.name)}
                         className={`flex items-center gap-2 px-3 py-1.5 rounded-full border text-xs font-medium transition-all ${
                           selectedColor === color.name
-                            ? 'border-purple-500 text-purple-300'
+                            ? 'border-amber-500 text-amber-300'
                             : 'border-gray-700 text-gray-400 hover:border-gray-500'
                         }`}
                       >
@@ -172,7 +172,7 @@ export default function ProductModal({ product, onClose }: Props) {
               <div className="mb-6">
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-sm font-medium text-gray-300">{isPerfumaria ? 'Volume' : 'Tamanho'}</span>
-                  {!isPerfumaria && <button className="text-xs text-purple-400 underline">Guia de tamanhos</button>}
+                  {!isPerfumaria && <button className="text-xs text-amber-400 underline">Guia de tamanhos</button>}
                 </div>
                 <div className="flex gap-2 flex-wrap">
                   {product.sizes.map((size) => (
@@ -182,7 +182,7 @@ export default function ProductModal({ product, onClose }: Props) {
                       className={`w-12 h-10 rounded-lg border text-sm font-medium transition-all ${
                         selectedSize === size
                           ? 'gradient-bg border-transparent text-white'
-                          : 'border-gray-700 text-gray-400 hover:border-purple-500 hover:text-white'
+                          : 'border-gray-700 text-gray-400 hover:border-amber-500 hover:text-white'
                       }`}
                     >
                       {size}
@@ -242,7 +242,7 @@ export default function ProductModal({ product, onClose }: Props) {
                   { icon: RotateCcw, text: 'Troca em até 7 dias' },
                 ].map(({ icon: Icon, text }) => (
                   <div key={text} className="flex flex-col items-center gap-1.5 glass p-3 rounded-xl">
-                    <Icon size={16} className="text-purple-400" />
+                    <Icon size={16} className="text-amber-400" />
                     <span className="text-xs text-gray-400 text-center leading-tight">{text}</span>
                   </div>
                 ))}

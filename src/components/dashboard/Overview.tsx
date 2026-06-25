@@ -9,7 +9,7 @@ import {
 } from 'recharts';
 import { useDashboardOverview } from '../../lib/useApi';
 
-const CAT_COLORS = ['#d946ef', '#9333ea', '#FFB800', '#a855f7', '#22c55e', '#3b82f6', '#f97316'];
+const CAT_COLORS = ['#d946ef', '#9333ea', '#FFB800', '#d8a84a', '#22c55e', '#3b82f6', '#f97316'];
 
 const statusStyle: Record<string, { label: string; color: string; bg: string }> = {
   pendente:              { label: 'Pendente',    color: '#f59e0b', bg: 'rgba(245,158,11,0.12)'  },
@@ -70,7 +70,7 @@ export default function Overview() {
   const stats = [
     { label: 'Receita Total',   value: loading ? '...' : overview ? fmt(overview.stats.totalRevenue) : '—', change: revenueGrowth, icon: DollarSign,  color: '#f97316', bg: 'rgba(249,115,22,0.1)'  },
     { label: 'Pedidos',         value: loading ? '...' : overview ? `${overview.stats.totalOrders}`    : '—', change: ordersGrowth,  icon: ShoppingBag, color: '#d946ef', bg: 'rgba(217,70,239,0.1)'  },
-    { label: 'Clientes',        value: loading ? '...' : overview ? `${overview.stats.totalCustomers}` : '—', change: null,          icon: Users,       color: '#FF2DA0', bg: 'rgba(255,45,160,0.1)'  },
+    { label: 'Clientes',        value: loading ? '...' : overview ? `${overview.stats.totalCustomers}` : '—', change: null,          icon: Users,       color: '#b8842c', bg: 'rgba(184,132,44,0.1)'  },
     { label: 'Produtos Ativos', value: loading ? '...' : overview ? `${overview.stats.totalProducts}`  : '—', change: null,          icon: TrendingUp,  color: '#22c55e', bg: 'rgba(34,197,94,0.1)'  },
   ];
   const recentOrders     = overview?.recentOrders?.slice(0, 5) ?? [];
@@ -280,7 +280,7 @@ export default function Overview() {
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
             {topProducts.map((p, i) => {
-              const rankColors = ['#f97316', '#d946ef', '#FF2DA0', '#9333ea', '#a855f7'];
+              const rankColors = ['#f97316', '#d946ef', '#b8842c', '#9333ea', '#d8a84a'];
               const c = rankColors[i] ?? '#555';
               return (
                 <motion.div key={p.name}

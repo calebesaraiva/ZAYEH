@@ -47,7 +47,7 @@ export default function CartDrawer({ open, onClose }: Props) {
             <div style={{ padding: '20px 22px', borderBottom: '1px solid rgba(255,255,255,0.07)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: '#0b0b0b' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                 <div style={{ width: 36, height: 36, borderRadius: 10, background: 'rgba(255,184,0,0.1)', border: '1px solid rgba(255,184,0,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <ShoppingBag size={17} style={{ color: '#a855f7' }} />
+                  <ShoppingBag size={17} style={{ color: '#d8a84a' }} />
                 </div>
                 <div>
                   <h2 style={{ fontWeight: 800, fontSize: 15, color: '#fff', lineHeight: 1 }}>Minha Sacola</h2>
@@ -77,7 +77,7 @@ export default function CartDrawer({ open, onClose }: Props) {
                   </div>
                   <div style={{ height: 4, borderRadius: 99, background: '#1a1a1a', overflow: 'hidden' }}>
                     <motion.div animate={{ width: `${progress}%` }} transition={{ duration: 0.5 }}
-                      style={{ height: '100%', borderRadius: 99, background: 'linear-gradient(90deg, #a855f7, #FF2DA0)' }} />
+                      style={{ height: '100%', borderRadius: 99, background: 'linear-gradient(90deg, #d8a84a, #b8842c)' }} />
                   </div>
                 </>
               )}
@@ -211,7 +211,7 @@ export default function CartDrawer({ open, onClose }: Props) {
                     </div>
                   )}
                   {/* Cashback */}
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, color: '#a855f7' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, color: '#d8a84a' }}>
                     <span style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
                       <Coins size={11} /> Cashback (5%)
                     </span>
@@ -241,10 +241,10 @@ export default function CartDrawer({ open, onClose }: Props) {
                 {/* Cashback banner */}
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '11px 14px', borderRadius: 10, background: 'rgba(255,184,0,0.07)', border: '1px solid rgba(255,184,0,0.2)' }}>
                   <div style={{ width: 32, height: 32, borderRadius: 8, background: 'rgba(255,184,0,0.12)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                    <Coins size={16} style={{ color: '#a855f7' }} />
+                    <Coins size={16} style={{ color: '#d8a84a' }} />
                   </div>
                   <div>
-                    <p style={{ fontSize: 12.5, fontWeight: 800, color: '#a855f7', lineHeight: 1.2 }}>
+                    <p style={{ fontSize: 12.5, fontWeight: 800, color: '#d8a84a', lineHeight: 1.2 }}>
                       Você vai ganhar R$ {cashback.toFixed(2).replace('.', ',')} de cashback!
                     </p>
                     <p style={{ fontSize: 11, color: '#664d00', marginTop: 2 }}>
@@ -256,7 +256,7 @@ export default function CartDrawer({ open, onClose }: Props) {
                 {/* CTA */}
                 <Link to="/checkout" onClick={onClose}
                   className="no-underline"
-                  style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, padding: '15px', borderRadius: 10, background: 'linear-gradient(135deg, #a855f7, #FF2DA0)', color: '#fff', fontWeight: 900, fontSize: 14, letterSpacing: '0.06em', transition: 'opacity 0.2s' }}
+                  style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, padding: '15px', borderRadius: 10, background: 'linear-gradient(135deg, #d8a84a, #b8842c)', color: '#fff', fontWeight: 900, fontSize: 14, letterSpacing: '0.06em', transition: 'opacity 0.2s' }}
                   onMouseEnter={e => (e.currentTarget.style.opacity = '0.9')}
                   onMouseLeave={e => (e.currentTarget.style.opacity = '1')}>
                   <Lock size={15} /> FINALIZAR COMPRA

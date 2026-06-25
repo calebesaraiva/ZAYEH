@@ -55,7 +55,7 @@ const genericPerfumeImages = new Set([
   perfumariaImgs.spray,
 ]);
 
-function makePerfumeArt(name: string, size: string, accent = '#a855f7') {
+function makePerfumeArt(name: string, size: string, accent = '#d8a84a') {
   const safeName = name.replace(/&/g, '&amp;');
   const safeSize = size.replace(/&/g, '&amp;');
   const svg = `
@@ -144,7 +144,7 @@ const defs: Def[] = [
 
 export const perfumariaCatalog: PerfumeSeedProduct[] = defs.map((item) => {
   const resolvedImage = genericPerfumeImages.has(item.image)
-    ? makePerfumeArt(item.name, item.size, item.colors[0]?.hex ?? '#a855f7')
+    ? makePerfumeArt(item.name, item.size, item.colors[0]?.hex ?? '#d8a84a')
     : item.image;
 
   return {

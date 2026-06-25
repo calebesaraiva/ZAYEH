@@ -35,7 +35,7 @@ export default function ProductCard({ product, onClick }: Props) {
         <img
           src={product.image} alt={product.name}
           className="w-full h-full transition-transform duration-700"
-          style={{ transform: hovered ? 'scale(1.08)' : 'scale(1)', objectFit: isPerfumaria ? 'contain' : 'cover', padding: isPerfumaria ? 10 : 0, background: isPerfumaria ? 'radial-gradient(circle at top, rgba(168,85,247,0.14), transparent 58%), #111' : 'transparent' }}
+          style={{ transform: hovered ? 'scale(1.08)' : 'scale(1)', objectFit: isPerfumaria ? 'contain' : 'cover', padding: isPerfumaria ? 10 : 0, background: isPerfumaria ? 'radial-gradient(circle at top, rgba(216,168,74,0.14), transparent 58%), #111' : 'transparent' }}
         />
 
         {/* Overlay */}

@@ -42,7 +42,7 @@ function FilterPanel({
         <p style={{ fontSize: 11, fontWeight: 800, color: '#fff', letterSpacing: '0.12em', textTransform: 'uppercase' }}>Filtros</p>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
           {activeCount > 0 && (
-            <button onClick={onClear} style={{ fontSize: 11, color: '#FF2DA0', background: 'none', border: 'none', cursor: 'pointer', fontWeight: 700 }}>
+            <button onClick={onClear} style={{ fontSize: 11, color: '#b8842c', background: 'none', border: 'none', cursor: 'pointer', fontWeight: 700 }}>
               Limpar tudo
             </button>
           )}
@@ -60,13 +60,13 @@ function FilterPanel({
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
             {sizes.map(size => (
               <button key={`size-${size}`} onClick={() => onSize(size)}
-                style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 11, padding: '3px 8px', borderRadius: 99, background: 'rgba(255,45,160,0.1)', border: '1px solid rgba(255,45,160,0.3)', color: '#FF2DA0', cursor: 'pointer' }}>
+                style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 11, padding: '3px 8px', borderRadius: 99, background: 'rgba(184,132,44,0.1)', border: '1px solid rgba(184,132,44,0.3)', color: '#b8842c', cursor: 'pointer' }}>
                 {size} <X size={8} />
               </button>
             ))}
             {colors.map(color => (
               <button key={`color-${color}`} onClick={() => onColor(color)}
-                style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 11, padding: '3px 8px', borderRadius: 99, background: 'rgba(255,45,160,0.1)', border: '1px solid rgba(255,45,160,0.3)', color: '#FF2DA0', cursor: 'pointer' }}>
+                style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 11, padding: '3px 8px', borderRadius: 99, background: 'rgba(184,132,44,0.1)', border: '1px solid rgba(184,132,44,0.3)', color: '#b8842c', cursor: 'pointer' }}>
                 {color} <X size={8} />
               </button>
             ))}
@@ -75,15 +75,15 @@ function FilterPanel({
 
         {/* Tamanho */}
         <div>
-          <p style={{ fontSize: 10.5, fontWeight: 800, color: '#a855f7', letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: 10 }}>Tamanho</p>
+          <p style={{ fontSize: 10.5, fontWeight: 800, color: '#d8a84a', letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: 10 }}>Tamanho</p>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
             {availableSizes.map(s => (
               <button key={s} onClick={() => onSize(s)}
                 style={{
                   minWidth: 42, height: 36, padding: '0 8px', borderRadius: 4, cursor: 'pointer',
-                  border: `1px solid ${sizes.includes(s) ? '#a855f7' : 'rgba(255,255,255,0.12)'}`,
+                  border: `1px solid ${sizes.includes(s) ? '#d8a84a' : 'rgba(255,255,255,0.12)'}`,
                   background: sizes.includes(s) ? 'rgba(255,184,0,0.1)' : 'transparent',
-                  color: sizes.includes(s) ? '#a855f7' : '#888',
+                  color: sizes.includes(s) ? '#d8a84a' : '#888',
                   fontSize: 11.5, fontWeight: 700, fontFamily: 'inherit',
                   transition: 'all 0.18s',
                 }}>
@@ -95,12 +95,12 @@ function FilterPanel({
 
         {/* Cor */}
         <div>
-          <p style={{ fontSize: 10.5, fontWeight: 800, color: '#a855f7', letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: 10 }}>Cor</p>
+          <p style={{ fontSize: 10.5, fontWeight: 800, color: '#d8a84a', letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: 10 }}>Cor</p>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 6 }}>
             {availableColors.map(c => (
               <button key={c} onClick={() => onColor(c)}
                 style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '6px 8px', borderRadius: 6, background: colors.includes(c) ? 'rgba(255,184,0,0.06)' : 'transparent', border: `1px solid ${colors.includes(c) ? 'rgba(255,184,0,0.3)' : 'transparent'}`, cursor: 'pointer', transition: 'all 0.18s' }}>
-                <div style={{ width: 14, height: 14, borderRadius: 3, flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', border: colors.includes(c) ? '2px solid #a855f7' : '1px solid rgba(255,255,255,0.2)', background: colors.includes(c) ? '#a855f7' : 'transparent' }}>
+                <div style={{ width: 14, height: 14, borderRadius: 3, flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', border: colors.includes(c) ? '2px solid #d8a84a' : '1px solid rgba(255,255,255,0.2)', background: colors.includes(c) ? '#d8a84a' : 'transparent' }}>
                   {colors.includes(c) && <X size={8} color="#000" />}
                 </div>
                 <span style={{ fontSize: 12, color: colors.includes(c) ? '#fff' : '#777' }}>{c}</span>
@@ -112,12 +112,12 @@ function FilterPanel({
         {/* Preço */}
         <div>
           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 10 }}>
-            <p style={{ fontSize: 10.5, fontWeight: 800, color: '#a855f7', letterSpacing: '0.14em', textTransform: 'uppercase' }}>Preço máx.</p>
+            <p style={{ fontSize: 10.5, fontWeight: 800, color: '#d8a84a', letterSpacing: '0.14em', textTransform: 'uppercase' }}>Preço máx.</p>
             <span style={{ fontSize: 12, fontWeight: 700, color: '#fff' }}>R$ {priceMax}</span>
           </div>
           <input type="range" min={PRICE_MIN} max={PRICE_MAX} step={10} value={priceMax}
             onChange={e => onPrice(Number(e.target.value))}
-            style={{ width: '100%', accentColor: '#a855f7' }} />
+            style={{ width: '100%', accentColor: '#d8a84a' }} />
           <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 10, color: '#444', marginTop: 4 }}>
             <span>R$ {PRICE_MIN}</span><span>R$ {PRICE_MAX}</span>
           </div>
@@ -224,14 +224,14 @@ export default function CategoryPage() {
               display: 'flex', alignItems: 'center', gap: 7,
               padding: '9px 14px', borderRadius: 6, cursor: 'pointer',
               background: sidebarOpen ? 'rgba(255,184,0,0.08)' : '#1a1a1a',
-              border: `1px solid ${sidebarOpen ? '#a855f7' : 'rgba(255,255,255,0.1)'}`,
-              color: sidebarOpen ? '#a855f7' : '#aaa',
+              border: `1px solid ${sidebarOpen ? '#d8a84a' : 'rgba(255,255,255,0.1)'}`,
+              color: sidebarOpen ? '#d8a84a' : '#aaa',
               fontSize: 13, fontWeight: 700, fontFamily: 'inherit',
             }}>
             <SlidersHorizontal size={14} />
             Filtros
             {activeCount > 0 && (
-              <span style={{ minWidth: 18, height: 18, borderRadius: 9, background: '#FF2DA0', color: '#fff', fontSize: 10, fontWeight: 800, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '0 4px' }}>
+              <span style={{ minWidth: 18, height: 18, borderRadius: 9, background: '#b8842c', color: '#fff', fontSize: 10, fontWeight: 800, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '0 4px' }}>
                 {activeCount}
               </span>
             )}

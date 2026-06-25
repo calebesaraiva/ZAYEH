@@ -46,7 +46,7 @@ export default function AccountModal({ open, onClose }: Props) {
             >
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 18px', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
                 <div>
-                  <p style={{ fontSize: 10, fontWeight: 800, color: '#a855f7', letterSpacing: '0.16em', textTransform: 'uppercase', marginBottom: 4 }}>Acesse sua</p>
+                  <p style={{ fontSize: 10, fontWeight: 800, color: '#d8a84a', letterSpacing: '0.16em', textTransform: 'uppercase', marginBottom: 4 }}>Acesse sua</p>
                   <h2 style={{ fontSize: 20, fontWeight: 900, color: '#fff' }}>Conta</h2>
                 </div>
                 <button onClick={onClose} style={{ width: 38, height: 38, borderRadius: 12, border: '1px solid rgba(255,255,255,0.08)', background: 'rgba(255,255,255,0.03)', color: '#888', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>

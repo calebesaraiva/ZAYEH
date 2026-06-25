@@ -68,13 +68,13 @@ export default function Header({ onMenuOpen, onCartOpen, onAccountOpen }: Props)
                 style={{
                   width: '100%',
                   background: focused ? 'rgba(255,255,255,0.06)' : '#111',
-                  border: `1px solid ${focused ? 'rgba(168,85,247,0.5)' : 'rgba(255,255,255,0.08)'}`,
+                  border: `1px solid ${focused ? 'rgba(216,168,74,0.5)' : 'rgba(255,255,255,0.08)'}`,
                   borderRadius: 8,
                   padding: '10px 36px 10px 40px',
                   color: '#fff', fontSize: 13,
                   fontFamily: 'inherit', outline: 'none',
                   transition: 'all 0.2s',
-                  boxShadow: focused ? '0 0 0 3px rgba(168,85,247,0.12)' : 'none',
+                  boxShadow: focused ? '0 0 0 3px rgba(216,168,74,0.12)' : 'none',
                 }}
               />
             </form>
@@ -167,7 +167,7 @@ export default function Header({ onMenuOpen, onCartOpen, onAccountOpen }: Props)
           <Link to="/favoritos" className="hdr-icon hdr-desktop-only no-underline" style={{ position: 'relative' }}>
             <Heart size={19} />
             {wishlist.length > 0 && (
-              <span style={{ position: 'absolute', top: 4, right: 4, minWidth: 14, height: 14, borderRadius: 7, background: '#a855f7', color: '#fff', fontSize: 8.5, fontWeight: 800, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '0 2px' }}>
+              <span style={{ position: 'absolute', top: 4, right: 4, minWidth: 14, height: 14, borderRadius: 7, background: '#d8a84a', color: '#fff', fontSize: 8.5, fontWeight: 800, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '0 2px' }}>
                 {wishlist.length}
               </span>
             )}

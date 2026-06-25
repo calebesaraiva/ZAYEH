@@ -83,7 +83,7 @@ export default function QuickViewModal({ product, onClose }: Props) {
                 objectPosition: isPerfumaria ? 'center center' : 'center top',
                 display: 'block',
                 padding: isPerfumaria ? 22 : 0,
-                background: isPerfumaria ? 'radial-gradient(circle at top, rgba(168,85,247,0.14), transparent 58%), #111' : 'transparent',
+                background: isPerfumaria ? 'radial-gradient(circle at top, rgba(216,168,74,0.14), transparent 58%), #111' : 'transparent',
               }}
             />
             {/* Badges */}
@@ -94,7 +94,7 @@ export default function QuickViewModal({ product, onClose }: Props) {
                 </span>
               )}
               {product.isNew && !product.discount && (
-                <span style={{ background: '#FF2DA0', color: '#fff', fontSize: 10, fontWeight: 900, padding: '4px 10px', borderRadius: 99, letterSpacing: '0.08em' }}>
+                <span style={{ background: '#b8842c', color: '#fff', fontSize: 10, fontWeight: 900, padding: '4px 10px', borderRadius: 99, letterSpacing: '0.08em' }}>
                   NOVO
                 </span>
               )}
@@ -109,7 +109,7 @@ export default function QuickViewModal({ product, onClose }: Props) {
                 display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer',
                 backdropFilter: 'blur(8px)',
               }}>
-              <Heart size={16} fill={isWished ? '#FF2DA0' : 'none'} color={isWished ? '#FF2DA0' : '#fff'} />
+              <Heart size={16} fill={isWished ? '#b8842c' : 'none'} color={isWished ? '#b8842c' : '#fff'} />
             </button>
           </div>
 
@@ -127,7 +127,7 @@ export default function QuickViewModal({ product, onClose }: Props) {
                 </h2>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
                   {[1,2,3,4,5].map(s => (
-                    <Star key={s} size={12} fill={s <= stars ? '#a855f7' : 'none'} color={s <= stars ? '#a855f7' : '#333'} />
+                    <Star key={s} size={12} fill={s <= stars ? '#d8a84a' : 'none'} color={s <= stars ? '#d8a84a' : '#333'} />
                   ))}
                   <span style={{ fontSize: 11, color: '#555' }}>({product.reviews} avaliações)</span>
                 </div>
@@ -162,8 +162,8 @@ export default function QuickViewModal({ product, onClose }: Props) {
 
             {/* Cashback badge */}
             <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '9px 12px', borderRadius: 8, background: 'rgba(255,184,0,0.07)', border: '1px solid rgba(255,184,0,0.18)', marginBottom: 16 }}>
-              <Coins size={14} style={{ color: '#a855f7', flexShrink: 0 }} />
-              <p style={{ fontSize: 12, color: '#a855f7', fontWeight: 700 }}>
+              <Coins size={14} style={{ color: '#d8a84a', flexShrink: 0 }} />
+              <p style={{ fontSize: 12, color: '#d8a84a', fontWeight: 700 }}>
                 Ganhe R$ {(product.price * 0.05).toFixed(2).replace('.', ',')} de cashback nessa compra
               </p>
             </div>
@@ -243,7 +243,7 @@ export default function QuickViewModal({ product, onClose }: Props) {
                 onClick={handleBuyNow}
                 style={{
                   width: '100%', padding: '14px', borderRadius: 10, cursor: 'pointer',
-                  background: 'linear-gradient(135deg, #a855f7, #FF2DA0)',
+                  background: 'linear-gradient(135deg, #d8a84a, #b8842c)',
                   color: '#fff', fontWeight: 900, fontSize: 14, letterSpacing: '0.08em',
                   border: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
                   fontFamily: 'inherit',

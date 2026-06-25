@@ -75,7 +75,7 @@ export default function Payments() {
   const enabledMethods = useMemo(() => {
     const methods = [];
     if (pixEnabled) methods.push({ label: 'PIX', icon: QrCode, color: '#22c55e', desc: `${pixDiscount}% de desconto configurado` });
-    if (cardEnabled) methods.push({ label: 'Cartão', icon: CreditCard, color: '#FF2DA0', desc: `${interestFreeInstallments}x sem juros e até ${maxInstallments}x no checkout` });
+    if (cardEnabled) methods.push({ label: 'Cartão', icon: CreditCard, color: '#b8842c', desc: `${interestFreeInstallments}x sem juros e até ${maxInstallments}x no checkout` });
     return methods;
   }, [pixEnabled, pixDiscount, cardEnabled, maxInstallments, interestFreeInstallments]);
 
@@ -100,9 +100,9 @@ export default function Payments() {
       <div className="dash-stats-grid" style={{ gap: 14 }}>
         {[
           { label: 'Receita Real', value: `R$ ${totals.receita.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`, color: '#22c55e', icon: Wallet },
-          { label: 'Pedidos Pagos', value: String(totals.pedidos), color: '#a855f7', icon: CreditCard },
+          { label: 'Pedidos Pagos', value: String(totals.pedidos), color: '#d8a84a', icon: CreditCard },
           { label: 'PIX', value: pixEnabled ? 'Ativo' : 'Desligado', color: '#22c55e', icon: QrCode },
-          { label: 'Cartão', value: cardEnabled ? `Até ${maxInstallments}x` : 'Desligado', color: '#FF2DA0', icon: ShieldCheck },
+          { label: 'Cartão', value: cardEnabled ? `Até ${maxInstallments}x` : 'Desligado', color: '#b8842c', icon: ShieldCheck },
         ].map(({ label, value, color, icon: Icon }, index) => (
           <motion.div key={label} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.07 }} style={card}>
             <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 2, background: `linear-gradient(90deg, ${color}, transparent)` }} />

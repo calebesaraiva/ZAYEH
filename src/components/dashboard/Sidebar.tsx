@@ -95,13 +95,13 @@ export default function Sidebar({ collapsed, onToggle }: Props) {
                     cursor: 'pointer',
                     marginBottom: 2,
                     justifyContent: collapsed ? 'center' : 'flex-start',
-                    background: isActive ? 'rgba(168,85,247,0.1)' : 'transparent',
-                    borderLeft: `3px solid ${isActive ? '#a855f7' : 'transparent'}`,
+                    background: isActive ? 'rgba(216,168,74,0.1)' : 'transparent',
+                    borderLeft: `3px solid ${isActive ? '#d8a84a' : 'transparent'}`,
                     transition: 'background 0.15s',
                   }}
                   onMouseEnter={e => { if (!isActive) e.currentTarget.style.background = 'rgba(255,255,255,0.04)'; }}
                   onMouseLeave={e => { if (!isActive) e.currentTarget.style.background = 'transparent'; }}>
-                  <Icon size={17} style={{ color: isActive ? '#a855f7' : '#444', flexShrink: 0, transition: 'color 0.15s' }} />
+                  <Icon size={17} style={{ color: isActive ? '#d8a84a' : '#444', flexShrink: 0, transition: 'color 0.15s' }} />
                   {!collapsed && (
                     <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }}
                       style={{ fontSize: 13, fontWeight: isActive ? 700 : 500, color: isActive ? '#fff' : '#555', whiteSpace: 'nowrap', transition: 'color 0.15s' }}>
@@ -139,7 +139,7 @@ export default function Sidebar({ collapsed, onToggle }: Props) {
 
         {!collapsed && (
           <p style={{ fontSize: 9, color: '#444', textAlign: 'center', marginTop: 12, letterSpacing: '0.03em', lineHeight: 1.5 }}>
-            Desenvolvido por<br /><span style={{ color: '#a855f7', fontWeight: 700 }}>NEXUS TECNOLOGIA LTDA</span>
+            Desenvolvido por<br /><span style={{ color: '#d8a84a', fontWeight: 700 }}>NEXUS TECNOLOGIA LTDA</span>
           </p>
         )}
       </div>

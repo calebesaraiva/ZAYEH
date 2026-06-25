@@ -341,9 +341,9 @@ router.get('/finance', async (req, res) => {
     const grandTotal = Object.values(pmMap).reduce((s, v) => s + v.total, 0) || 1;
 
     const pmColors: Record<string, string> = {
-      cartao: '#a855f7', credito: '#a855f7', 'cartão': '#a855f7',
+      cartao: '#d8a84a', credito: '#d8a84a', 'cartão': '#d8a84a',
       pix: '#22C55E',
-      debito: '#FF2DA0', 'débito': '#FF2DA0',
+      debito: '#b8842c', 'débito': '#b8842c',
     };
     const paymentMethods = Object.entries(pmMap).map(([method, v]) => ({
       method,
@@ -436,7 +436,7 @@ router.get('/alerts', async (_req, res) => {
         title: 'Novo pedido — aguardando separação',
         desc: `${o.customerName} · R$ ${o.total.toFixed(2).replace('.', ',')} · ${o.paymentMethod}`,
         time: o.createdAt,
-        color: '#a855f7',
+        color: '#d8a84a',
         urgent: true,
       })),
       ...lowStockProducts.map(p => ({

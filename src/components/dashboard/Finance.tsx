@@ -75,8 +75,8 @@ export default function Finance() {
 
   const kpis = [
     { label: 'Receita Real', value: fmtCompact(totals.receita), icon: TrendingUp, color: '#22C55E', accent: 'rgba(34,197,94,0.1)' },
-    { label: 'Pedidos', value: String(totals.pedidos), icon: ShoppingBag, color: '#a855f7', accent: 'rgba(168,85,247,0.1)' },
-    { label: 'Clientes Ativos', value: String(totals.clientes), icon: Users, color: '#FF2DA0', accent: 'rgba(255,45,160,0.1)' },
+    { label: 'Pedidos', value: String(totals.pedidos), icon: ShoppingBag, color: '#d8a84a', accent: 'rgba(216,168,74,0.1)' },
+    { label: 'Clientes Ativos', value: String(totals.clientes), icon: Users, color: '#b8842c', accent: 'rgba(184,132,44,0.1)' },
     { label: 'Ticket Médio', value: fmtCompact(totals.ticketMedio), icon: CreditCard, color: '#f59e0b', accent: 'rgba(245,158,11,0.1)' },
   ];
 
@@ -107,7 +107,7 @@ export default function Finance() {
                   fontWeight: 700,
                   textTransform: 'capitalize',
                   transition: 'all 0.2s',
-                  background: period === item ? 'linear-gradient(135deg,#a855f7,#FF2DA0)' : 'transparent',
+                  background: period === item ? 'linear-gradient(135deg,#d8a84a,#b8842c)' : 'transparent',
                   color: period === item ? '#fff' : '#444',
                 }}
               >
@@ -157,7 +157,7 @@ export default function Finance() {
                 <XAxis dataKey="mes" tick={{ fill: '#444', fontSize: 11 }} axisLine={false} tickLine={false} />
                 <YAxis tick={{ fill: '#444', fontSize: 11 }} axisLine={false} tickLine={false} tickFormatter={(v) => `${(v / 1000).toFixed(0)}k`} width={32} />
                 <Tooltip content={<ChartTip />} cursor={{ fill: 'rgba(255,255,255,0.03)' }} />
-                <Bar dataKey="receita" fill="#a855f7" radius={[5, 5, 0, 0]} name="Receita" />
+                <Bar dataKey="receita" fill="#d8a84a" radius={[5, 5, 0, 0]} name="Receita" />
               </BarChart>
             </ResponsiveContainer>
           )}

@@ -94,7 +94,7 @@ export default function PaymentReturnPage() {
         <p style={{ fontSize: 14, color: '#888', lineHeight: 1.7, marginBottom: 20 }}>{state.error || meta.desc}</p>
         {state.order && (
           <div style={{ padding: '14px 16px', borderRadius: 14, background: '#0d0d0d', border: '1px solid rgba(255,255,255,0.05)', marginBottom: 20, textAlign: 'left' }}>
-            <p style={{ fontSize: 11, color: '#a855f7', fontWeight: 800, marginBottom: 8 }}>PEDIDO #{state.order.id.slice(-8).toUpperCase()}</p>
+            <p style={{ fontSize: 11, color: '#d8a84a', fontWeight: 800, marginBottom: 8 }}>PEDIDO #{state.order.id.slice(-8).toUpperCase()}</p>
             <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, fontSize: 13, color: '#bbb' }}>
               <span>Total</span>
               <strong style={{ color: '#fff' }}>R$ {state.order.total.toFixed(2).replace('.', ',')}</strong>

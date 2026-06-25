@@ -103,7 +103,7 @@ export const useStore = create<StoreState>()(persist((set, get) => ({
     setTimeout(() => set({ toast: null }), 3000);
   },
 }), {
-  name: 'suh-store',
+  name: 'zayeh-store',
   storage: createJSONStorage(() => localStorage),
   // Persiste apenas carrinho e favoritos — estado de UI/sessão não é salvo
   partialize: (state) => ({ cart: state.cart, wishlist: state.wishlist }),

@@ -119,7 +119,7 @@ export default function Products() {
   /* KPI – also compute total margin */
   const totalStockValue = products.reduce((s, p) => s + p.stock * (p.costPrice ?? p.price * 0.58), 0);
   const statsData = [
-    { label: 'Total',         value: products.length,                                                color: '#a855f7', icon: Package,       sub: `${fmtBRL(totalStockValue)} em estoque` },
+    { label: 'Total',         value: products.length,                                                color: '#d8a84a', icon: Package,       sub: `${fmtBRL(totalStockValue)} em estoque` },
     { label: 'Em Estoque',    value: products.filter(p => p.stock > 5).length,                       color: '#22c55e', icon: CheckCircle,   sub: 'acima de 5 unidades' },
     { label: 'Estoque Baixo', value: products.filter(p => p.stock > 0 && p.stock <= 5).length,       color: '#f59e0b', icon: AlertTriangle, sub: 'entre 1 e 5 unidades' },
     { label: 'Sem Estoque',   value: products.filter(p => p.stock === 0).length,                     color: '#ef4444', icon: X,             sub: 'esgotados' },
@@ -268,11 +268,11 @@ export default function Products() {
         </div>
         <div style={{ display: 'flex', gap: 10 }}>
           <button onClick={refetch} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '11px 18px', borderRadius: 12, border: '1px solid rgba(255,255,255,0.08)', background: 'rgba(255,255,255,0.03)', color: '#ccc', fontSize: 13, fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit' }}
-            onMouseEnter={e => (e.currentTarget.style.borderColor = 'rgba(168,85,247,0.4)')}
+            onMouseEnter={e => (e.currentTarget.style.borderColor = 'rgba(216,168,74,0.4)')}
             onMouseLeave={e => (e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)')}>
             <RefreshCw size={14} style={{ animation: loading ? 'spin 1s linear infinite' : 'none' }} /> Atualizar
           </button>
-          <button onClick={() => setCreating(true)} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '11px 20px', borderRadius: 12, border: 'none', background: 'linear-gradient(135deg,#a855f7,#FF2DA0)', color: '#fff', fontSize: 13, fontWeight: 900, cursor: 'pointer', fontFamily: 'inherit', letterSpacing: '0.04em' }}>
+          <button onClick={() => setCreating(true)} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '11px 20px', borderRadius: 12, border: 'none', background: 'linear-gradient(135deg,#d8a84a,#b8842c)', color: '#fff', fontSize: 13, fontWeight: 900, cursor: 'pointer', fontFamily: 'inherit', letterSpacing: '0.04em' }}>
             <Plus size={15} /> Novo Produto
           </button>
         </div>
@@ -300,13 +300,13 @@ export default function Products() {
           <Search size={14} style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: '#999' }} />
           <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Buscar produto ou SKU..."
             style={{ width: '100%', background: '#111117', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 12, padding: '12px 14px 12px 40px', color: '#fff', fontSize: 13, fontFamily: 'inherit', outline: 'none', boxSizing: 'border-box' }}
-            onFocus={e => (e.target.style.borderColor = 'rgba(168,85,247,0.35)')}
+            onFocus={e => (e.target.style.borderColor = 'rgba(216,168,74,0.35)')}
             onBlur={e => (e.target.style.borderColor = 'rgba(255,255,255,0.07)')} />
         </div>
         <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
           {categories.map(cat => (
             <button key={cat} onClick={() => setFilter(cat)}
-              style={{ padding: '8px 16px', borderRadius: 20, border: `1px solid ${filter === cat ? '#a855f7' : 'rgba(255,255,255,0.07)'}`, background: filter === cat ? 'rgba(168,85,247,0.1)' : 'transparent', color: filter === cat ? '#a855f7' : '#555', fontSize: 11, fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit', transition: 'all 0.2s', textTransform: 'capitalize' }}>
+              style={{ padding: '8px 16px', borderRadius: 20, border: `1px solid ${filter === cat ? '#d8a84a' : 'rgba(255,255,255,0.07)'}`, background: filter === cat ? 'rgba(216,168,74,0.1)' : 'transparent', color: filter === cat ? '#d8a84a' : '#555', fontSize: 11, fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit', transition: 'all 0.2s', textTransform: 'capitalize' }}>
               {cat === 'todos' ? 'Todos' : cat}
             </button>
           ))}
@@ -350,7 +350,7 @@ export default function Products() {
                           <div>
                             <p style={{ fontSize: 12, fontWeight: 700, color: '#ccc', marginBottom: 3 }}>{p.name}</p>
                             <div style={{ display: 'flex', gap: 4 }}>
-                              {p.isNew && <span style={{ fontSize: 9, fontWeight: 700, color: '#a855f7', background: 'rgba(168,85,247,0.12)', padding: '2px 6px', borderRadius: 10 }}>NOVO</span>}
+                              {p.isNew && <span style={{ fontSize: 9, fontWeight: 700, color: '#d8a84a', background: 'rgba(216,168,74,0.12)', padding: '2px 6px', borderRadius: 10 }}>NOVO</span>}
                               {p.isBestSeller && <span style={{ fontSize: 9, fontWeight: 700, color: '#FFB800', background: 'rgba(255,184,0,0.1)', padding: '2px 6px', borderRadius: 10 }}>TOP</span>}
                             </div>
                           </div>
@@ -422,7 +422,7 @@ export default function Products() {
                             {togglingId === p.id ? 'SALVANDO...' : p.active ? 'Desativar' : 'Ativar'}
                           </button>
                           <button onClick={() => openEdit(p)} style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '7px 12px', borderRadius: 8, border: '1px solid rgba(255,255,255,0.06)', background: 'transparent', color: '#999', cursor: 'pointer', fontSize: 11, fontWeight: 700, fontFamily: 'inherit', transition: 'all 0.2s' }}
-                            onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.color = '#a855f7'; (e.currentTarget as HTMLButtonElement).style.borderColor = 'rgba(168,85,247,0.3)'; }}
+                            onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.color = '#d8a84a'; (e.currentTarget as HTMLButtonElement).style.borderColor = 'rgba(216,168,74,0.3)'; }}
                             onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.color = '#444'; (e.currentTarget as HTMLButtonElement).style.borderColor = 'rgba(255,255,255,0.06)'; }}>
                             <Edit2 size={13} /> Editar
                           </button>
@@ -464,13 +464,13 @@ export default function Products() {
                   <div>
                     <label style={lbl}>Nome do Produto</label>
                     <input value={editForm?.name ?? ''} onChange={e => setEditForm(form => form ? { ...form, name: e.target.value } : form)} style={inp}
-                      onFocus={e => (e.target.style.borderColor = 'rgba(168,85,247,0.3)')}
+                      onFocus={e => (e.target.style.borderColor = 'rgba(216,168,74,0.3)')}
                       onBlur={e => (e.target.style.borderColor = 'rgba(255,255,255,0.08)')} />
                   </div>
                   <div>
                     <label style={lbl}>SKU</label>
                     <input value={editForm?.sku ?? ''} onChange={e => setEditForm(form => form ? { ...form, sku: e.target.value.toUpperCase() } : form)} style={inp}
-                      onFocus={e => (e.target.style.borderColor = 'rgba(168,85,247,0.3)')}
+                      onFocus={e => (e.target.style.borderColor = 'rgba(216,168,74,0.3)')}
                       onBlur={e => (e.target.style.borderColor = 'rgba(255,255,255,0.08)')} />
                   </div>
                 </div>
@@ -479,7 +479,7 @@ export default function Products() {
                   <div>
                     <label style={lbl}>Categoria</label>
                     <input list="edit-product-categories" value={editForm?.category ?? ''} onChange={e => setEditForm(form => form ? { ...form, category: e.target.value } : form)} style={inp}
-                      onFocus={e => (e.target.style.borderColor = 'rgba(168,85,247,0.3)')}
+                      onFocus={e => (e.target.style.borderColor = 'rgba(216,168,74,0.3)')}
                       onBlur={e => (e.target.style.borderColor = 'rgba(255,255,255,0.08)')} />
                     <datalist id="edit-product-categories">
                       {presetCategories.map(category => (
@@ -490,7 +490,7 @@ export default function Products() {
                   <div>
                     <label style={lbl}>Coleção</label>
                     <input value={editForm?.collection ?? ''} onChange={e => setEditForm(form => form ? { ...form, collection: e.target.value } : form)} placeholder="Ex: Perfumaria Premium" style={inp}
-                      onFocus={e => (e.target.style.borderColor = 'rgba(168,85,247,0.3)')}
+                      onFocus={e => (e.target.style.borderColor = 'rgba(216,168,74,0.3)')}
                       onBlur={e => (e.target.style.borderColor = 'rgba(255,255,255,0.08)')} />
                   </div>
                 </div>
@@ -499,13 +499,13 @@ export default function Products() {
                   <div>
                     <label style={lbl}>Valor de Custo (R$)</label>
                     <input type="number" value={editForm?.costPrice ?? ''} onChange={e => setEditForm(form => form ? { ...form, costPrice: e.target.value } : form)} min="0" step="0.01" placeholder="0,00" style={inp}
-                      onFocus={e => (e.target.style.borderColor = 'rgba(168,85,247,0.3)')}
+                      onFocus={e => (e.target.style.borderColor = 'rgba(216,168,74,0.3)')}
                       onBlur={e => (e.target.style.borderColor = 'rgba(255,255,255,0.08)')} />
                   </div>
                   <div>
                     <label style={lbl}>Valor de Venda (R$)</label>
                     <input type="number" value={editForm?.price ?? ''} onChange={e => setEditForm(form => form ? { ...form, price: e.target.value } : form)} min="0" step="0.01" style={inp}
-                      onFocus={e => (e.target.style.borderColor = 'rgba(168,85,247,0.3)')}
+                      onFocus={e => (e.target.style.borderColor = 'rgba(216,168,74,0.3)')}
                       onBlur={e => (e.target.style.borderColor = 'rgba(255,255,255,0.08)')} />
                   </div>
                 </div>
@@ -513,28 +513,28 @@ export default function Products() {
                 <div>
                   <label style={lbl}>Quantidade em Estoque</label>
                   <input type="number" value={editForm?.stock ?? ''} onChange={e => setEditForm(form => form ? { ...form, stock: e.target.value } : form)} min="0" style={inp}
-                    onFocus={e => (e.target.style.borderColor = 'rgba(168,85,247,0.3)')}
+                    onFocus={e => (e.target.style.borderColor = 'rgba(216,168,74,0.3)')}
                     onBlur={e => (e.target.style.borderColor = 'rgba(255,255,255,0.08)')} />
                 </div>
 
                 <div>
                   <label style={lbl}>Imagem Principal (URL)</label>
                   <input value={editForm?.image ?? ''} onChange={e => setEditForm(form => form ? { ...form, image: e.target.value } : form)} placeholder="https://..." style={inp}
-                    onFocus={e => (e.target.style.borderColor = 'rgba(168,85,247,0.3)')}
+                    onFocus={e => (e.target.style.borderColor = 'rgba(216,168,74,0.3)')}
                     onBlur={e => (e.target.style.borderColor = 'rgba(255,255,255,0.08)')} />
                 </div>
 
                 <div>
                   <label style={lbl}>Galeria de Imagens (URLs separadas por vírgula)</label>
                   <textarea value={editForm?.images ?? ''} onChange={e => setEditForm(form => form ? { ...form, images: e.target.value } : form)} rows={2} placeholder="https://img1..., https://img2..." style={{ ...inp, resize: 'vertical' }}
-                    onFocus={e => (e.target.style.borderColor = 'rgba(168,85,247,0.3)')}
+                    onFocus={e => (e.target.style.borderColor = 'rgba(216,168,74,0.3)')}
                     onBlur={e => (e.target.style.borderColor = 'rgba(255,255,255,0.08)')} />
                 </div>
 
                 <div>
                   <label style={lbl}>Descrição</label>
                   <textarea value={editForm?.description ?? ''} onChange={e => setEditForm(form => form ? { ...form, description: e.target.value } : form)} rows={3} placeholder="Descrição do produto..." style={{ ...inp, resize: 'vertical' }}
-                    onFocus={e => (e.target.style.borderColor = 'rgba(168,85,247,0.3)')}
+                    onFocus={e => (e.target.style.borderColor = 'rgba(216,168,74,0.3)')}
                     onBlur={e => (e.target.style.borderColor = 'rgba(255,255,255,0.08)')} />
                 </div>
 
@@ -542,14 +542,14 @@ export default function Products() {
                   <div>
                     <label style={lbl}>{editForm?.category && isPerfumariaCategory(editForm.category) ? 'Volume / ML' : 'Tamanhos / Volumes'}</label>
                     <input value={editForm?.sizes ?? ''} onChange={e => setEditForm(form => form ? { ...form, sizes: e.target.value } : form)} placeholder={editForm?.category && isPerfumariaCategory(editForm.category) ? '100ml ou 200ml' : 'P, M, G ou 100ml, 200ml'} style={inp}
-                      onFocus={e => (e.target.style.borderColor = 'rgba(168,85,247,0.3)')}
+                      onFocus={e => (e.target.style.borderColor = 'rgba(216,168,74,0.3)')}
                       onBlur={e => (e.target.style.borderColor = 'rgba(255,255,255,0.08)')} />
                   </div>
                   {!(editForm?.category && isPerfumariaCategory(editForm.category)) && (
                     <div>
                       <label style={lbl}>Cores / Variações</label>
                       <input value={editForm?.colors ?? ''} onChange={e => setEditForm(form => form ? { ...form, colors: e.target.value } : form)} placeholder="Preto, Dourado" style={inp}
-                        onFocus={e => (e.target.style.borderColor = 'rgba(168,85,247,0.3)')}
+                        onFocus={e => (e.target.style.borderColor = 'rgba(216,168,74,0.3)')}
                         onBlur={e => (e.target.style.borderColor = 'rgba(255,255,255,0.08)')} />
                     </div>
                   )}
@@ -558,7 +558,7 @@ export default function Products() {
                 <div>
                   <label style={lbl}>Tags</label>
                   <input value={editForm?.tags ?? ''} onChange={e => setEditForm(form => form ? { ...form, tags: e.target.value } : form)} placeholder="perfume, perfumaria, floral" style={inp}
-                    onFocus={e => (e.target.style.borderColor = 'rgba(168,85,247,0.3)')}
+                    onFocus={e => (e.target.style.borderColor = 'rgba(216,168,74,0.3)')}
                     onBlur={e => (e.target.style.borderColor = 'rgba(255,255,255,0.08)')} />
                 </div>
 
@@ -581,8 +581,8 @@ export default function Products() {
                           gap: 8,
                           padding: '12px 14px',
                           borderRadius: 12,
-                          border: `1px solid ${active ? 'rgba(168,85,247,0.45)' : 'rgba(255,255,255,0.08)'}`,
-                          background: active ? 'rgba(168,85,247,0.1)' : '#0d0d0d',
+                          border: `1px solid ${active ? 'rgba(216,168,74,0.45)' : 'rgba(255,255,255,0.08)'}`,
+                          background: active ? 'rgba(216,168,74,0.1)' : '#0d0d0d',
                           color: active ? '#fff' : '#999',
                           cursor: 'pointer',
                           fontFamily: 'inherit',
@@ -594,8 +594,8 @@ export default function Products() {
                           width: 18,
                           height: 18,
                           borderRadius: 999,
-                          border: `1px solid ${active ? '#a855f7' : 'rgba(255,255,255,0.16)'}`,
-                          background: active ? 'linear-gradient(135deg,#a855f7,#FF2DA0)' : 'transparent',
+                          border: `1px solid ${active ? '#d8a84a' : 'rgba(255,255,255,0.16)'}`,
+                          background: active ? 'linear-gradient(135deg,#d8a84a,#b8842c)' : 'transparent',
                         }} />
                       </button>
                     );
@@ -609,7 +609,7 @@ export default function Products() {
                   const mg = (lc / s) * 100;
                   const stk = parseInt(editForm.stock || '0') || 0;
                   return (
-                    <div style={{ background: 'rgba(168,85,247,0.06)', borderRadius: 12, padding: '14px 16px', border: '1px solid rgba(168,85,247,0.12)' }}>
+                    <div style={{ background: 'rgba(216,168,74,0.06)', borderRadius: 12, padding: '14px 16px', border: '1px solid rgba(216,168,74,0.12)' }}>
                       <p style={{ fontSize: 10, fontWeight: 700, color: '#555', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 10 }}>Análise de Lucro</p>
                       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 8 }}>
                         <div style={{ textAlign: 'center' }}>
@@ -621,7 +621,7 @@ export default function Products() {
                           <p style={{ fontSize: 10, color: '#999' }}>Lucro/unid</p>
                         </div>
                         <div style={{ textAlign: 'center' }}>
-                          <p style={{ fontSize: 15, fontWeight: 900, color: '#a855f7' }}>{fmtBRL(lc * stk)}</p>
+                          <p style={{ fontSize: 15, fontWeight: 900, color: '#d8a84a' }}>{fmtBRL(lc * stk)}</p>
                           <p style={{ fontSize: 10, color: '#999' }}>Lucro total</p>
                         </div>
                       </div>
@@ -632,7 +632,7 @@ export default function Products() {
 
               <div style={{ display: 'flex', gap: 10 }}>
                 <button onClick={saveEdit} disabled={saving}
-                  style={{ flex: 1, padding: '13px', borderRadius: 12, border: 'none', background: 'linear-gradient(135deg,#a855f7,#FF2DA0)', color: '#fff', fontWeight: 900, fontSize: 13, cursor: 'pointer', fontFamily: 'inherit', opacity: saving ? 0.7 : 1, letterSpacing: '0.04em' }}>
+                  style={{ flex: 1, padding: '13px', borderRadius: 12, border: 'none', background: 'linear-gradient(135deg,#d8a84a,#b8842c)', color: '#fff', fontWeight: 900, fontSize: 13, cursor: 'pointer', fontFamily: 'inherit', opacity: saving ? 0.7 : 1, letterSpacing: '0.04em' }}>
                   {saving ? 'SALVANDO...' : 'SALVAR ALTERAÇÕES'}
                 </button>
                 <button onClick={() => setEditing(null)}
@@ -673,13 +673,13 @@ export default function Products() {
                   <div>
                     <label style={lbl}>Nome do Produto *</label>
                     <input value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} placeholder="Ex: Moletom Oversized" style={inp}
-                      onFocus={e => (e.target.style.borderColor = 'rgba(168,85,247,0.3)')}
+                      onFocus={e => (e.target.style.borderColor = 'rgba(216,168,74,0.3)')}
                       onBlur={e => (e.target.style.borderColor = 'rgba(255,255,255,0.08)')} />
                   </div>
                   <div>
                     <label style={lbl}>SKU *</label>
                     <input value={form.sku} onChange={e => setForm(f => ({ ...f, sku: e.target.value.toUpperCase() }))} placeholder="Ex: MOL-001" style={inp}
-                      onFocus={e => (e.target.style.borderColor = 'rgba(168,85,247,0.3)')}
+                      onFocus={e => (e.target.style.borderColor = 'rgba(216,168,74,0.3)')}
                       onBlur={e => (e.target.style.borderColor = 'rgba(255,255,255,0.08)')} />
                   </div>
                 </div>
@@ -689,7 +689,7 @@ export default function Products() {
                   <div>
                     <label style={lbl}>Categoria *</label>
                     <input list="product-categories" value={form.category} onChange={e => setForm(f => ({ ...f, category: e.target.value }))} placeholder="Ex: Perfumaria" style={inp}
-                      onFocus={e => (e.target.style.borderColor = 'rgba(168,85,247,0.3)')}
+                      onFocus={e => (e.target.style.borderColor = 'rgba(216,168,74,0.3)')}
                       onBlur={e => (e.target.style.borderColor = 'rgba(255,255,255,0.08)')} />
                     <datalist id="product-categories">
                       {presetCategories.map(category => (
@@ -700,7 +700,7 @@ export default function Products() {
                   <div>
                     <label style={lbl}>Coleção</label>
                     <input value={form.collection} onChange={e => setForm(f => ({ ...f, collection: e.target.value }))} placeholder="Ex: Copa 2026" style={inp}
-                      onFocus={e => (e.target.style.borderColor = 'rgba(168,85,247,0.3)')}
+                      onFocus={e => (e.target.style.borderColor = 'rgba(216,168,74,0.3)')}
                       onBlur={e => (e.target.style.borderColor = 'rgba(255,255,255,0.08)')} />
                   </div>
                 </div>
@@ -710,26 +710,26 @@ export default function Products() {
                   <div>
                     <label style={lbl}>Valor de Custo (R$)</label>
                     <input type="number" value={form.costPrice} onChange={e => setForm(f => ({ ...f, costPrice: e.target.value }))} placeholder="0,00" min="0" step="0.01" style={inp}
-                      onFocus={e => (e.target.style.borderColor = 'rgba(168,85,247,0.3)')}
+                      onFocus={e => (e.target.style.borderColor = 'rgba(216,168,74,0.3)')}
                       onBlur={e => (e.target.style.borderColor = 'rgba(255,255,255,0.08)')} />
                   </div>
                   <div>
                     <label style={lbl}>Valor de Venda (R$) *</label>
                     <input type="number" value={form.price} onChange={e => setForm(f => ({ ...f, price: e.target.value }))} placeholder="0,00" min="0" step="0.01" style={inp}
-                      onFocus={e => (e.target.style.borderColor = 'rgba(168,85,247,0.3)')}
+                      onFocus={e => (e.target.style.borderColor = 'rgba(216,168,74,0.3)')}
                       onBlur={e => (e.target.style.borderColor = 'rgba(255,255,255,0.08)')} />
                   </div>
                   <div>
                     <label style={lbl}>Qtd. em Estoque</label>
                     <input type="number" value={form.stock} onChange={e => setForm(f => ({ ...f, stock: e.target.value }))} placeholder="0" min="0" style={inp}
-                      onFocus={e => (e.target.style.borderColor = 'rgba(168,85,247,0.3)')}
+                      onFocus={e => (e.target.style.borderColor = 'rgba(216,168,74,0.3)')}
                       onBlur={e => (e.target.style.borderColor = 'rgba(255,255,255,0.08)')} />
                   </div>
                 </div>
 
                 {/* Profit calculator — aparece quando custo + venda preenchidos */}
                 {previewSale > 0 && previewCost > 0 && (
-                  <div style={{ background: 'rgba(168,85,247,0.06)', borderRadius: 12, padding: '14px 16px', border: '1px solid rgba(168,85,247,0.12)' }}>
+                  <div style={{ background: 'rgba(216,168,74,0.06)', borderRadius: 12, padding: '14px 16px', border: '1px solid rgba(216,168,74,0.12)' }}>
                     <p style={{ fontSize: 10, fontWeight: 700, color: '#555', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 10 }}>Prévia de Lucro</p>
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 8 }}>
                       <div style={{ textAlign: 'center' }}>
@@ -741,7 +741,7 @@ export default function Products() {
                         <p style={{ fontSize: 10, color: '#999' }}>Lucro/unid</p>
                       </div>
                       <div style={{ textAlign: 'center' }}>
-                        <p style={{ fontSize: 14, fontWeight: 900, color: '#a855f7' }}>{fmtBRL(previewProfit * previewStock)}</p>
+                        <p style={{ fontSize: 14, fontWeight: 900, color: '#d8a84a' }}>{fmtBRL(previewProfit * previewStock)}</p>
                         <p style={{ fontSize: 10, color: '#999' }}>Lucro total</p>
                       </div>
                       <div style={{ textAlign: 'center' }}>
@@ -756,7 +756,7 @@ export default function Products() {
                 <div>
                   <label style={lbl}>URL da Imagem</label>
                   <input value={form.image} onChange={e => setForm(f => ({ ...f, image: e.target.value }))} placeholder="https://..." style={inp}
-                    onFocus={e => (e.target.style.borderColor = 'rgba(168,85,247,0.3)')}
+                    onFocus={e => (e.target.style.borderColor = 'rgba(216,168,74,0.3)')}
                     onBlur={e => (e.target.style.borderColor = 'rgba(255,255,255,0.08)')} />
                 </div>
 
@@ -764,7 +764,7 @@ export default function Products() {
                 <div>
                   <label style={lbl}>{isPerfumariaCategory(form.category) ? 'Volume / ML' : 'Tamanhos (separados por vírgula)'}</label>
                   <input value={form.sizes} onChange={e => setForm(f => ({ ...f, sizes: e.target.value }))} placeholder={isPerfumariaCategory(form.category) ? '100ml ou 200ml' : 'P, M, G, GG ou 30ml, 50ml, 100ml'} style={inp}
-                    onFocus={e => (e.target.style.borderColor = 'rgba(168,85,247,0.3)')}
+                    onFocus={e => (e.target.style.borderColor = 'rgba(216,168,74,0.3)')}
                     onBlur={e => (e.target.style.borderColor = 'rgba(255,255,255,0.08)')} />
                 </div>
 
@@ -773,14 +773,14 @@ export default function Products() {
                     <div>
                       <label style={lbl}>Cores / Variações</label>
                       <input value={form.colors} onChange={e => setForm(f => ({ ...f, colors: e.target.value }))} placeholder="Preto, Dourado ou Cristal, Rosa" style={inp}
-                        onFocus={e => (e.target.style.borderColor = 'rgba(168,85,247,0.3)')}
+                        onFocus={e => (e.target.style.borderColor = 'rgba(216,168,74,0.3)')}
                         onBlur={e => (e.target.style.borderColor = 'rgba(255,255,255,0.08)')} />
                     </div>
                   )}
                   <div>
                     <label style={lbl}>Tags</label>
                     <input value={form.tags} onChange={e => setForm(f => ({ ...f, tags: e.target.value }))} placeholder="perfume, perfumaria, floral" style={inp}
-                      onFocus={e => (e.target.style.borderColor = 'rgba(168,85,247,0.3)')}
+                      onFocus={e => (e.target.style.borderColor = 'rgba(216,168,74,0.3)')}
                       onBlur={e => (e.target.style.borderColor = 'rgba(255,255,255,0.08)')} />
                   </div>
                 </div>
@@ -789,7 +789,7 @@ export default function Products() {
                 <div>
                   <label style={lbl}>Descrição</label>
                   <textarea value={form.description} onChange={e => setForm(f => ({ ...f, description: e.target.value }))} rows={3} placeholder="Descrição do produto..." style={{ ...inp, resize: 'vertical' }}
-                    onFocus={e => (e.target.style.borderColor = 'rgba(168,85,247,0.3)')}
+                    onFocus={e => (e.target.style.borderColor = 'rgba(216,168,74,0.3)')}
                     onBlur={e => (e.target.style.borderColor = 'rgba(255,255,255,0.08)')} />
                 </div>
 
@@ -810,8 +810,8 @@ export default function Products() {
                         gap: 10,
                         padding: '12px 14px',
                         borderRadius: 12,
-                        border: `1px solid ${form[item.key as keyof typeof form] ? 'rgba(168,85,247,0.45)' : 'rgba(255,255,255,0.08)'}`,
-                        background: form[item.key as keyof typeof form] ? 'rgba(168,85,247,0.1)' : '#0d0d0d',
+                        border: `1px solid ${form[item.key as keyof typeof form] ? 'rgba(216,168,74,0.45)' : 'rgba(255,255,255,0.08)'}`,
+                        background: form[item.key as keyof typeof form] ? 'rgba(216,168,74,0.1)' : '#0d0d0d',
                         color: form[item.key as keyof typeof form] ? '#fff' : '#999',
                         cursor: 'pointer',
                         fontFamily: 'inherit',
@@ -823,9 +823,9 @@ export default function Products() {
                         width: 18,
                         height: 18,
                         borderRadius: 999,
-                        border: `1px solid ${form[item.key as keyof typeof form] ? '#a855f7' : 'rgba(255,255,255,0.16)'}`,
-                        background: form[item.key as keyof typeof form] ? 'linear-gradient(135deg,#a855f7,#FF2DA0)' : 'transparent',
-                        boxShadow: form[item.key as keyof typeof form] ? '0 0 18px rgba(168,85,247,0.28)' : 'none',
+                        border: `1px solid ${form[item.key as keyof typeof form] ? '#d8a84a' : 'rgba(255,255,255,0.16)'}`,
+                        background: form[item.key as keyof typeof form] ? 'linear-gradient(135deg,#d8a84a,#b8842c)' : 'transparent',
+                        boxShadow: form[item.key as keyof typeof form] ? '0 0 18px rgba(216,168,74,0.28)' : 'none',
                       }} />
                     </button>
                   ))}
@@ -834,7 +834,7 @@ export default function Products() {
 
               <div style={{ display: 'flex', gap: 10, marginTop: 22 }}>
                 <button onClick={saveCreate} disabled={creating2}
-                  style={{ flex: 1, padding: '13px', borderRadius: 12, border: 'none', background: 'linear-gradient(135deg,#a855f7,#FF2DA0)', color: '#fff', fontWeight: 900, fontSize: 13, cursor: creating2 ? 'not-allowed' : 'pointer', fontFamily: 'inherit', opacity: creating2 ? 0.7 : 1, letterSpacing: '0.04em' }}>
+                  style={{ flex: 1, padding: '13px', borderRadius: 12, border: 'none', background: 'linear-gradient(135deg,#d8a84a,#b8842c)', color: '#fff', fontWeight: 900, fontSize: 13, cursor: creating2 ? 'not-allowed' : 'pointer', fontFamily: 'inherit', opacity: creating2 ? 0.7 : 1, letterSpacing: '0.04em' }}>
                   {creating2 ? 'CADASTRANDO...' : 'CADASTRAR PRODUTO'}
                 </button>
                 <button onClick={() => setCreating(false)}

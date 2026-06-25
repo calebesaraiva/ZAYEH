@@ -69,9 +69,9 @@ const pageContent: Record<PageKey, PageContent> = {
     badge: 'Resposta rápida',
     heroPoints: [
       { icon: MessageCircle, title: 'WhatsApp', text: 'Canal principal para atendimento e confirmação de pedidos.', color: '#22C55E' },
-      { icon: Mail, title: 'E-mail', text: 'Ideal para dúvidas detalhadas, suporte e solicitações formais.', color: '#a855f7' },
+      { icon: Mail, title: 'E-mail', text: 'Ideal para dúvidas detalhadas, suporte e solicitações formais.', color: '#d8a84a' },
       { icon: MapPin, title: 'Imperatriz - MA', text: 'Retirada gratuita na loja mediante confirmação do pedido.', color: '#FFB800' },
-      { icon: Clock3, title: 'Horário', text: 'Segunda a sábado, com suporte próximo e retorno rápido.', color: '#FF2DA0' },
+      { icon: Clock3, title: 'Horário', text: 'Segunda a sábado, com suporte próximo e retorno rápido.', color: '#b8842c' },
     ],
     detailSections: [
       {
@@ -113,10 +113,10 @@ const pageContent: Record<PageKey, PageContent> = {
     subtitle: 'Tudo o que você precisa para comprar com segurança, entender o processo e resolver dúvidas sem complicação.',
     badge: 'Suporte completo',
     heroPoints: [
-      { icon: Headphones, title: 'Atendimento claro', text: 'Orientação simples antes, durante e depois da compra.', color: '#a855f7' },
+      { icon: Headphones, title: 'Atendimento claro', text: 'Orientação simples antes, durante e depois da compra.', color: '#d8a84a' },
       { icon: Shield, title: 'Compra protegida', text: 'Processo seguro com conferência manual quando necessário.', color: '#22C55E' },
       { icon: Truck, title: 'Entrega assistida', text: 'Frete confirmado conforme região e condições da compra.', color: '#FFB800' },
-      { icon: RefreshCw, title: 'Pós-venda', text: 'Suporte para trocas, devoluções e acompanhamento do pedido.', color: '#FF2DA0' },
+      { icon: RefreshCw, title: 'Pós-venda', text: 'Suporte para trocas, devoluções e acompanhamento do pedido.', color: '#b8842c' },
     ],
     detailSections: [
       {
@@ -158,10 +158,10 @@ const pageContent: Record<PageKey, PageContent> = {
     subtitle: 'Processo claro para solicitar ajuste, troca ou devolução com atendimento próximo e sem burocracia desnecessária.',
     badge: 'Até 7 dias',
     heroPoints: [
-      { icon: RefreshCw, title: 'Troca simples', text: 'Solicitação com suporte direto pelo atendimento da loja.', color: '#a855f7' },
+      { icon: RefreshCw, title: 'Troca simples', text: 'Solicitação com suporte direto pelo atendimento da loja.', color: '#d8a84a' },
       { icon: FileCheck2, title: 'Regras claras', text: 'Produto sem uso e em bom estado, com etiqueta quando aplicável.', color: '#22C55E' },
       { icon: Clock3, title: 'Prazo', text: 'Solicitação em até 7 dias após o recebimento do pedido.', color: '#FFB800' },
-      { icon: Shield, title: 'Acompanhamento', text: 'Nossa equipe orienta cada etapa conforme o caso.', color: '#FF2DA0' },
+      { icon: Shield, title: 'Acompanhamento', text: 'Nossa equipe orienta cada etapa conforme o caso.', color: '#b8842c' },
     ],
     detailSections: [
       {
@@ -205,8 +205,8 @@ const pageContent: Record<PageKey, PageContent> = {
     heroPoints: [
       { icon: Truck, title: 'Envio para todo o Brasil', text: 'Pedidos atendidos com suporte e confirmação de entrega.', color: '#22C55E' },
       { icon: BadgeCheck, title: 'Frete grátis promocional', text: 'Disponível quando a condição estiver ativa ou por cupom.', color: '#FFB800' },
-      { icon: MessageCircle, title: 'Valor manual no WhatsApp', text: 'Quando necessário, o frete é informado pela equipe após o pedido.', color: '#a855f7' },
-      { icon: MapPin, title: 'Retirada em loja', text: 'Opção gratuita para clientes de Imperatriz - MA.', color: '#FF2DA0' },
+      { icon: MessageCircle, title: 'Valor manual no WhatsApp', text: 'Quando necessário, o frete é informado pela equipe após o pedido.', color: '#d8a84a' },
+      { icon: MapPin, title: 'Retirada em loja', text: 'Opção gratuita para clientes de Imperatriz - MA.', color: '#b8842c' },
     ],
     detailSections: [
       {
@@ -248,9 +248,9 @@ const pageContent: Record<PageKey, PageContent> = {
     badge: 'Dados protegidos',
     heroPoints: [
       { icon: Lock, title: 'Proteção de dados', text: 'Informações usadas para operação, atendimento e segurança da compra.', color: '#22C55E' },
-      { icon: Shield, title: 'Uso responsável', text: 'Dados tratados com foco em atendimento e experiência do cliente.', color: '#a855f7' },
+      { icon: Shield, title: 'Uso responsável', text: 'Dados tratados com foco em atendimento e experiência do cliente.', color: '#d8a84a' },
       { icon: Mail, title: 'Comunicação', text: 'Contato apenas quando necessário para pedido, suporte ou campanhas autorizadas.', color: '#FFB800' },
-      { icon: FileCheck2, title: 'Transparência', text: 'Política apresentada de forma simples para facilitar a compreensão.', color: '#FF2DA0' },
+      { icon: FileCheck2, title: 'Transparência', text: 'Política apresentada de forma simples para facilitar a compreensão.', color: '#b8842c' },
     ],
     detailSections: [
       {
@@ -291,10 +291,10 @@ const pageContent: Record<PageKey, PageContent> = {
     subtitle: 'Condições gerais para navegação, compra, uso do site, promoções, atendimento e relacionamento com a loja.',
     badge: 'Uso da plataforma',
     heroPoints: [
-      { icon: Scale, title: 'Regras da operação', text: 'Organizam o uso do site e das funcionalidades da loja.', color: '#a855f7' },
+      { icon: Scale, title: 'Regras da operação', text: 'Organizam o uso do site e das funcionalidades da loja.', color: '#d8a84a' },
       { icon: ShoppingBag, title: 'Pedidos e compras', text: 'Compras dependem de confirmação de dados e disponibilidade.', color: '#22C55E' },
       { icon: Shield, title: 'Segurança', text: 'Uso responsável da plataforma e respeito às políticas da marca.', color: '#FFB800' },
-      { icon: FileCheck2, title: 'Clareza comercial', text: 'Promoções, frete e condições seguem regras vigentes no momento da compra.', color: '#FF2DA0' },
+      { icon: FileCheck2, title: 'Clareza comercial', text: 'Promoções, frete e condições seguem regras vigentes no momento da compra.', color: '#b8842c' },
     ],
     detailSections: [
       {
@@ -335,10 +335,10 @@ const pageContent: Record<PageKey, PageContent> = {
     subtitle: 'Diretrizes práticas da ZAYEH para trocas comerciais, análise de devolução e atendimento pós-venda com mais clareza.',
     badge: 'Regras da loja',
     heroPoints: [
-      { icon: RefreshCw, title: 'Troca orientada', text: 'Cada solicitação é avaliada conforme o tipo de produto e situação do pedido.', color: '#a855f7' },
+      { icon: RefreshCw, title: 'Troca orientada', text: 'Cada solicitação é avaliada conforme o tipo de produto e situação do pedido.', color: '#d8a84a' },
       { icon: Clock3, title: 'Prazo informado', text: 'A loja trabalha com até 7 dias para solicitações elegíveis.', color: '#22C55E' },
       { icon: Box, title: 'Condição do item', text: 'Produtos precisam retornar preservados para análise.', color: '#FFB800' },
-      { icon: MessageCircle, title: 'Suporte direto', text: 'A equipe acompanha o processo pelo canal oficial de atendimento.', color: '#FF2DA0' },
+      { icon: MessageCircle, title: 'Suporte direto', text: 'A equipe acompanha o processo pelo canal oficial de atendimento.', color: '#b8842c' },
     ],
     detailSections: [
       {
@@ -385,7 +385,7 @@ export default function InfoPage({ pageKey }: { pageKey: PageKey }) {
   return (
     <div style={{ background: '#0b0b0b', minHeight: '100vh' }}>
       <section style={{ position: 'relative', overflow: 'hidden', padding: 'clamp(56px,8vw,92px) 20px 52px' }}>
-        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at top left, rgba(168,85,247,0.16), transparent 34%), radial-gradient(circle at bottom right, rgba(255,45,160,0.12), transparent 28%)', pointerEvents: 'none' }} />
+        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at top left, rgba(216,168,74,0.16), transparent 34%), radial-gradient(circle at bottom right, rgba(184,132,44,0.12), transparent 28%)', pointerEvents: 'none' }} />
         <div style={{ maxWidth: 1240, margin: '0 auto', position: 'relative', zIndex: 1 }}>
           <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} style={{ maxWidth: 760 }}>
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '7px 14px', borderRadius: 999, background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', color: '#d3b8ff', fontSize: 11, fontWeight: 800, letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: 18 }}>
@@ -398,7 +398,7 @@ export default function InfoPage({ pageKey }: { pageKey: PageKey }) {
               {page.subtitle}
             </p>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
-              <span style={{ padding: '10px 14px', borderRadius: 999, background: 'rgba(168,85,247,0.1)', border: '1px solid rgba(168,85,247,0.18)', color: '#d7b5ff', fontSize: 11.5, fontWeight: 800 }}>
+              <span style={{ padding: '10px 14px', borderRadius: 999, background: 'rgba(216,168,74,0.1)', border: '1px solid rgba(216,168,74,0.18)', color: '#d7b5ff', fontSize: 11.5, fontWeight: 800 }}>
                 {page.badge}
               </span>
               <span style={{ padding: '10px 14px', borderRadius: 999, background: 'rgba(255,184,0,0.08)', border: '1px solid rgba(255,184,0,0.16)', color: '#ffd77c', fontSize: 11.5, fontWeight: 800 }}>
@@ -506,7 +506,7 @@ export default function InfoPage({ pageKey }: { pageKey: PageKey }) {
             initial={{ opacity: 0, y: 18 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            style={{ padding: '28px 24px', borderRadius: 28, background: 'linear-gradient(135deg,rgba(168,85,247,0.1),rgba(255,45,160,0.06),rgba(255,184,0,0.05))', border: '1px solid rgba(255,255,255,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 18 }}
+            style={{ padding: '28px 24px', borderRadius: 28, background: 'linear-gradient(135deg,rgba(216,168,74,0.1),rgba(184,132,44,0.06),rgba(255,184,0,0.05))', border: '1px solid rgba(255,255,255,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 18 }}
           >
             <div style={{ maxWidth: 640 }}>
               <p style={{ fontSize: 12, fontWeight: 900, color: '#d4b4ff', letterSpacing: '0.16em', textTransform: 'uppercase', marginBottom: 8 }}>Próximo passo</p>
@@ -521,7 +521,7 @@ export default function InfoPage({ pageKey }: { pageKey: PageKey }) {
                 target="_blank"
                 rel="noreferrer"
                 className="no-underline"
-                style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '14px 22px', borderRadius: 14, background: 'linear-gradient(135deg,#a855f7,#FF2DA0)', color: '#fff', fontWeight: 900, fontSize: 12.5, letterSpacing: '0.08em', whiteSpace: 'nowrap', boxShadow: '0 16px 34px rgba(168,85,247,0.24)' }}
+                style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '14px 22px', borderRadius: 14, background: 'linear-gradient(135deg,#d8a84a,#b8842c)', color: '#fff', fontWeight: 900, fontSize: 12.5, letterSpacing: '0.08em', whiteSpace: 'nowrap', boxShadow: '0 16px 34px rgba(216,168,74,0.24)' }}
               >
                 {page.ctaLabel} <ArrowRight size={15} />
               </a>
@@ -529,7 +529,7 @@ export default function InfoPage({ pageKey }: { pageKey: PageKey }) {
               <Link
                 to={page.ctaHref}
                 className="no-underline"
-                style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '14px 22px', borderRadius: 14, background: 'linear-gradient(135deg,#a855f7,#FF2DA0)', color: '#fff', fontWeight: 900, fontSize: 12.5, letterSpacing: '0.08em', whiteSpace: 'nowrap', boxShadow: '0 16px 34px rgba(168,85,247,0.24)' }}
+                style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '14px 22px', borderRadius: 14, background: 'linear-gradient(135deg,#d8a84a,#b8842c)', color: '#fff', fontWeight: 900, fontSize: 12.5, letterSpacing: '0.08em', whiteSpace: 'nowrap', boxShadow: '0 16px 34px rgba(216,168,74,0.24)' }}
               >
                 {page.ctaLabel} <ArrowRight size={15} />
               </Link>

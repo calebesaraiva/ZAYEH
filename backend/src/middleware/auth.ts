@@ -9,7 +9,7 @@ export function requireAuth(req: AuthRequest, res: Response, next: NextFunction)
   const token = req.headers.authorization?.replace('Bearer ', '');
   if (!token) return res.status(401).json({ error: 'Token required' });
   try {
-    const payload = jwt.verify(token, process.env.JWT_SECRET || 'suh-secret-2026') as AuthRequest['user'];
+    const payload = jwt.verify(token, process.env.JWT_SECRET || 'zayeh-secret-2026') as AuthRequest['user'];
     req.user = payload;
     next();
   } catch {

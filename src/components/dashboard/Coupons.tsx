@@ -138,7 +138,7 @@ export default function Coupons() {
           <button onClick={refetch} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '11px 18px', borderRadius: 12, border: '1px solid rgba(255,255,255,0.08)', background: 'rgba(255,255,255,0.03)', color: '#ccc', fontSize: 13, fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit', transition: 'all 0.2s' }}>
             <RefreshCw size={14} style={{ animation: loading ? 'spin 1s linear infinite' : 'none' }} />
           </button>
-          <button onClick={openNew} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '11px 22px', borderRadius: 12, background: 'linear-gradient(135deg,#a855f7,#FF2DA0)', color: '#fff', fontWeight: 800, fontSize: 13, border: 'none', cursor: 'pointer', fontFamily: 'inherit', letterSpacing: '0.04em', boxShadow: '0 6px 20px rgba(168,85,247,0.3)' }}>
+          <button onClick={openNew} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '11px 22px', borderRadius: 12, background: 'linear-gradient(135deg,#d8a84a,#b8842c)', color: '#fff', fontWeight: 800, fontSize: 13, border: 'none', cursor: 'pointer', fontFamily: 'inherit', letterSpacing: '0.04em', boxShadow: '0 6px 20px rgba(216,168,74,0.3)' }}>
             <Plus size={15} /> NOVO CUPOM
           </button>
         </div>
@@ -146,9 +146,9 @@ export default function Coupons() {
 
       <div className="dash-stats-3" style={{ gap: 12 }}>
         {[
-          { label: 'Total de Cupons', value: coupons.length, color: '#a855f7', icon: Tag },
+          { label: 'Total de Cupons', value: coupons.length, color: '#d8a84a', icon: Tag },
           { label: 'Ativos', value: activeCount, color: '#22C55E', icon: Zap },
-          { label: 'Total de Usos', value: totalUses, color: '#FF2DA0', icon: BarChart2 },
+          { label: 'Total de Usos', value: totalUses, color: '#b8842c', icon: BarChart2 },
         ].map(({ label, value, color, icon: Icon }, i) => (
           <motion.div key={label} initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.08 }} style={{ ...card, padding: '20px 22px', position: 'relative', overflow: 'hidden' }}>
             <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 2, background: `linear-gradient(90deg, ${color}, transparent)` }} />
@@ -172,10 +172,10 @@ export default function Coupons() {
         <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
           {coupons.map((c, i) => (
             <motion.div key={c.id} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.06 }} style={{ ...card, padding: '18px 22px', display: 'flex', alignItems: 'center', gap: 16, opacity: c.active ? 1 : 0.5, position: 'relative', overflow: 'hidden', transition: 'opacity 0.3s' }}>
-              {c.active && <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: 3, background: 'linear-gradient(180deg,#a855f7,#FF2DA0)', borderRadius: '18px 0 0 18px' }} />}
+              {c.active && <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: 3, background: 'linear-gradient(180deg,#d8a84a,#b8842c)', borderRadius: '18px 0 0 18px' }} />}
 
-              <div style={{ width: 46, height: 46, borderRadius: 13, background: c.active ? 'rgba(255,45,160,0.1)' : 'rgba(255,255,255,0.04)', border: `1px solid ${c.active ? 'rgba(255,45,160,0.15)' : 'rgba(255,255,255,0.04)'}`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                <Tag size={18} style={{ color: c.active ? '#FF2DA0' : '#333' }} />
+              <div style={{ width: 46, height: 46, borderRadius: 13, background: c.active ? 'rgba(184,132,44,0.1)' : 'rgba(255,255,255,0.04)', border: `1px solid ${c.active ? 'rgba(184,132,44,0.15)' : 'rgba(255,255,255,0.04)'}`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                <Tag size={18} style={{ color: c.active ? '#b8842c' : '#333' }} />
               </div>
 
               <div style={{ flex: '0 0 170px' }}>
@@ -209,7 +209,7 @@ export default function Coupons() {
                         <span style={{ fontSize: 9, color: '#555', fontWeight: 700 }}>{Math.round((c.uses / c.maxUses) * 100)}%</span>
                       </div>
                       <div style={{ height: 4, borderRadius: 99, background: 'rgba(255,255,255,0.05)', overflow: 'hidden' }}>
-                        <div style={{ height: '100%', borderRadius: 99, background: 'linear-gradient(90deg,#a855f7,#FF2DA0)', width: `${Math.min(100, (c.uses / c.maxUses) * 100)}%`, transition: 'width 0.5s' }} />
+                        <div style={{ height: '100%', borderRadius: 99, background: 'linear-gradient(90deg,#d8a84a,#b8842c)', width: `${Math.min(100, (c.uses / c.maxUses) * 100)}%`, transition: 'width 0.5s' }} />
                       </div>
                     </>
                   )}
@@ -257,7 +257,7 @@ export default function Coupons() {
                     <label style={lbl}>Tipo de desconto</label>
                     <div style={{ display: 'flex', gap: 8 }}>
                       {(['percent', 'fixed', 'frete'] as const).map((t) => (
-                        <button key={t} onClick={() => setF('type', t)} style={{ flex: 1, padding: '9px', borderRadius: 9, border: `1px solid ${form.type === t ? '#a855f7' : 'rgba(255,255,255,0.08)'}`, background: form.type === t ? 'rgba(168,85,247,0.1)' : 'transparent', color: form.type === t ? '#a855f7' : '#555', fontSize: 12, fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 5, transition: 'all 0.2s' }}>
+                        <button key={t} onClick={() => setF('type', t)} style={{ flex: 1, padding: '9px', borderRadius: 9, border: `1px solid ${form.type === t ? '#d8a84a' : 'rgba(255,255,255,0.08)'}`, background: form.type === t ? 'rgba(216,168,74,0.1)' : 'transparent', color: form.type === t ? '#d8a84a' : '#555', fontSize: 12, fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 5, transition: 'all 0.2s' }}>
                           {t === 'percent' ? <><Percent size={12} /> %</> : t === 'fixed' ? <><DollarSign size={12} /> R$</> : <><Zap size={12} /> Frete</>}
                         </button>
                       ))}
@@ -304,7 +304,7 @@ export default function Coupons() {
                   <button onClick={closeForm} style={{ flex: 1, padding: '13px', borderRadius: 12, border: '1px solid rgba(255,255,255,0.08)', background: 'transparent', color: '#666', fontWeight: 700, fontSize: 13, cursor: 'pointer', fontFamily: 'inherit' }}>
                     Cancelar
                   </button>
-                  <button onClick={save} disabled={saving} style={{ flex: 2, padding: '13px', borderRadius: 12, border: 'none', background: 'linear-gradient(135deg,#a855f7,#FF2DA0)', color: '#fff', fontWeight: 900, fontSize: 13, cursor: 'pointer', fontFamily: 'inherit', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, letterSpacing: '0.04em', boxShadow: '0 4px 16px rgba(168,85,247,0.3)', opacity: saving ? 0.7 : 1 }}>
+                  <button onClick={save} disabled={saving} style={{ flex: 2, padding: '13px', borderRadius: 12, border: 'none', background: 'linear-gradient(135deg,#d8a84a,#b8842c)', color: '#fff', fontWeight: 900, fontSize: 13, cursor: 'pointer', fontFamily: 'inherit', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, letterSpacing: '0.04em', boxShadow: '0 4px 16px rgba(216,168,74,0.3)', opacity: saving ? 0.7 : 1 }}>
                     {saving ? <Loader2 size={15} style={{ animation: 'spin 1s linear infinite' }} /> : <Check size={15} />}
                     {saving ? 'SALVANDO...' : 'SALVAR CUPOM'}
                   </button>

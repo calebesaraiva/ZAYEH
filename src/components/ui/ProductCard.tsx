@@ -41,7 +41,7 @@ export default function ProductCard({ product }: Props) {
               width: '100%',
               height: '100%',
               objectFit: isPerfumaria ? 'contain' : 'cover',
-              background: isPerfumaria ? 'radial-gradient(circle at top, rgba(168,85,247,0.14), transparent 58%), #111' : 'transparent',
+              background: isPerfumaria ? 'radial-gradient(circle at top, rgba(216,168,74,0.14), transparent 58%), #111' : 'transparent',
               padding: isPerfumaria ? 14 : 0,
               transition: 'transform 0.5s',
               transform: hovered ? 'scale(1.06)' : 'scale(1)',
@@ -59,7 +59,7 @@ export default function ProductCard({ product }: Props) {
               </span>
             )}
             {product.isNew && !product.discount && (
-              <span style={{ background: '#FF2DA0', color: '#fff', fontSize: 9.5, fontWeight: 900, padding: '3px 9px', borderRadius: 99, letterSpacing: '0.06em' }}>
+              <span style={{ background: '#b8842c', color: '#fff', fontSize: 9.5, fontWeight: 900, padding: '3px 9px', borderRadius: 99, letterSpacing: '0.06em' }}>
                 NOVO
               </span>
             )}
@@ -72,13 +72,13 @@ export default function ProductCard({ product }: Props) {
             style={{
               position: 'absolute', top: 10, right: 10,
               width: 34, height: 34, borderRadius: '50%',
-              background: isWished ? 'rgba(255,45,160,0.2)' : 'rgba(0,0,0,0.65)',
-              border: `1px solid ${isWished ? 'rgba(255,45,160,0.5)' : 'rgba(255,255,255,0.12)'}`,
+              background: isWished ? 'rgba(184,132,44,0.2)' : 'rgba(0,0,0,0.65)',
+              border: `1px solid ${isWished ? 'rgba(184,132,44,0.5)' : 'rgba(255,255,255,0.12)'}`,
               backdropFilter: 'blur(8px)',
               display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer',
               transition: 'all 0.2s',
             }}>
-            <Heart size={14} fill={isWished ? '#FF2DA0' : 'none'} color={isWished ? '#FF2DA0' : '#fff'} />
+            <Heart size={14} fill={isWished ? '#b8842c' : 'none'} color={isWished ? '#b8842c' : '#fff'} />
           </motion.button>
 
           {/* Hover CTA */}
@@ -88,7 +88,7 @@ export default function ProductCard({ product }: Props) {
             transition: 'transform 0.28s cubic-bezier(0.22,1,0.36,1)',
           }}>
             <div style={{ background: 'rgba(0,0,0,0.85)', backdropFilter: 'blur(12px)', borderTop: '1px solid rgba(255,255,255,0.08)', padding: '12px 14px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
-              <Eye size={15} style={{ color: '#a855f7' }} />
+              <Eye size={15} style={{ color: '#d8a84a' }} />
               <span style={{ fontSize: 12, fontWeight: 800, color: '#fff', letterSpacing: '0.1em' }}>VER RÁPIDO</span>
             </div>
           </div>
@@ -106,7 +106,7 @@ export default function ProductCard({ product }: Props) {
           {/* Stars */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 4, marginBottom: 10 }}>
             {[1,2,3,4,5].map(s => (
-              <Star key={s} size={10} fill={s <= stars ? '#a855f7' : 'none'} color={s <= stars ? '#a855f7' : '#333'} />
+              <Star key={s} size={10} fill={s <= stars ? '#d8a84a' : 'none'} color={s <= stars ? '#d8a84a' : '#333'} />
             ))}
             <span style={{ fontSize: 10.5, color: '#444', marginLeft: 2 }}>({product.reviews})</span>
           </div>
@@ -131,8 +131,8 @@ export default function ProductCard({ product }: Props) {
 
           {/* Cashback */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 5, marginTop: 10, padding: '5px 8px', borderRadius: 6, background: 'rgba(255,184,0,0.06)', border: '1px solid rgba(255,184,0,0.12)' }}>
-            <Coins size={10} style={{ color: '#a855f7', flexShrink: 0 }} />
-            <span style={{ fontSize: 10.5, color: '#a855f7', fontWeight: 700 }}>
+            <Coins size={10} style={{ color: '#d8a84a', flexShrink: 0 }} />
+            <span style={{ fontSize: 10.5, color: '#d8a84a', fontWeight: 700 }}>
               5% cashback · R$ {(product.price * 0.05).toFixed(2).replace('.', ',')}
             </span>
           </div>

@@ -17,7 +17,7 @@ import { useStorePricingSettings } from '../../lib/storePricing';
 interface Props { open: boolean; onClose: () => void; onAccountOpen: () => void; }
 
 const mainLinks = [
-  { label: 'Masculino', to: '/categoria/masculino', desc: 'Camisas do Brasil e plus size', accent: 'linear-gradient(180deg, #a855f7, #FF2DA0)' },
+  { label: 'Masculino', to: '/categoria/masculino', desc: 'Camisas do Brasil e plus size', accent: 'linear-gradient(180deg, #d8a84a, #b8842c)' },
   { label: 'Feminino', to: '/categoria/feminino', desc: 'Camisa retrô feminina em destaque', accent: 'linear-gradient(180deg, #d946ef, #fb7185)' },
   { label: 'Infantil', to: '/categoria/infantil', desc: 'Conjuntos para 3 a 14 anos', accent: 'linear-gradient(180deg, #8b5cf6, #c084fc)' },
   { label: 'Perfumaria', to: '/categoria/perfumaria', desc: 'Fragrâncias marcantes e sofisticadas', accent: 'linear-gradient(180deg, #06b6d4, #3b82f6)' },
@@ -191,7 +191,7 @@ export default function MobileDrawer({ open, onClose, onAccountOpen }: Props) {
 
                 <motion.div variants={itemVariants} initial="hidden" animate="show" custom={mainLinks.length + accountLinks.length + 1}>
                   <div className="drawer-footer-card">
-                    <div className="drawer-footer-icon purple">
+                    <div className="drawer-footer-icon gold">
                       <RefreshCw size={12} />
                     </div>
                     <div>

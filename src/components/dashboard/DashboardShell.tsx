@@ -62,7 +62,7 @@ function LoginGate({ onLogin }: { onLogin: () => void }) {
         setError('Acesso permitido apenas para administrador');
         return;
       }
-      localStorage.setItem('suh_token', token);
+      localStorage.setItem('zayeh_token', token);
       onLogin();
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Credenciais inválidas');
@@ -80,17 +80,17 @@ function LoginGate({ onLogin }: { onLogin: () => void }) {
   return (
     <div style={{ minHeight: '100vh', background: '#060608', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: "'Montserrat', 'Inter', sans-serif", padding: 24 }}>
       {/* background glow */}
-      <div style={{ position: 'fixed', top: '20%', left: '50%', transform: 'translateX(-50%)', width: 600, height: 300, background: 'radial-gradient(ellipse, rgba(168,85,247,0.12) 0%, transparent 70%)', pointerEvents: 'none' }} />
+      <div style={{ position: 'fixed', top: '20%', left: '50%', transform: 'translateX(-50%)', width: 600, height: 300, background: 'radial-gradient(ellipse, rgba(216,168,74,0.12) 0%, transparent 70%)', pointerEvents: 'none' }} />
 
       <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}
         style={{ width: '100%', maxWidth: 420, background: '#111117', borderRadius: 24, border: '1px solid rgba(255,255,255,0.07)', padding: '40px 36px', position: 'relative', overflow: 'hidden' }}>
 
         {/* top accent */}
-        <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 2, background: 'linear-gradient(90deg,#a855f7,#FF2DA0)' }} />
+        <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 2, background: 'linear-gradient(90deg,#d8a84a,#b8842c)' }} />
 
         {/* logo / title */}
         <div style={{ textAlign: 'center', marginBottom: 32 }}>
-          <div style={{ width: 56, height: 56, borderRadius: 16, background: 'linear-gradient(135deg,#a855f7,#FF2DA0)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px', boxShadow: '0 8px 24px rgba(168,85,247,0.35)' }}>
+          <div style={{ width: 56, height: 56, borderRadius: 16, background: 'linear-gradient(135deg,#d8a84a,#b8842c)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px', boxShadow: '0 8px 24px rgba(216,168,74,0.35)' }}>
             <Lock size={22} style={{ color: '#fff' }} />
           </div>
           <h1 style={{ fontSize: 22, fontWeight: 900, color: '#fff', marginBottom: 6 }}>Dashboard ZAYEH</h1>
@@ -101,14 +101,14 @@ function LoginGate({ onLogin }: { onLogin: () => void }) {
           <div>
             <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: '#999', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 7 }}>E-mail</label>
             <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="Digite seu e-mail" required style={inp}
-              onFocus={e => (e.target.style.borderColor = 'rgba(168,85,247,0.5)')}
+              onFocus={e => (e.target.style.borderColor = 'rgba(216,168,74,0.5)')}
               onBlur={e => (e.target.style.borderColor = 'rgba(255,255,255,0.09)')} />
           </div>
           <div>
             <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: '#999', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 7 }}>Senha</label>
             <div style={{ position: 'relative' }}>
               <input type={showPw ? 'text' : 'password'} value={password} onChange={e => setPassword(e.target.value)} placeholder="••••••••" required style={{ ...inp, paddingRight: 44 }}
-                onFocus={e => (e.target.style.borderColor = 'rgba(168,85,247,0.5)')}
+                onFocus={e => (e.target.style.borderColor = 'rgba(216,168,74,0.5)')}
                 onBlur={e => (e.target.style.borderColor = 'rgba(255,255,255,0.09)')} />
               <button type="button" onClick={() => setShowPw(v => !v)} style={{ position: 'absolute', right: 14, top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', color: '#999', cursor: 'pointer', display: 'flex' }}>
                 {showPw ? <EyeOff size={16} /> : <Eye size={16} />}
@@ -123,7 +123,7 @@ function LoginGate({ onLogin }: { onLogin: () => void }) {
           )}
 
           <button type="submit" disabled={loading}
-            style={{ marginTop: 8, padding: '14px', borderRadius: 12, border: 'none', background: 'linear-gradient(135deg,#a855f7,#FF2DA0)', color: '#fff', fontWeight: 900, fontSize: 14, cursor: 'pointer', fontFamily: 'inherit', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, letterSpacing: '0.04em', boxShadow: '0 6px 20px rgba(168,85,247,0.3)', opacity: loading ? 0.7 : 1, transition: 'opacity 0.2s' }}>
+            style={{ marginTop: 8, padding: '14px', borderRadius: 12, border: 'none', background: 'linear-gradient(135deg,#d8a84a,#b8842c)', color: '#fff', fontWeight: 900, fontSize: 14, cursor: 'pointer', fontFamily: 'inherit', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, letterSpacing: '0.04em', boxShadow: '0 6px 20px rgba(216,168,74,0.3)', opacity: loading ? 0.7 : 1, transition: 'opacity 0.2s' }}>
             {loading ? <Loader2 size={16} style={{ animation: 'spin 1s linear infinite' }} /> : <Lock size={16} />}
             {loading ? 'ENTRANDO...' : 'ENTRAR NO PAINEL'}
           </button>
@@ -143,19 +143,19 @@ export default function DashboardShell() {
   const [seenCount, setSeenCount] = useState(0);
   const [alerts, setAlerts] = useState<DashboardAlert[]>([]);
   const [urgentCount, setUrgentCount] = useState(0);
-  const [authed, setAuthed] = useState(!!localStorage.getItem('suh_token'));
+  const [authed, setAuthed] = useState(!!localStorage.getItem('zayeh_token'));
   const [currentUser, setCurrentUser] = useState<ApiUser | null>(null);
   const prevUrgent = useRef(0);
   const audioCtx = useRef<AudioContext | null>(null);
 
   // Validate token on mount
   useEffect(() => {
-    const token = localStorage.getItem('suh_token');
+    const token = localStorage.getItem('zayeh_token');
     if (!token) return;
     api.auth.me()
       .then(user => {
         if (user.role !== 'admin') {
-          localStorage.removeItem('suh_token');
+          localStorage.removeItem('zayeh_token');
           setAuthed(false);
           setCurrentUser(null);
         } else {
@@ -163,7 +163,7 @@ export default function DashboardShell() {
         }
       })
       .catch(() => {
-        localStorage.removeItem('suh_token');
+        localStorage.removeItem('zayeh_token');
         setAuthed(false);
         setCurrentUser(null);
       });
@@ -282,7 +282,7 @@ export default function DashboardShell() {
                   color: '#ccc', fontSize: 13, fontFamily: 'inherit', outline: 'none',
                   transition: 'border-color 0.2s, background 0.2s',
                 }}
-                onFocus={e => { e.target.style.borderColor = 'rgba(168,85,247,0.4)'; e.target.style.background = 'rgba(255,255,255,0.06)'; }}
+                onFocus={e => { e.target.style.borderColor = 'rgba(216,168,74,0.4)'; e.target.style.background = 'rgba(255,255,255,0.06)'; }}
                 onBlur={e => { e.target.style.borderColor = 'rgba(255,255,255,0.07)'; e.target.style.background = 'rgba(255,255,255,0.04)'; }}
               />
               {search && (
@@ -307,7 +307,7 @@ export default function DashboardShell() {
             <div style={{ position: 'relative' }}>
               <button
                 onClick={() => { setNotifOpen(o => !o); if (!notifOpen) setSeenCount(urgentCount); }}
-                style={{ position: 'relative', width: 38, height: 38, borderRadius: 10, border: `1px solid ${notifOpen ? 'rgba(168,85,247,0.4)' : urgentCount > 0 ? 'rgba(168,85,247,0.25)' : 'rgba(255,255,255,0.07)'}`, background: notifOpen ? 'rgba(168,85,247,0.08)' : 'rgba(255,255,255,0.03)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: notifOpen ? '#a855f7' : '#666', transition: 'all 0.2s' }}>
+                style={{ position: 'relative', width: 38, height: 38, borderRadius: 10, border: `1px solid ${notifOpen ? 'rgba(216,168,74,0.4)' : urgentCount > 0 ? 'rgba(216,168,74,0.25)' : 'rgba(255,255,255,0.07)'}`, background: notifOpen ? 'rgba(216,168,74,0.08)' : 'rgba(255,255,255,0.03)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: notifOpen ? '#d8a84a' : '#666', transition: 'all 0.2s' }}>
                 <Bell size={16} style={{ animation: unread > 0 ? 'bellRing 1s ease-in-out infinite' : 'none' }} />
                 {unread > 0 && (
                   <span style={{ position: 'absolute', top: -4, right: -4, minWidth: 16, height: 16, borderRadius: 8, background: '#ef4444', border: '2px solid #0a0a0c', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 9, fontWeight: 900, color: '#fff', padding: '0 3px' }}>
@@ -327,9 +327,9 @@ export default function DashboardShell() {
 
                       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 18px', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                          <Bell size={14} style={{ color: '#a855f7' }} />
+                          <Bell size={14} style={{ color: '#d8a84a' }} />
                           <span style={{ fontSize: 13, fontWeight: 800, color: '#fff' }}>Alertas</span>
-                          {alerts.length > 0 && <span style={{ fontSize: 9, fontWeight: 900, background: urgentCount > 0 ? '#ef4444' : '#a855f7', color: '#fff', padding: '2px 7px', borderRadius: 20 }}>{alerts.length}</span>}
+                          {alerts.length > 0 && <span style={{ fontSize: 9, fontWeight: 900, background: urgentCount > 0 ? '#ef4444' : '#d8a84a', color: '#fff', padding: '2px 7px', borderRadius: 20 }}>{alerts.length}</span>}
                         </div>
                         <span style={{ fontSize: 10, color: '#666' }}>atualiza a cada 30s</span>
                       </div>
@@ -359,7 +359,7 @@ export default function DashboardShell() {
                       </div>
 
                       <div style={{ padding: '12px 18px', borderTop: '1px solid rgba(255,255,255,0.05)', textAlign: 'center' }}>
-                        <button onClick={() => setNotifOpen(false)} style={{ fontSize: 11, fontWeight: 700, color: '#a855f7', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit' }}>
+                        <button onClick={() => setNotifOpen(false)} style={{ fontSize: 11, fontWeight: 700, color: '#d8a84a', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit' }}>
                           Fechar
                         </button>
                       </div>
@@ -374,10 +374,10 @@ export default function DashboardShell() {
 
             {/* User */}
             <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '6px 10px', borderRadius: 12, background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)', cursor: 'pointer', position: 'relative' }}
-              onClick={() => { if (confirm('Sair do painel?')) { localStorage.removeItem('suh_token'); setCurrentUser(null); setAuthed(false); } }}
+              onClick={() => { if (confirm('Sair do painel?')) { localStorage.removeItem('zayeh_token'); setCurrentUser(null); setAuthed(false); } }}
               onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.06)')}
               onMouseLeave={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.03)')}>
-              <div style={{ width: 30, height: 30, borderRadius: '50%', background: 'linear-gradient(135deg, #a855f7, #ec4899)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, fontWeight: 900, color: '#fff', flexShrink: 0 }}>
+              <div style={{ width: 30, height: 30, borderRadius: '50%', background: 'linear-gradient(135deg, #d8a84a, #ec4899)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, fontWeight: 900, color: '#fff', flexShrink: 0 }}>
                 {(currentUser?.name?.[0] ?? 'A').toUpperCase()}
               </div>
               <div className="dash-user-info">

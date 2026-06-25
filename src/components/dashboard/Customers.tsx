@@ -40,7 +40,7 @@ export default function Customers() {
           <p style={{ fontSize: 13, color: '#999' }}>{customers.length} clientes cadastrados</p>
         </div>
         <button onClick={refetch} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '11px 20px', borderRadius: 12, border: '1px solid rgba(255,255,255,0.08)', background: 'rgba(255,255,255,0.03)', color: '#ccc', fontSize: 13, fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit', transition: 'all 0.2s' }}
-          onMouseEnter={e => (e.currentTarget.style.borderColor = 'rgba(168,85,247,0.4)')}
+          onMouseEnter={e => (e.currentTarget.style.borderColor = 'rgba(216,168,74,0.4)')}
           onMouseLeave={e => (e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)')}>
           <RefreshCw size={14} style={{ animation: loading ? 'spin 1s linear infinite' : 'none' }} /> Atualizar
         </button>
@@ -49,10 +49,10 @@ export default function Customers() {
       {/* KPI cards */}
       <div className="dash-stats-4" style={{ gap: 12 }}>
         {[
-          { label: 'Total',        value: customers.length, color: '#a855f7', icon: Users      },
+          { label: 'Total',        value: customers.length, color: '#d8a84a', icon: Users      },
           { label: 'VIP',          value: vipCount,         color: '#FFB800', icon: Crown      },
           { label: 'Ativos',       value: activeCount,      color: '#22c55e', icon: UserCheck  },
-          { label: 'Ticket Médio', value: `R$ ${avgSpend.toFixed(0)}`, color: '#FF2DA0', icon: TrendingUp },
+          { label: 'Ticket Médio', value: `R$ ${avgSpend.toFixed(0)}`, color: '#b8842c', icon: TrendingUp },
         ].map(({ label, value, color, icon: Icon }, i) => (
           <motion.div key={label} initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.07 }}
             style={{ ...card, padding: '20px 22px', position: 'relative', overflow: 'hidden' }}>
@@ -74,13 +74,13 @@ export default function Customers() {
           <Search size={14} style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: '#999' }} />
           <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Buscar por nome ou e-mail..."
             style={{ width: '100%', background: '#111117', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 12, padding: '12px 14px 12px 40px', color: '#fff', fontSize: 13, fontFamily: 'inherit', outline: 'none', boxSizing: 'border-box' }}
-            onFocus={e => (e.target.style.borderColor = 'rgba(168,85,247,0.35)')}
+            onFocus={e => (e.target.style.borderColor = 'rgba(216,168,74,0.35)')}
             onBlur={e => (e.target.style.borderColor = 'rgba(255,255,255,0.07)')} />
         </div>
         <div style={{ display: 'flex', gap: 6 }}>
           {['todos', 'vip', 'ativo', 'inativo'].map(s => {
             const active = filter === s;
-            const col = s === 'todos' ? '#a855f7' : (statusConfig[s]?.color ?? '#a855f7');
+            const col = s === 'todos' ? '#d8a84a' : (statusConfig[s]?.color ?? '#d8a84a');
             return (
               <button key={s} onClick={() => setFilter(s)}
                 style={{ padding: '8px 16px', borderRadius: 20, border: `1px solid ${active ? col : 'rgba(255,255,255,0.07)'}`, background: active ? `${col}18` : 'transparent', color: active ? col : '#555', fontSize: 11, fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit', transition: 'all 0.2s' }}>
@@ -125,7 +125,7 @@ export default function Customers() {
                         <div style={{ display: 'flex', alignItems: 'center', gap: 11 }}>
                           {c.avatar
                             ? <img src={c.avatar} alt={c.name} style={{ width: 36, height: 36, borderRadius: '50%', objectFit: 'cover', border: '2px solid rgba(255,255,255,0.07)', flexShrink: 0 }} />
-                            : <div style={{ width: 36, height: 36, borderRadius: '50%', background: 'linear-gradient(135deg,rgba(168,85,247,0.2),rgba(255,45,160,0.15))', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: 14, fontWeight: 900, color: '#a855f7' }}>{c.name[0]}</div>
+                            : <div style={{ width: 36, height: 36, borderRadius: '50%', background: 'linear-gradient(135deg,rgba(216,168,74,0.2),rgba(184,132,44,0.15))', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: 14, fontWeight: 900, color: '#d8a84a' }}>{c.name[0]}</div>
                           }
                           <div>
                             <p style={{ fontSize: 13, fontWeight: 700, color: '#ccc', marginBottom: 2 }}>{c.name}</p>
@@ -147,7 +147,7 @@ export default function Customers() {
                       <td style={{ padding: '14px 18px' }}>
                         <button style={{ width: 30, height: 30, borderRadius: 8, border: '1px solid rgba(255,255,255,0.06)', background: 'transparent', color: '#999', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'all 0.15s' }}
                           onClick={e => { e.stopPropagation(); window.open(`mailto:${c.email}`); }}
-                          onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.color = '#a855f7'; (e.currentTarget as HTMLButtonElement).style.borderColor = 'rgba(168,85,247,0.3)'; }}
+                          onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.color = '#d8a84a'; (e.currentTarget as HTMLButtonElement).style.borderColor = 'rgba(216,168,74,0.3)'; }}
                           onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.color = '#444'; (e.currentTarget as HTMLButtonElement).style.borderColor = 'rgba(255,255,255,0.06)'; }}>
                           <Mail size={13} />
                         </button>
@@ -174,7 +174,7 @@ export default function Customers() {
                 <div style={{ display: 'flex', gap: 16, alignItems: 'center' }}>
                   {selected.avatar
                     ? <img src={selected.avatar} alt={selected.name} style={{ width: 56, height: 56, borderRadius: '50%', objectFit: 'cover', border: '2px solid rgba(255,255,255,0.1)', flexShrink: 0 }} />
-                    : <div style={{ width: 56, height: 56, borderRadius: '50%', background: 'linear-gradient(135deg,rgba(168,85,247,0.2),rgba(255,45,160,0.15))', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: 20, fontWeight: 900, color: '#a855f7' }}>{selected.name[0]}</div>
+                    : <div style={{ width: 56, height: 56, borderRadius: '50%', background: 'linear-gradient(135deg,rgba(216,168,74,0.2),rgba(184,132,44,0.15))', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: 20, fontWeight: 900, color: '#d8a84a' }}>{selected.name[0]}</div>
                   }
                   <div>
                     <h3 style={{ fontSize: 17, fontWeight: 900, color: '#fff', marginBottom: 6 }}>{selected.name}</h3>
@@ -205,9 +205,9 @@ export default function Customers() {
               ))}
 
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, margin: '20px 0' }}>
-                <div style={{ background: '#0d0d0d', borderRadius: 14, padding: '16px 18px', border: '1px solid rgba(168,85,247,0.1)' }}>
+                <div style={{ background: '#0d0d0d', borderRadius: 14, padding: '16px 18px', border: '1px solid rgba(216,168,74,0.1)' }}>
                   <p style={{ fontSize: 10, color: '#999', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 6 }}>Total Gasto</p>
-                  <p style={{ fontSize: 22, fontWeight: 900, color: '#a855f7' }}>R$ {selected.totalSpent.toFixed(2).replace('.', ',')}</p>
+                  <p style={{ fontSize: 22, fontWeight: 900, color: '#d8a84a' }}>R$ {selected.totalSpent.toFixed(2).replace('.', ',')}</p>
                 </div>
                 <div style={{ background: '#0d0d0d', borderRadius: 14, padding: '16px 18px', border: '1px solid rgba(255,255,255,0.05)' }}>
                   <p style={{ fontSize: 10, color: '#999', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 6 }}>Pedidos</p>

@@ -32,13 +32,13 @@ export default function AccountPanel({ compact = false, onAuthSuccess }: Props) 
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [loading, setLoading] = useState(false);
-  const [checkingSession, setCheckingSession] = useState(() => !!localStorage.getItem('suh_token'));
+  const [checkingSession, setCheckingSession] = useState(() => !!localStorage.getItem('zayeh_token'));
   const [error, setError] = useState('');
   const [currentUser, setCurrentUser] = useState<ApiUser | null>(null);
 
   useEffect(() => {
     let active = true;
-    const token = localStorage.getItem('suh_token');
+    const token = localStorage.getItem('zayeh_token');
 
     if (!token) return;
 
@@ -47,7 +47,7 @@ export default function AccountPanel({ compact = false, onAuthSuccess }: Props) 
         if (active) setCurrentUser(user);
       })
       .catch(() => {
-        localStorage.removeItem('suh_token');
+        localStorage.removeItem('zayeh_token');
       })
       .finally(() => {
         if (active) setCheckingSession(false);
@@ -72,7 +72,7 @@ export default function AccountPanel({ compact = false, onAuthSuccess }: Props) 
   };
 
   const handleAuthenticated = (token: string, user: ApiUser, message: string) => {
-    localStorage.setItem('suh_token', token);
+    localStorage.setItem('zayeh_token', token);
     setCurrentUser(user);
     resetForm();
     showToast(message);
@@ -129,7 +129,7 @@ export default function AccountPanel({ compact = false, onAuthSuccess }: Props) 
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('suh_token');
+    localStorage.removeItem('zayeh_token');
     setCurrentUser(null);
     resetForm();
     setMode('login');
@@ -146,7 +146,7 @@ export default function AccountPanel({ compact = false, onAuthSuccess }: Props) 
     <div style={containerStyle}>
       {!compact && (
         <div style={{ marginBottom: 28 }}>
-          <p style={{ fontSize: 11, fontWeight: 700, color: '#a855f7', letterSpacing: '0.16em', textTransform: 'uppercase', marginBottom: 6 }}>
+          <p style={{ fontSize: 11, fontWeight: 700, color: '#d8a84a', letterSpacing: '0.16em', textTransform: 'uppercase', marginBottom: 6 }}>
             Minha
           </p>
           <h1 style={{ fontSize: 26, fontWeight: 900, color: '#fff' }}>Conta</h1>
@@ -154,13 +154,13 @@ export default function AccountPanel({ compact = false, onAuthSuccess }: Props) 
       )}
 
       <div style={{ background: '#111', borderRadius: 18, border: '1px solid rgba(255,255,255,0.07)', padding: cardPadding, marginBottom: 16, textAlign: 'center' }}>
-        <div style={{ width: 56, height: 56, borderRadius: '50%', background: 'rgba(168,85,247,0.1)', border: '1px solid rgba(168,85,247,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px' }}>
-          <User size={24} style={{ color: '#a855f7' }} />
+        <div style={{ width: 56, height: 56, borderRadius: '50%', background: 'rgba(216,168,74,0.1)', border: '1px solid rgba(216,168,74,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px' }}>
+          <User size={24} style={{ color: '#d8a84a' }} />
         </div>
 
         {checkingSession ? (
           <div style={{ display: 'grid', placeItems: 'center', gap: 12, padding: '18px 0 10px' }}>
-            <Loader2 size={22} style={{ color: '#a855f7', animation: 'spin 1s linear infinite' }} />
+            <Loader2 size={22} style={{ color: '#d8a84a', animation: 'spin 1s linear infinite' }} />
             <p style={{ fontSize: 13, color: '#8b8b8b' }}>Verificando sua conta...</p>
           </div>
         ) : currentUser ? (
@@ -199,7 +199,7 @@ export default function AccountPanel({ compact = false, onAuthSuccess }: Props) 
                   padding: '10px 12px',
                   borderRadius: 10,
                   border: 'none',
-                  background: mode === 'login' ? 'linear-gradient(135deg,#a855f7,#FF2DA0)' : 'transparent',
+                  background: mode === 'login' ? 'linear-gradient(135deg,#d8a84a,#b8842c)' : 'transparent',
                   color: mode === 'login' ? '#fff' : '#9a9a9a',
                   fontWeight: 800,
                   fontSize: 12,
@@ -217,7 +217,7 @@ export default function AccountPanel({ compact = false, onAuthSuccess }: Props) 
                   padding: '10px 12px',
                   borderRadius: 10,
                   border: 'none',
-                  background: mode === 'register' ? 'linear-gradient(135deg,#a855f7,#FF2DA0)' : 'transparent',
+                  background: mode === 'register' ? 'linear-gradient(135deg,#d8a84a,#b8842c)' : 'transparent',
                   color: mode === 'register' ? '#fff' : '#9a9a9a',
                   fontWeight: 800,
                   fontSize: 12,
@@ -294,7 +294,7 @@ export default function AccountPanel({ compact = false, onAuthSuccess }: Props) 
               <button
                 type="submit"
                 disabled={loading}
-                style={{ width: '100%', padding: '13px', marginTop: 4, borderRadius: 10, border: 'none', background: 'linear-gradient(135deg,#a855f7,#FF2DA0)', color: '#fff', fontWeight: 800, fontSize: 13, cursor: loading ? 'wait' : 'pointer', fontFamily: 'inherit', letterSpacing: '0.04em', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 8, opacity: loading ? 0.75 : 1 }}
+                style={{ width: '100%', padding: '13px', marginTop: 4, borderRadius: 10, border: 'none', background: 'linear-gradient(135deg,#d8a84a,#b8842c)', color: '#fff', fontWeight: 800, fontSize: 13, cursor: loading ? 'wait' : 'pointer', fontFamily: 'inherit', letterSpacing: '0.04em', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 8, opacity: loading ? 0.75 : 1 }}
               >
                 {loading && <Loader2 size={15} style={{ animation: 'spin 1s linear infinite' }} />}
                 {mode === 'login' ? 'ENTRAR' : 'CRIAR CONTA'}

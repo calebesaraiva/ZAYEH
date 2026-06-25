@@ -123,7 +123,7 @@ export default function Footer() {
               overflow: 'hidden',
             }}
           >
-            <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at top right,rgba(168,85,247,0.18),transparent 42%)' }} />
+            <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at top right,rgba(216,168,74,0.18),transparent 42%)' }} />
             <div style={{ position: 'relative' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16 }}>
                 <span style={{ width: 42, height: 42, borderRadius: '50%', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', background: 'linear-gradient(135deg,#b8842c,#f0cf82)', color: '#111', fontSize: 13, fontWeight: 900, letterSpacing: '0.18em' }}>ZY</span>
@@ -249,7 +249,7 @@ export default function Footer() {
             © 2026 ZAYEH. Todos os direitos reservados.
           </p>
           <p style={{ fontSize: 10.5, color: '#555', textAlign: 'center', letterSpacing: '0.04em' }}>
-            Desenvolvido por <span style={{ color: '#a855f7', fontWeight: 700 }}>NEXUS TECNOLOGIA LTDA</span>
+            Desenvolvido por <span style={{ color: '#d8a84a', fontWeight: 700 }}>NEXUS TECNOLOGIA LTDA</span>
           </p>
         </div>
       </div>

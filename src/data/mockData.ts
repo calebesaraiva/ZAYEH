@@ -35,7 +35,7 @@ export const categoryData = [
   { name: 'Vestidos', value: 35, color: '#d946ef' },
   { name: 'Blazers', value: 22, color: '#9333ea' },
   { name: 'Calças', value: 18, color: '#ec4899' },
-  { name: 'Saias', value: 12, color: '#a855f7' },
+  { name: 'Saias', value: 12, color: '#d8a84a' },
   { name: 'Blusas', value: 8, color: '#e879f9' },
   { name: 'Outros', value: 5, color: '#6b21a8' },
 ];

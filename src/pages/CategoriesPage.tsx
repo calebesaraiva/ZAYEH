@@ -5,12 +5,12 @@ import { useProducts } from '../lib/useApi';
 
 const CATS = [
   { slug: 'masculino',  label: 'Masculino',   emoji: '👔', color: '#818CF8', desc: 'Camisas do Brasil e modelos plus size' },
-  { slug: 'feminino',   label: 'Feminino',    emoji: '👗', color: '#FF2DA0', desc: 'Camisa feminina retrô em destaque' },
+  { slug: 'feminino',   label: 'Feminino',    emoji: '👗', color: '#b8842c', desc: 'Camisa feminina retrô em destaque' },
   { slug: 'infantil',   label: 'Infantil',    emoji: '🧒', color: '#FFB800', desc: 'Conjuntos de 3 a 14 anos' },
   { slug: 'perfumaria', label: 'Perfumaria',  emoji: '🌿', color: '#38BDF8', desc: 'Perfumes, body splash e kits' },
   { slug: 'copa-2026',  label: 'Copa 2026',   emoji: '⚽', color: '#22C55E', desc: 'Coleção da seleção em destaque' },
   { slug: 'outlet',     label: 'Outlet',      emoji: '🏷️', color: '#f97316', desc: 'Descontos de até 50%' },
-  { slug: 'todos',      label: 'Tudo',        emoji: '✨', color: '#a855f7', desc: 'Ver todos os produtos' },
+  { slug: 'todos',      label: 'Tudo',        emoji: '✨', color: '#d8a84a', desc: 'Ver todos os produtos' },
 ];
 
 export default function CategoriesPage() {
@@ -27,7 +27,7 @@ export default function CategoriesPage() {
   return (
     <div style={{ maxWidth: 860, margin: '0 auto', padding: '24px 16px 100px' }}>
       <div style={{ marginBottom: 28 }}>
-        <p style={{ fontSize: 11, fontWeight: 700, color: '#a855f7', letterSpacing: '0.16em', textTransform: 'uppercase', marginBottom: 6 }}>
+        <p style={{ fontSize: 11, fontWeight: 700, color: '#d8a84a', letterSpacing: '0.16em', textTransform: 'uppercase', marginBottom: 6 }}>
           Navegue por
         </p>
         <h1 style={{ fontSize: 26, fontWeight: 900, color: '#fff' }}>Categorias</h1>

@@ -44,16 +44,16 @@ const collections = [
     label: 'FEMININO',
     tag: '',
     desc: 'Camisa retrô feminina\nem destaque',
-    accent: '#FF2DA0',
+    accent: '#b8842c',
     gradient: 'linear-gradient(160deg, #1a0010 0%, #350025 60%, #1a0010 100%)',
     shape: (
       <svg viewBox="0 0 120 120" width="88" height="88" fill="none">
         {/* abstract flower / feminine shape */}
-        <ellipse cx="60" cy="60" rx="18" ry="30" fill="#FF2DA0" fillOpacity="0.1" stroke="#FF2DA0" strokeWidth="1.5" opacity="0.5" />
-        <ellipse cx="60" cy="60" rx="18" ry="30" fill="none" stroke="#FF2DA0" strokeWidth="1.5" opacity="0.3" transform="rotate(60 60 60)" />
-        <ellipse cx="60" cy="60" rx="18" ry="30" fill="none" stroke="#FF2DA0" strokeWidth="1.5" opacity="0.3" transform="rotate(120 60 60)" />
-        <circle cx="60" cy="60" r="10" fill="#FF2DA0" fillOpacity="0.2" stroke="#FF2DA0" strokeWidth="1.5" opacity="0.6" />
-        <circle cx="60" cy="60" r="3" fill="#FF2DA0" opacity="0.9" />
+        <ellipse cx="60" cy="60" rx="18" ry="30" fill="#b8842c" fillOpacity="0.1" stroke="#b8842c" strokeWidth="1.5" opacity="0.5" />
+        <ellipse cx="60" cy="60" rx="18" ry="30" fill="none" stroke="#b8842c" strokeWidth="1.5" opacity="0.3" transform="rotate(60 60 60)" />
+        <ellipse cx="60" cy="60" rx="18" ry="30" fill="none" stroke="#b8842c" strokeWidth="1.5" opacity="0.3" transform="rotate(120 60 60)" />
+        <circle cx="60" cy="60" r="10" fill="#b8842c" fillOpacity="0.2" stroke="#b8842c" strokeWidth="1.5" opacity="0.6" />
+        <circle cx="60" cy="60" r="3" fill="#b8842c" opacity="0.9" />
       </svg>
     ),
   },

@@ -1,7 +1,7 @@
 const BASE = '/api';
 
 function getToken() {
-  return localStorage.getItem('suh_token');
+  return localStorage.getItem('zayeh_token');
 }
 
 async function request<T>(path: string, options: RequestInit = {}): Promise<T> {

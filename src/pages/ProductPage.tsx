@@ -137,7 +137,7 @@ export default function ProductPage() {
                 overflow: 'hidden',
                 border: '1px solid rgba(255,255,255,0.07)',
                 background: isPerfumaria
-                  ? 'radial-gradient(circle at top, rgba(168,85,247,0.2), transparent 38%), linear-gradient(180deg,#151218,#090909 76%)'
+                  ? 'radial-gradient(circle at top, rgba(216,168,74,0.2), transparent 38%), linear-gradient(180deg,#151218,#090909 76%)'
                   : 'linear-gradient(180deg,#141414,#0c0c0c 78%)',
                 boxShadow: '0 30px 70px rgba(0,0,0,0.38)',
               }}
@@ -154,7 +154,7 @@ export default function ProductPage() {
               <div style={{ position: 'absolute', top: 16, left: 16, right: 16, display: 'flex', justifyContent: 'space-between', gap: 10, zIndex: 2, flexWrap: 'wrap' }}>
                 <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
                   {product.isNew && (
-                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '8px 12px', borderRadius: 999, background: 'rgba(255,45,160,0.16)', border: '1px solid rgba(255,45,160,0.28)', color: '#ffd5eb', fontSize: 11, fontWeight: 800 }}>
+                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '8px 12px', borderRadius: 999, background: 'rgba(184,132,44,0.16)', border: '1px solid rgba(184,132,44,0.28)', color: '#ffd5eb', fontSize: 11, fontWeight: 800 }}>
                       <Sparkles size={13} /> Novidade
                     </span>
                   )}
@@ -168,7 +168,7 @@ export default function ProductPage() {
                   onClick={() => toggleWishlist(product.id)}
                   style={{ width: 44, height: 44, borderRadius: 14, display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid rgba(255,255,255,0.1)', background: 'rgba(10,10,10,0.55)', backdropFilter: 'blur(10px)', color: '#fff', cursor: 'pointer' }}
                 >
-                  <Heart size={18} fill={isWished ? '#FF2DA0' : 'none'} color={isWished ? '#FF2DA0' : '#fff'} />
+                  <Heart size={18} fill={isWished ? '#b8842c' : 'none'} color={isWished ? '#b8842c' : '#fff'} />
                 </button>
               </div>
 
@@ -249,7 +249,7 @@ export default function ProductPage() {
               }}
             >
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 14 }}>
-                <span style={{ padding: '8px 12px', borderRadius: 999, background: 'rgba(168,85,247,0.12)', border: '1px solid rgba(168,85,247,0.2)', color: '#ddc0ff', fontSize: 11, fontWeight: 800 }}>
+                <span style={{ padding: '8px 12px', borderRadius: 999, background: 'rgba(216,168,74,0.12)', border: '1px solid rgba(216,168,74,0.2)', color: '#ddc0ff', fontSize: 11, fontWeight: 800 }}>
                   {product.category}
                 </span>
                 <span style={{ padding: '8px 12px', borderRadius: 999, background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', color: '#c8c8c8', fontSize: 11, fontWeight: 700 }}>
@@ -293,7 +293,7 @@ export default function ProductPage() {
                     <p style={{ fontSize: 38, fontWeight: 900, color: '#fff', lineHeight: 1 }}>{brl(product.price)}</p>
                   </div>
                   {product.discount ? (
-                    <div style={{ padding: '10px 14px', borderRadius: 16, background: 'rgba(255,45,160,0.12)', border: '1px solid rgba(255,45,160,0.18)' }}>
+                    <div style={{ padding: '10px 14px', borderRadius: 16, background: 'rgba(184,132,44,0.12)', border: '1px solid rgba(184,132,44,0.18)' }}>
                       <p style={{ fontSize: 11, fontWeight: 900, color: '#ff9fd1', letterSpacing: '0.08em' }}>{product.discount}% OFF</p>
                       {savings > 0 && <p style={{ fontSize: 11, color: '#d9cad3', marginTop: 2 }}>Economia de {brl(savings)}</p>}
                     </div>
@@ -306,7 +306,7 @@ export default function ProductPage() {
                     <p style={{ fontSize: 18, fontWeight: 900, color: '#fff', marginBottom: 2 }}>{brl(pricing.pixPrice)}</p>
                     <p style={{ fontSize: 11.5, color: '#6fce8b' }}>{pricing.pixDiscountPercent}% de desconto imediato</p>
                   </div>
-                  <div style={{ padding: '12px 14px', borderRadius: 16, background: 'rgba(168,85,247,0.1)', border: '1px solid rgba(168,85,247,0.18)' }}>
+                  <div style={{ padding: '12px 14px', borderRadius: 16, background: 'rgba(216,168,74,0.1)', border: '1px solid rgba(216,168,74,0.18)' }}>
                     <p style={{ fontSize: 10.5, fontWeight: 900, color: '#d7b4ff', letterSpacing: '0.08em', marginBottom: 4 }}>PARCELAMENTO</p>
                     <p style={{ fontSize: 18, fontWeight: 900, color: '#fff', marginBottom: 2 }}>{pricing.installmentCount}x de {brl(pricing.installmentValue)}</p>
                     <p style={{ fontSize: 11.5, color: '#b891ef' }}>sem juros no cartão</p>
@@ -407,7 +407,7 @@ export default function ProductPage() {
 
                 <button
                   onClick={handleAdd}
-                  style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 9, padding: '0 22px', borderRadius: 16, border: 'none', background: 'linear-gradient(135deg,#a855f7,#FF2DA0)', color: '#fff', fontWeight: 900, fontSize: 13, letterSpacing: '0.08em', cursor: 'pointer', fontFamily: 'inherit', boxShadow: '0 18px 32px rgba(168,85,247,0.28)' }}
+                  style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 9, padding: '0 22px', borderRadius: 16, border: 'none', background: 'linear-gradient(135deg,#d8a84a,#b8842c)', color: '#fff', fontWeight: 900, fontSize: 13, letterSpacing: '0.08em', cursor: 'pointer', fontFamily: 'inherit', boxShadow: '0 18px 32px rgba(216,168,74,0.28)' }}
                 >
                   <ShoppingBag size={17} /> ADICIONAR À SACOLA
                 </button>
@@ -416,7 +416,7 @@ export default function ProductPage() {
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: 10 }}>
                 {trustItems.map(({ icon: Icon, label, note }) => (
                   <div key={label} style={{ display: 'flex', gap: 10, alignItems: 'flex-start', padding: '14px 14px 13px', borderRadius: 16, background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)' }}>
-                    <div style={{ width: 34, height: 34, borderRadius: 11, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(168,85,247,0.12)', color: '#d8b4fe', flexShrink: 0 }}>
+                    <div style={{ width: 34, height: 34, borderRadius: 11, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(216,168,74,0.12)', color: '#d8b4fe', flexShrink: 0 }}>
                       <Icon size={16} />
                     </div>
                     <div>
@@ -449,7 +449,7 @@ export default function ProductPage() {
               </div>
               <div style={{ padding: '18px 16px', borderRadius: 22, background: 'linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.01))', border: '1px solid rgba(255,255,255,0.06)' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
-                  <Clock3 size={16} color="#a855f7" />
+                  <Clock3 size={16} color="#d8a84a" />
                   <span style={{ fontSize: 12, fontWeight: 800, color: '#fff' }}>Confirmação rápida</span>
                 </div>
                 <p style={{ fontSize: 11.5, color: '#7f7f7f', lineHeight: 1.55 }}>
@@ -534,11 +534,11 @@ export default function ProductPage() {
             <span style={{ width: 28, textAlign: 'center', fontWeight: 800, color: '#fff', fontSize: 14 }}>{qty}</span>
             <button onClick={() => setQty((q) => q + 1)} style={{ width: 38, height: 46, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#666', background: 'none', border: 'none', cursor: 'pointer' }}><Plus size={13} /></button>
           </div>
-          <button onClick={handleAdd} style={{ flex: 1, height: 46, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, borderRadius: 12, border: 'none', background: 'linear-gradient(135deg,#a855f7,#FF2DA0)', color: '#fff', fontWeight: 900, fontSize: 12.5, letterSpacing: '0.06em', cursor: 'pointer', fontFamily: 'inherit' }}>
+          <button onClick={handleAdd} style={{ flex: 1, height: 46, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, borderRadius: 12, border: 'none', background: 'linear-gradient(135deg,#d8a84a,#b8842c)', color: '#fff', fontWeight: 900, fontSize: 12.5, letterSpacing: '0.06em', cursor: 'pointer', fontFamily: 'inherit' }}>
             <ShoppingBag size={15} /> ADICIONAR
           </button>
           <button onClick={() => toggleWishlist(product.id)} style={{ width: 46, height: 46, display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: 12, border: '1px solid rgba(255,255,255,0.1)', background: '#0d0d0d', cursor: 'pointer', flexShrink: 0 }}>
-            <Heart size={17} fill={isWished ? '#FF2DA0' : 'none'} color={isWished ? '#FF2DA0' : '#fff'} />
+            <Heart size={17} fill={isWished ? '#b8842c' : 'none'} color={isWished ? '#b8842c' : '#fff'} />
           </button>
         </div>
       </div>

@@ -26,7 +26,7 @@ const lbl: React.CSSProperties = {
   letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 6,
 };
 const focusIn = (e: React.FocusEvent<HTMLInputElement | HTMLSelectElement>) =>
-  (e.target.style.borderColor = 'rgba(168,85,247,0.5)');
+  (e.target.style.borderColor = 'rgba(216,168,74,0.5)');
 const focusOut = (e: React.FocusEvent<HTMLInputElement | HTMLSelectElement>) =>
   (e.target.style.borderColor = 'rgba(255,255,255,0.09)');
 
@@ -211,13 +211,13 @@ export default function CheckoutPage() {
           <CheckCircle size={32} style={{ color: '#22C55E' }} />
         </div>
         <h2 style={{ fontSize: 24, fontWeight: 900, color: '#fff', marginBottom: 8 }}>Pedido confirmado!</h2>
-        {orderId && <p style={{ fontSize: 11, color: '#a855f7', letterSpacing: '0.1em', marginBottom: 8, fontWeight: 700 }}>#{orderId.slice(-8).toUpperCase()}</p>}
+        {orderId && <p style={{ fontSize: 11, color: '#d8a84a', letterSpacing: '0.1em', marginBottom: 8, fontWeight: 700 }}>#{orderId.slice(-8).toUpperCase()}</p>}
         <p style={{ color: '#555', marginBottom: 20, lineHeight: 1.6 }}>
           {deliveryMethod === 'delivery' ? shippingMessage : 'Seu pedido ficou registrado com retirada na loja.'}
         </p>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '12px 20px', borderRadius: 10, background: 'rgba(168,85,247,0.08)', border: '1px solid rgba(168,85,247,0.2)', marginBottom: 28 }}>
-          <Coins size={15} style={{ color: '#a855f7' }} />
-          <p style={{ fontSize: 13, color: '#a855f7', fontWeight: 700 }}>R$ {cashback.toFixed(2).replace('.', ',')} de cashback na sua carteira!</p>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '12px 20px', borderRadius: 10, background: 'rgba(216,168,74,0.08)', border: '1px solid rgba(216,168,74,0.2)', marginBottom: 28 }}>
+          <Coins size={15} style={{ color: '#d8a84a' }} />
+          <p style={{ fontSize: 13, color: '#d8a84a', fontWeight: 700 }}>R$ {cashback.toFixed(2).replace('.', ',')} de cashback na sua carteira!</p>
         </div>
         <Link to="/" className="btn-gradient no-underline" style={{ padding: '13px 32px', borderRadius: 10, fontSize: 13, letterSpacing: '0.06em' }}>
           CONTINUAR COMPRANDO
@@ -272,22 +272,22 @@ export default function CheckoutPage() {
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                     border: 'none', cursor: doneStep ? 'pointer' : 'default', padding: 0,
                     flexShrink: 0,
-                    background: active ? 'linear-gradient(135deg,#a855f7,#FF2DA0)' : doneStep ? 'rgba(168,85,247,0.12)' : 'rgba(255,255,255,0.04)',
-                    boxShadow: active ? '0 0 0 5px rgba(168,85,247,0.18), 0 6px 20px rgba(168,85,247,0.35)' : doneStep ? '0 0 0 3px rgba(168,85,247,0.15)' : 'none',
+                    background: active ? 'linear-gradient(135deg,#d8a84a,#b8842c)' : doneStep ? 'rgba(216,168,74,0.12)' : 'rgba(255,255,255,0.04)',
+                    boxShadow: active ? '0 0 0 5px rgba(216,168,74,0.18), 0 6px 20px rgba(216,168,74,0.35)' : doneStep ? '0 0 0 3px rgba(216,168,74,0.15)' : 'none',
                     outline: active ? '1.5px solid rgba(255,255,255,0.08)' : 'none',
                     transition: 'all 0.3s',
                   }}
                 >
-                  {doneStep ? <CheckCircle size={18} style={{ color: '#a855f7' }} /> : <span style={{ fontSize: 13, fontWeight: 900, color: active ? '#fff' : '#333', fontFamily: 'inherit', lineHeight: 1 }}>{i + 1}</span>}
+                  {doneStep ? <CheckCircle size={18} style={{ color: '#d8a84a' }} /> : <span style={{ fontSize: 13, fontWeight: 900, color: active ? '#fff' : '#333', fontFamily: 'inherit', lineHeight: 1 }}>{i + 1}</span>}
                 </motion.button>
-                <span style={{ fontSize: 9, fontWeight: active ? 900 : 600, letterSpacing: '0.12em', whiteSpace: 'nowrap', textTransform: 'uppercase', color: active ? '#fff' : doneStep ? '#a855f7' : '#2a2a2a' }}>
+                <span style={{ fontSize: 9, fontWeight: active ? 900 : 600, letterSpacing: '0.12em', whiteSpace: 'nowrap', textTransform: 'uppercase', color: active ? '#fff' : doneStep ? '#d8a84a' : '#2a2a2a' }}>
                   {s}
                 </span>
               </div>
 
               {i < STEPS.length - 1 && (
                 <div style={{ flex: 1, height: 2, margin: '0 6px', marginBottom: 24, position: 'relative', background: 'rgba(255,255,255,0.05)', borderRadius: 99, overflow: 'hidden' }}>
-                  <motion.div animate={{ width: doneStep ? '100%' : '0%' }} transition={{ duration: 0.4, ease: 'easeInOut' }} style={{ position: 'absolute', inset: 0, background: 'linear-gradient(90deg,#a855f7,#FF2DA0)', borderRadius: 99 }} />
+                  <motion.div animate={{ width: doneStep ? '100%' : '0%' }} transition={{ duration: 0.4, ease: 'easeInOut' }} style={{ position: 'absolute', inset: 0, background: 'linear-gradient(90deg,#d8a84a,#b8842c)', borderRadius: 99 }} />
                 </div>
               )}
             </div>
@@ -401,13 +401,13 @@ export default function CheckoutPage() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
             <div style={{ display: 'grid', gridTemplateColumns: `${cardEnabled ? '1fr' : ''}${cardEnabled && pixEnabled ? ' 1fr' : ''}${pixEnabled ? '' : ''}`.trim() || '1fr', gap: 12 }}>
               {cardEnabled && (
-                <button onClick={() => setPayMethod('cartao')} style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '16px 18px', borderRadius: 12, cursor: 'pointer', fontFamily: 'inherit', border: `1.5px solid ${resolvedPayMethod === 'cartao' ? '#a855f7' : 'rgba(255,255,255,0.07)'}`, background: resolvedPayMethod === 'cartao' ? 'rgba(168,85,247,0.08)' : 'rgba(255,255,255,0.02)', transition: 'all 0.2s', textAlign: 'left' }}>
-                  <div style={{ width: 40, height: 40, borderRadius: 10, background: resolvedPayMethod === 'cartao' ? 'rgba(168,85,247,0.15)' : 'rgba(255,255,255,0.04)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                    <CreditCard size={20} style={{ color: resolvedPayMethod === 'cartao' ? '#a855f7' : '#444' }} />
+                <button onClick={() => setPayMethod('cartao')} style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '16px 18px', borderRadius: 12, cursor: 'pointer', fontFamily: 'inherit', border: `1.5px solid ${resolvedPayMethod === 'cartao' ? '#d8a84a' : 'rgba(255,255,255,0.07)'}`, background: resolvedPayMethod === 'cartao' ? 'rgba(216,168,74,0.08)' : 'rgba(255,255,255,0.02)', transition: 'all 0.2s', textAlign: 'left' }}>
+                  <div style={{ width: 40, height: 40, borderRadius: 10, background: resolvedPayMethod === 'cartao' ? 'rgba(216,168,74,0.15)' : 'rgba(255,255,255,0.04)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                    <CreditCard size={20} style={{ color: resolvedPayMethod === 'cartao' ? '#d8a84a' : '#444' }} />
                   </div>
                   <div>
                   <p style={{ fontSize: 14, fontWeight: 800, color: resolvedPayMethod === 'cartao' ? '#fff' : '#666', marginBottom: 2 }}>Cartão</p>
-                  <p style={{ fontSize: 11, color: resolvedPayMethod === 'cartao' ? '#a855f7' : '#333' }}>Parcele em até {maxInstallments}x</p>
+                  <p style={{ fontSize: 11, color: resolvedPayMethod === 'cartao' ? '#d8a84a' : '#333' }}>Parcele em até {maxInstallments}x</p>
                   </div>
                 </button>
               )}
@@ -436,7 +436,7 @@ export default function CheckoutPage() {
                     ))}
                   </select>
                 </div>
-                <div style={{ padding: '14px 16px', borderRadius: 12, background: 'rgba(168,85,247,0.07)', border: '1px solid rgba(168,85,247,0.18)' }}>
+                <div style={{ padding: '14px 16px', borderRadius: 12, background: 'rgba(216,168,74,0.07)', border: '1px solid rgba(216,168,74,0.18)' }}>
                   <p style={{ fontSize: 12, color: '#d7b8ff', lineHeight: 1.7 }}>
                     Os dados do cartão serão preenchidos com segurança no checkout oficial do Mercado Pago. Na sua loja o cliente escolhe apenas a quantidade de parcelas.
                   </p>
@@ -604,9 +604,9 @@ export default function CheckoutPage() {
           <span style={{ fontWeight: 800, fontSize: 14, color: '#fff' }}>Total</span>
           <span style={{ fontWeight: 900, fontSize: 20, color: '#fff' }}>R$ {total.toFixed(2).replace('.', ',')}</span>
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '8px 12px', borderRadius: 8, background: 'rgba(168,85,247,0.07)', border: '1px solid rgba(168,85,247,0.15)' }}>
-          <Coins size={13} style={{ color: '#a855f7', flexShrink: 0 }} />
-          <span style={{ fontSize: 11.5, color: '#a855f7', fontWeight: 700 }}>+R$ {cashback.toFixed(2).replace('.', ',')} cashback (5%)</span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '8px 12px', borderRadius: 8, background: 'rgba(216,168,74,0.07)', border: '1px solid rgba(216,168,74,0.15)' }}>
+          <Coins size={13} style={{ color: '#d8a84a', flexShrink: 0 }} />
+          <span style={{ fontSize: 11.5, color: '#d8a84a', fontWeight: 700 }}>+R$ {cashback.toFixed(2).replace('.', ',')} cashback (5%)</span>
         </div>
       </div>
 
@@ -623,7 +623,7 @@ export default function CheckoutPage() {
 
       <div className="checkout-layout">
         <div style={{ background: '#111', borderRadius: 16, border: '1px solid rgba(255,255,255,0.06)', padding: '24px' }}>
-          <p style={{ fontSize: 10, fontWeight: 900, color: '#a855f7', letterSpacing: '0.16em', textTransform: 'uppercase', marginBottom: 20 }}>
+          <p style={{ fontSize: 10, fontWeight: 900, color: '#d8a84a', letterSpacing: '0.16em', textTransform: 'uppercase', marginBottom: 20 }}>
             {STEPS[step]}
           </p>
           {StepForm()}
@@ -634,7 +634,7 @@ export default function CheckoutPage() {
                 <ChevronLeft size={14} /> VOLTAR
               </button>
             )}
-            <button onClick={next} style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, padding: '14px', borderRadius: 10, border: 'none', background: 'linear-gradient(135deg,#a855f7,#FF2DA0)', color: '#fff', fontWeight: 900, fontSize: 13, letterSpacing: '0.06em', cursor: 'pointer', fontFamily: 'inherit' }}>
+            <button onClick={next} style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, padding: '14px', borderRadius: 10, border: 'none', background: 'linear-gradient(135deg,#d8a84a,#b8842c)', color: '#fff', fontWeight: 900, fontSize: 13, letterSpacing: '0.06em', cursor: 'pointer', fontFamily: 'inherit' }}>
               {submitting ? <><Loader2 size={14} style={{ animation: 'spin 1s linear infinite' }} /> PROCESSANDO...</> : step === 2 ? <><Lock size={14} /> {resolvedPayMethod === 'cartao' || resolvedPayMethod === 'pix' ? 'IR PARA PAGAMENTO' : 'CONFIRMAR PEDIDO'}</> : <>CONTINUAR <ChevronRight size={14} /></>}
             </button>
           </div>
@@ -655,7 +655,7 @@ export default function CheckoutPage() {
       </div>
 
       <p style={{ fontSize: 10.5, color: '#555', textAlign: 'center', marginTop: 28, letterSpacing: '0.04em' }}>
-        Desenvolvido por <span style={{ color: '#a855f7', fontWeight: 700 }}>NEXUS TECNOLOGIA LTDA</span>
+        Desenvolvido por <span style={{ color: '#d8a84a', fontWeight: 700 }}>NEXUS TECNOLOGIA LTDA</span>
       </p>
     </div>
   );

@@ -8,7 +8,7 @@ const values = [
     icon: Heart,
     title: 'Feito com Amor',
     desc: 'Cada peça é pensada com cuidado, do design ao acabamento, para você se sentir único.',
-    color: '#FF2DA0',
+    color: '#b8842c',
   },
   {
     icon: Zap,
@@ -54,7 +54,7 @@ export default function SobrePage() {
             <circle cx="600" cy="250" r="100" fill="none" stroke="#FFB800" strokeWidth="1.5" />
           </svg>
         </div>
-        <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', width: 600, height: 600, borderRadius: '50%', background: 'radial-gradient(circle, rgba(255,45,160,0.06) 0%, transparent 70%)', pointerEvents: 'none' }} />
+        <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', width: 600, height: 600, borderRadius: '50%', background: 'radial-gradient(circle, rgba(184,132,44,0.06) 0%, transparent 70%)', pointerEvents: 'none' }} />
 
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}
           style={{ position: 'relative', zIndex: 1, maxWidth: 700, margin: '0 auto' }}>
@@ -72,7 +72,7 @@ export default function SobrePage() {
           </p>
 
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, color: '#555', fontSize: 13 }}>
-            <MapPin size={14} style={{ color: '#FF2DA0' }} />
+            <MapPin size={14} style={{ color: '#b8842c' }} />
             Imperatriz – MA, Brasil
           </div>
         </motion.div>
@@ -111,14 +111,14 @@ export default function SobrePage() {
                   <path d="M180 80 Q220 80 220 120 Q220 160 160 160 Q100 160 100 200 Q100 240 140 240 Q180 240 180 280 Q180 320 140 320" stroke="url(#g1)" strokeWidth="16" strokeLinecap="round" fill="none" />
                   <defs>
                     <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#FF2DA0" />
+                      <stop offset="0%" stopColor="#b8842c" />
                       <stop offset="50%" stopColor="#FFB800" />
                       <stop offset="100%" stopColor="#22C55E" />
                     </linearGradient>
                   </defs>
                   {/* Decorative dots */}
                   <circle cx="220" cy="80" r="6" fill="#FFB800" opacity="0.6" />
-                  <circle cx="100" cy="200" r="5" fill="#FF2DA0" opacity="0.5" />
+                  <circle cx="100" cy="200" r="5" fill="#b8842c" opacity="0.5" />
                   <circle cx="140" cy="320" r="7" fill="#22C55E" opacity="0.6" />
                   {/* Lines */}
                   <line x1="40" y1="60" x2="100" y2="60" stroke="rgba(255,255,255,0.08)" strokeWidth="1" />
@@ -137,7 +137,7 @@ export default function SobrePage() {
 
           {/* Text */}
           <motion.div initial={{ opacity: 0, x: 24 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.1 }}>
-            <p style={{ fontSize: 10, fontWeight: 900, color: '#FF2DA0', letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: 16 }}>QUEM SOMOS</p>
+            <p style={{ fontSize: 10, fontWeight: 900, color: '#b8842c', letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: 16 }}>QUEM SOMOS</p>
             <h2 style={{ fontFamily: 'Cinzel, serif', fontWeight: 900, fontSize: 'clamp(1.8rem, 3vw, 2.6rem)', color: '#fff', lineHeight: 1.1, letterSpacing: '0.06em', marginBottom: 24 }}>
               ESTILO QUE<br />REPRESENTA
             </h2>
@@ -200,11 +200,11 @@ export default function SobrePage() {
       <section style={{ padding: '80px 24px', textAlign: 'center' }}>
         <div style={{ maxWidth: 600, margin: '0 auto' }}>
           <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <div style={{ width: 56, height: 56, borderRadius: '50%', background: 'rgba(255,45,160,0.08)', border: '1px solid rgba(255,45,160,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px' }}>
-              <MapPin size={22} style={{ color: '#FF2DA0' }} />
+            <div style={{ width: 56, height: 56, borderRadius: '50%', background: 'rgba(184,132,44,0.08)', border: '1px solid rgba(184,132,44,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px' }}>
+              <MapPin size={22} style={{ color: '#b8842c' }} />
             </div>
 
-            <p style={{ fontSize: 10, fontWeight: 900, color: '#FF2DA0', letterSpacing: '0.2em', marginBottom: 12 }}>ONDE ESTAMOS</p>
+            <p style={{ fontSize: 10, fontWeight: 900, color: '#b8842c', letterSpacing: '0.2em', marginBottom: 12 }}>ONDE ESTAMOS</p>
             <h2 style={{ fontFamily: 'Cinzel, serif', fontWeight: 900, fontSize: 'clamp(1.6rem, 3vw, 2.4rem)', color: '#fff', letterSpacing: '0.06em', marginBottom: 16 }}>
               IMPERATRIZ – MA
             </h2>
@@ -215,7 +215,7 @@ export default function SobrePage() {
 
             <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
               <Link to="/categoria/todos" className="no-underline"
-                style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '13px 28px', borderRadius: 8, background: 'linear-gradient(135deg, #FF2DA0, #f97316)', color: '#fff', fontWeight: 800, fontSize: 13, letterSpacing: '0.06em' }}>
+                style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '13px 28px', borderRadius: 8, background: 'linear-gradient(135deg, #b8842c, #f97316)', color: '#fff', fontWeight: 800, fontSize: 13, letterSpacing: '0.06em' }}>
                 EXPLORAR COLEÇÃO <ArrowRight size={15} />
               </Link>
               {whatsappHref ? (

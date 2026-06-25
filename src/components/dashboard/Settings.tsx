@@ -19,18 +19,18 @@ const focIn = (e: React.FocusEvent<HTMLInputElement | HTMLSelectElement>) =>
 const focOut = (e: React.FocusEvent<HTMLInputElement | HTMLSelectElement>) =>
   (e.target.style.borderColor = 'rgba(255,255,255,0.08)');
 
-function Toggle({ on, color = '#a855f7', onChange }: { on: boolean; color?: string; onChange: (v: boolean) => void }) {
+function Toggle({ on, color = '#d8a84a', onChange }: { on: boolean; color?: string; onChange: (v: boolean) => void }) {
   return (
     <button onClick={() => onChange(!on)}
       style={{ width: 46, height: 26, borderRadius: 99, border: 'none', cursor: 'pointer', padding: 3, flexShrink: 0,
-        background: on ? `linear-gradient(135deg,${color},#FF2DA0)` : 'rgba(255,255,255,0.08)',
+        background: on ? `linear-gradient(135deg,${color},#b8842c)` : 'rgba(255,255,255,0.08)',
         transition: 'all 0.2s', display: 'flex', alignItems: 'center', justifyContent: on ? 'flex-end' : 'flex-start' }}>
       <div style={{ width: 20, height: 20, borderRadius: '50%', background: '#fff', transition: 'all 0.2s' }} />
     </button>
   );
 }
 
-function Card({ children, title, icon: Icon, color = '#FF2DA0' }: { children: React.ReactNode; title: string; icon: React.ElementType; color?: string }) {
+function Card({ children, title, icon: Icon, color = '#b8842c' }: { children: React.ReactNode; title: string; icon: React.ElementType; color?: string }) {
   return (
     <div style={{ background: '#111', borderRadius: 14, border: '1px solid rgba(255,255,255,0.06)', padding: 24 }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20 }}>
@@ -169,7 +169,7 @@ export default function Settings() {
         </div>
         <button onClick={save} disabled={saving}
           style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '10px 22px', borderRadius: 10,
-            background: saved ? 'rgba(34,197,94,0.12)' : 'linear-gradient(135deg,#a855f7,#FF2DA0)',
+            background: saved ? 'rgba(34,197,94,0.12)' : 'linear-gradient(135deg,#d8a84a,#b8842c)',
             color: saved ? '#22C55E' : '#fff', fontWeight: 800, fontSize: 13,
             border: saved ? '1px solid rgba(34,197,94,0.3)' : 'none',
             cursor: saving ? 'not-allowed' : 'pointer', fontFamily: 'inherit', transition: 'all 0.25s', opacity: saving ? 0.7 : 1 }}>
@@ -179,7 +179,7 @@ export default function Settings() {
       </div>
 
       {/* Cashback */}
-      <Card title="Cashback" icon={Coins} color="#a855f7">
+      <Card title="Cashback" icon={Coins} color="#d8a84a">
         <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
           <Row label="Ativar cashback" sub="Crédito automático na carteira do cliente">
             <Toggle on={cashbackEnabled} onChange={setCashbackEnabled} />
@@ -195,9 +195,9 @@ export default function Settings() {
             </div>
           </div>
           {cashbackEnabled && (
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '10px 12px', borderRadius: 8, background: 'rgba(168,85,247,0.06)', border: '1px solid rgba(168,85,247,0.15)' }}>
-              <Info size={13} style={{ color: '#a855f7', flexShrink: 0 }} />
-              <p style={{ fontSize: 11.5, color: '#a855f7' }}>Clientes ganham <strong>{cashbackRate}%</strong> a cada compra, válido por {cashbackExpiry} dias.</p>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '10px 12px', borderRadius: 8, background: 'rgba(216,168,74,0.06)', border: '1px solid rgba(216,168,74,0.15)' }}>
+              <Info size={13} style={{ color: '#d8a84a', flexShrink: 0 }} />
+              <p style={{ fontSize: 11.5, color: '#d8a84a' }}>Clientes ganham <strong>{cashbackRate}%</strong> a cada compra, válido por {cashbackExpiry} dias.</p>
             </div>
           )}
         </div>
@@ -257,7 +257,7 @@ export default function Settings() {
 
           {/* Retirada */}
           <Row label="Retirada na loja" sub="Habilitar opção de retirar na loja física">
-            <Toggle on={pickupEnabled} color="#a855f7" onChange={setPickupEnabled} />
+            <Toggle on={pickupEnabled} color="#d8a84a" onChange={setPickupEnabled} />
           </Row>
 
           {pickupEnabled && (
@@ -282,7 +282,7 @@ export default function Settings() {
       </Card>
 
       {/* Pagamentos */}
-      <Card title="Meios de Pagamento" icon={Key} color="#FF2DA0">
+      <Card title="Meios de Pagamento" icon={Key} color="#b8842c">
         <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
 
           <div style={{ padding: '16px', borderRadius: 12, background: '#0d0d0d', border: '1px solid rgba(255,255,255,0.05)' }}>
@@ -312,12 +312,12 @@ export default function Settings() {
           <div style={{ padding: '16px', borderRadius: 12, background: '#0d0d0d', border: '1px solid rgba(255,255,255,0.05)' }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: cardEnabled ? 14 : 0 }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                <div style={{ width: 28, height: 28, borderRadius: 6, background: 'rgba(255,45,160,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <svg width="14" height="10" viewBox="0 0 24 16" fill="none"><rect width="24" height="16" rx="3" stroke="#FF2DA0" strokeWidth="1.5"/><rect x="0" y="4" width="24" height="3" fill="#FF2DA0" opacity="0.4"/></svg>
+                <div style={{ width: 28, height: 28, borderRadius: 6, background: 'rgba(184,132,44,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <svg width="14" height="10" viewBox="0 0 24 16" fill="none"><rect width="24" height="16" rx="3" stroke="#b8842c" strokeWidth="1.5"/><rect x="0" y="4" width="24" height="3" fill="#b8842c" opacity="0.4"/></svg>
                 </div>
                 <p style={{ fontWeight: 700, color: '#ccc', fontSize: 13 }}>Cartão de Crédito/Débito</p>
               </div>
-              <Toggle on={cardEnabled} color="#FF2DA0" onChange={setCardEnabled} />
+              <Toggle on={cardEnabled} color="#b8842c" onChange={setCardEnabled} />
             </div>
             {cardEnabled && (
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>

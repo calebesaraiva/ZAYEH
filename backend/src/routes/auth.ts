@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 import { prisma } from '../lib/prisma';
 
 const router = Router();
-const SECRET = process.env.JWT_SECRET || 'suh-secret-2026';
+const SECRET = process.env.JWT_SECRET || 'zayeh-secret-2026';
 
 function signUser(user: { id: string; email: string; role: string }) {
   return jwt.sign({ id: user.id, email: user.email, role: user.role }, SECRET, { expiresIn: '7d' });
