@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import {
-  ChevronRight, CreditCard, QrCode, Lock,
+  ChevronRight, CreditCard, Lock,
   CheckCircle, ChevronLeft, Zap, Coins,
   Tag, Loader2, Store, MapPin, Clock,
 } from 'lucide-react';
@@ -10,7 +10,7 @@ import { useStore } from '../store/useStore';
 import { api } from '../lib/api';
 import { getProductPricing, resolveStorePricingSettings } from '../lib/storePricing';
 
-const STEPS = ['Dados', 'Pagamento', 'Revisão'];
+const STEPS = ['Dados', 'Pagamento'];
 type PayMethod = 'cartao' | 'pix';
 type DeliveryMethod = 'delivery' | 'pickup';
 
@@ -146,6 +146,10 @@ export default function CheckoutPage() {
 
   const next = () => {
     if (!validateStep()) return;
+    if (step === 1) {
+      void handleFinish();
+      return;
+    }
     if (step < 2) setStep((s) => s + 1);
     else void handleFinish();
   };
@@ -413,7 +417,7 @@ export default function CheckoutPage() {
               {pixEnabled && (
                 <button onClick={() => setPayMethod('pix')} style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '16px 18px', borderRadius: 14, cursor: 'pointer', fontFamily: 'inherit', border: `1.5px solid ${resolvedPayMethod === 'pix' ? '#0f9f5f' : 'rgba(12,46,42,0.13)'}`, background: resolvedPayMethod === 'pix' ? 'rgba(15,159,95,0.1)' : '#fffdf7', transition: 'all 0.2s', textAlign: 'left', boxShadow: resolvedPayMethod === 'pix' ? '0 12px 26px rgba(15,159,95,0.12)' : 'none' }}>
                   <div style={{ width: 40, height: 40, borderRadius: 12, background: resolvedPayMethod === 'pix' ? 'rgba(15,159,95,0.16)' : 'rgba(12,46,42,0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                    <QrCode size={20} style={{ color: resolvedPayMethod === 'pix' ? '#0f9f5f' : '#596760' }} />
+                    <Zap size={20} style={{ color: resolvedPayMethod === 'pix' ? '#0f9f5f' : '#596760' }} />
                   </div>
                   <div>
                     <p style={{ fontSize: 14, fontWeight: 900, color: '#0b2f2b', marginBottom: 2 }}>PIX</p>
@@ -444,18 +448,38 @@ export default function CheckoutPage() {
             )}
 
             {resolvedPayMethod === 'pix' && pixEnabled && (
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 14, padding: '8px 0' }}>
-                <div style={{ width: 110, height: 110, borderRadius: 16, background: '#fffdf7', padding: 10, display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid rgba(12,46,42,0.12)', boxShadow: '0 16px 32px rgba(12,46,42,0.08)' }}>
-                  <QrCode size={82} style={{ color: '#0b2f2b' }} />
-                </div>
-                <div style={{ textAlign: 'center', padding: '12px 24px', borderRadius: 12, background: 'rgba(15,159,95,0.08)', border: '1px solid rgba(15,159,95,0.18)' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 6, justifyContent: 'center', marginBottom: 4 }}>
-                    <Zap size={14} style={{ color: '#0f9f5f' }} />
-                    <p style={{ fontWeight: 950, fontSize: 22, color: '#0f9f5f' }}>R$ {pixTotal.toFixed(2).replace('.', ',')}</p>
+              <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1.1fr) minmax(220px,0.9fr)', gap: 14, alignItems: 'stretch' }} className="checkout-pix-guide">
+                <div style={{ padding: '18px', borderRadius: 16, background: 'linear-gradient(135deg,rgba(15,159,95,0.1),rgba(255,253,247,0.94))', border: '1px solid rgba(15,159,95,0.18)' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12 }}>
+                    <div style={{ width: 42, height: 42, borderRadius: 14, background: 'rgba(15,159,95,0.14)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                      <Zap size={20} style={{ color: '#0f9f5f' }} />
+                    </div>
+                    <div>
+                      <p style={{ fontSize: 15, fontWeight: 950, color: '#0b2f2b', marginBottom: 2 }}>PIX pelo Mercado Pago</p>
+                      <p style={{ fontSize: 11.5, color: '#596760' }}>Clique no botão abaixo e pague no ambiente seguro.</p>
+                    </div>
                   </div>
-                  <p style={{ fontSize: 12, color: '#0f9f5f', fontWeight: 800 }}>Economia de R$ {pixDiscount.toFixed(2).replace('.', ',')}</p>
+                  <div style={{ display: 'grid', gap: 8 }}>
+                    {[
+                      'Você será levado para o Mercado Pago.',
+                      'Escolha PIX e pague pelo app do seu banco.',
+                      'A confirmação volta automaticamente para a ZAYEH.',
+                    ].map((text, index) => (
+                      <div key={text} style={{ display: 'flex', alignItems: 'center', gap: 9 }}>
+                        <span style={{ width: 22, height: 22, borderRadius: '50%', background: '#0f9f5f', color: '#fffdf7', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 900, flexShrink: 0 }}>{index + 1}</span>
+                        <span style={{ fontSize: 12, color: '#0b2f2b', lineHeight: 1.45 }}>{text}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-                <p style={{ fontSize: 11, color: '#596760', textAlign: 'center' }}>O QR Code real será exibido no checkout seguro do Mercado Pago.</p>
+                <div style={{ padding: '18px', borderRadius: 16, background: '#fffdf7', border: '1px solid rgba(12,46,42,0.12)', boxShadow: '0 16px 32px rgba(12,46,42,0.07)' }}>
+                  <p style={{ fontSize: 10.5, fontWeight: 900, color: '#0f9f5f', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: 8 }}>Valor no Pix</p>
+                  <p style={{ fontWeight: 950, fontSize: 28, color: '#0b2f2b', marginBottom: 4 }}>R$ {pixTotal.toFixed(2).replace('.', ',')}</p>
+                  <p style={{ fontSize: 12, color: '#0f9f5f', fontWeight: 800 }}>Economia de R$ {pixDiscount.toFixed(2).replace('.', ',')}</p>
+                  <p style={{ fontSize: 11.5, color: '#596760', marginTop: 12, lineHeight: 1.55 }}>
+                    Não precisa copiar chave nem preencher dados aqui. O pagamento abre pronto no Mercado Pago.
+                  </p>
+                </div>
               </div>
             )}
 
@@ -633,8 +657,8 @@ export default function CheckoutPage() {
                 <ChevronLeft size={14} /> VOLTAR
               </button>
             )}
-            <button onClick={next} style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, padding: '14px', borderRadius: 12, border: 'none', background: step === 2 ? 'linear-gradient(135deg,#0d2f2b,#15564e)' : 'linear-gradient(135deg,#b8842c,#f0cf82)', color: step === 2 ? '#fffdf7' : '#111', fontWeight: 950, fontSize: 13, letterSpacing: '0.06em', cursor: 'pointer', fontFamily: 'inherit', boxShadow: '0 16px 30px rgba(12,46,42,0.15)' }}>
-              {submitting ? <><Loader2 size={14} style={{ animation: 'spin 1s linear infinite' }} /> PROCESSANDO...</> : step === 2 ? <><Lock size={14} /> {resolvedPayMethod === 'cartao' || resolvedPayMethod === 'pix' ? 'IR PARA PAGAMENTO' : 'CONFIRMAR PEDIDO'}</> : <>CONTINUAR <ChevronRight size={14} /></>}
+            <button onClick={next} style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, padding: '14px', borderRadius: 12, border: 'none', background: step === 1 ? 'linear-gradient(135deg,#0d2f2b,#15564e)' : 'linear-gradient(135deg,#b8842c,#f0cf82)', color: step === 1 ? '#fffdf7' : '#111', fontWeight: 950, fontSize: 13, letterSpacing: '0.06em', cursor: 'pointer', fontFamily: 'inherit', boxShadow: '0 16px 30px rgba(12,46,42,0.15)' }}>
+              {submitting ? <><Loader2 size={14} style={{ animation: 'spin 1s linear infinite' }} /> PROCESSANDO...</> : step === 1 ? <><Lock size={14} /> PAGAR COM MERCADO PAGO</> : <>CONTINUAR <ChevronRight size={14} /></>}
             </button>
           </div>
         </div>

@@ -1647,6 +1647,8 @@ body {
 @media (max-width: 500px) { .checkout-grid { grid-template-columns: 1fr; } }
 .checkout-full { grid-column: span 2; }
 @media (max-width: 500px) { .checkout-full { grid-column: span 1; } }
+.checkout-pix-guide { grid-template-columns: minmax(0,1.1fr) minmax(220px,0.9fr); }
+@media (max-width: 640px) { .checkout-pix-guide { grid-template-columns: 1fr !important; } }
 
 /* ─── TESTIMONIALS GRID ─────────────────────────── */
 .testimonials-grid {
