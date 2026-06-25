@@ -33,7 +33,7 @@ services:
       MERCADOPAGO_WEBHOOK_SECRET: ${MERCADOPAGO_WEBHOOK_SECRET:-}
     command: sh -c "npx prisma db push && node dist/index.js"
     ports:
-      - "127.0.0.1:3201:3333"
+      - "127.0.0.1:3211:3333"
 
   frontend:
     build:
@@ -44,7 +44,7 @@ services:
     depends_on:
       - backend
     ports:
-      - "127.0.0.1:3200:80"
+      - "127.0.0.1:3210:80"
 
 volumes:
   zayeh_postgres_data:
