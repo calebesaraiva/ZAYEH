@@ -377,7 +377,7 @@ export default function DashboardShell() {
               onClick={() => { if (confirm('Sair do painel?')) { localStorage.removeItem('zayeh_token'); setCurrentUser(null); setAuthed(false); } }}
               onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.06)')}
               onMouseLeave={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.03)')}>
-              <div style={{ width: 30, height: 30, borderRadius: '50%', background: 'linear-gradient(135deg, #d8a84a, #ec4899)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, fontWeight: 900, color: '#fff', flexShrink: 0 }}>
+              <div style={{ width: 30, height: 30, borderRadius: '50%', background: 'linear-gradient(135deg, #d8a84a, #b8842c)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, fontWeight: 900, color: '#fff', flexShrink: 0 }}>
                 {(currentUser?.name?.[0] ?? 'A').toUpperCase()}
               </div>
               <div className="dash-user-info">

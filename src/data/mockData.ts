@@ -32,9 +32,9 @@ export const salesData = [
 ];
 
 export const categoryData = [
-  { name: 'Vestidos', value: 35, color: '#d946ef' },
-  { name: 'Blazers', value: 22, color: '#9333ea' },
-  { name: 'Calças', value: 18, color: '#ec4899' },
+  { name: 'Vestidos', value: 35, color: '#c9a24f' },
+  { name: 'Blazers', value: 22, color: '#8d6b2f' },
+  { name: 'Calças', value: 18, color: '#b8842c' },
   { name: 'Saias', value: 12, color: '#d8a84a' },
   { name: 'Blusas', value: 8, color: '#e879f9' },
   { name: 'Outros', value: 5, color: '#6b21a8' },

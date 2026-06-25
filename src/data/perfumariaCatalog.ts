@@ -41,7 +41,7 @@ type PerfumeItemDef = {
   isBestSeller?: boolean;
 };
 const masculineColors = [{ name: 'Preto', hex: '#111111' }, { name: 'Dourado', hex: '#c9a227' }];
-const feminineColors = [{ name: 'Rosa', hex: '#f472b6' }, { name: 'Cristal', hex: '#dbeafe' }];
+const feminineColors = [{ name: 'Rosa', hex: '#d8a84a' }, { name: 'Cristal', hex: '#dbeafe' }];
 const premiumColors = [{ name: 'Azul', hex: '#2563eb' }, { name: 'Prata', hex: '#cbd5e1' }];
 const genericPerfumeImages = new Set([
   perfumariaImgs.noir,

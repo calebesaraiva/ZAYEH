@@ -18,11 +18,11 @@ interface Props { open: boolean; onClose: () => void; onAccountOpen: () => void;
 
 const mainLinks = [
   { label: 'Masculino', to: '/categoria/masculino', desc: 'Camisas do Brasil e plus size', accent: 'linear-gradient(180deg, #d8a84a, #b8842c)' },
-  { label: 'Feminino', to: '/categoria/feminino', desc: 'Camisa retrô feminina em destaque', accent: 'linear-gradient(180deg, #d946ef, #fb7185)' },
-  { label: 'Infantil', to: '/categoria/infantil', desc: 'Conjuntos para 3 a 14 anos', accent: 'linear-gradient(180deg, #8b5cf6, #c084fc)' },
+  { label: 'Feminino', to: '/categoria/feminino', desc: 'Camisa retrô feminina em destaque', accent: 'linear-gradient(180deg, #c9a24f, #c49b51)' },
+  { label: 'Infantil', to: '/categoria/infantil', desc: 'Conjuntos para 3 a 14 anos', accent: 'linear-gradient(180deg, #b8842c, #e6c98d)' },
   { label: 'Perfumaria', to: '/categoria/perfumaria', desc: 'Fragrâncias marcantes e sofisticadas', accent: 'linear-gradient(180deg, #06b6d4, #3b82f6)' },
   { label: 'Copa 2026', to: '/categoria/copa-2026', desc: 'Coleção da seleção em destaque', accent: 'linear-gradient(180deg, #FFB800, #FF8A00)', isNew: true, isCopa: true },
-  { label: 'Outlet', to: '/categoria/outlet', desc: 'Oportunidades com valor especial', accent: 'linear-gradient(180deg, #9333ea, #ec4899)' },
+  { label: 'Outlet', to: '/categoria/outlet', desc: 'Oportunidades com valor especial', accent: 'linear-gradient(180deg, #8d6b2f, #b8842c)' },
   { label: 'Sobre nós', to: '/sobre', desc: 'Conheça o universo da ZAYEH', accent: 'linear-gradient(180deg, #8d6b2f, #d8a84a)' },
 ];
 

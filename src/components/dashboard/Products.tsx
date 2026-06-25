@@ -66,7 +66,7 @@ const emptyForm = {
 };
 
 const presetCategories = ['Masculino', 'Feminino', 'Infantil', 'Perfumaria', 'Copa 2026', 'Plus Size'];
-const defaultColorPalette = ['#111111', '#f5f5f5', '#2563eb', '#ec4899', '#c9a227', '#dbeafe', '#22c55e', '#7c3aed'];
+const defaultColorPalette = ['#111111', '#f5f5f5', '#2563eb', '#b8842c', '#c9a227', '#dbeafe', '#22c55e', '#8d6b2f'];
 const isPerfumariaCategory = (value: string) =>
   value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').includes('perfumaria');
 
@@ -233,7 +233,7 @@ export default function Products() {
         tags: form.tags ? form.tags.split(',').map(s => s.trim().toLowerCase()).filter(Boolean) : [form.category.toLowerCase().replace(/\s+/g, '-')],
         colors: isPerfumaria ? [] : form.colors ? form.colors.split(',').map((name, index) => ({
           name: name.trim(),
-          hex: ['#111111', '#f5f5f5', '#2563eb', '#ec4899', '#c9a227', '#dbeafe'][index % 6],
+          hex: ['#111111', '#f5f5f5', '#2563eb', '#b8842c', '#c9a227', '#dbeafe'][index % 6],
         })).filter(color => color.name) : [{ name: 'Padrão', hex: '#111111' }],
         isNew: form.isNew,
         isBestSeller: form.isBestSeller,

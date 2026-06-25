@@ -9,13 +9,13 @@ import {
 } from 'recharts';
 import { useDashboardOverview } from '../../lib/useApi';
 
-const CAT_COLORS = ['#d946ef', '#9333ea', '#FFB800', '#d8a84a', '#22c55e', '#3b82f6', '#f97316'];
+const CAT_COLORS = ['#c9a24f', '#8d6b2f', '#FFB800', '#d8a84a', '#22c55e', '#3b82f6', '#f97316'];
 
 const statusStyle: Record<string, { label: string; color: string; bg: string }> = {
   pendente:              { label: 'Pendente',    color: '#f59e0b', bg: 'rgba(245,158,11,0.12)'  },
   aguardando_pagamento:  { label: 'Aguard. Pag', color: '#f59e0b', bg: 'rgba(245,158,11,0.12)'  },
   pago:                  { label: 'Pago',        color: '#22c55e', bg: 'rgba(34,197,94,0.12)'   },
-  enviado:               { label: 'Enviado',     color: '#d946ef', bg: 'rgba(217,70,239,0.12)'  },
+  enviado:               { label: 'Enviado',     color: '#c9a24f', bg: 'rgba(201,162,79,0.12)'  },
   entregue:              { label: 'Entregue',    color: '#3b82f6', bg: 'rgba(59,130,246,0.12)'  },
   cancelado:             { label: 'Cancelado',   color: '#ef4444', bg: 'rgba(239,68,68,0.12)'   },
 };
@@ -69,7 +69,7 @@ export default function Overview() {
 
   const stats = [
     { label: 'Receita Total',   value: loading ? '...' : overview ? fmt(overview.stats.totalRevenue) : '—', change: revenueGrowth, icon: DollarSign,  color: '#f97316', bg: 'rgba(249,115,22,0.1)'  },
-    { label: 'Pedidos',         value: loading ? '...' : overview ? `${overview.stats.totalOrders}`    : '—', change: ordersGrowth,  icon: ShoppingBag, color: '#d946ef', bg: 'rgba(217,70,239,0.1)'  },
+    { label: 'Pedidos',         value: loading ? '...' : overview ? `${overview.stats.totalOrders}`    : '—', change: ordersGrowth,  icon: ShoppingBag, color: '#c9a24f', bg: 'rgba(201,162,79,0.1)'  },
     { label: 'Clientes',        value: loading ? '...' : overview ? `${overview.stats.totalCustomers}` : '—', change: null,          icon: Users,       color: '#b8842c', bg: 'rgba(184,132,44,0.1)'  },
     { label: 'Produtos Ativos', value: loading ? '...' : overview ? `${overview.stats.totalProducts}`  : '—', change: null,          icon: TrendingUp,  color: '#22c55e', bg: 'rgba(34,197,94,0.1)'  },
   ];
@@ -99,7 +99,7 @@ export default function Overview() {
           <p style={{ fontSize: 13, color: '#555' }}>Bem-vindo(a) de volta! Aqui está seu resumo de hoje.</p>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '9px 16px', borderRadius: 10, background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)' }}>
-          <Clock size={13} style={{ color: '#d946ef' }} />
+          <Clock size={13} style={{ color: '#c9a24f' }} />
           <span style={{ fontSize: 12, color: '#666', fontWeight: 500, textTransform: 'capitalize' }}>{currentDateLabel}</span>
         </div>
       </div>
@@ -147,7 +147,7 @@ export default function Overview() {
               <p style={{ fontSize: 11, color: '#999' }}>Últimos 6 meses</p>
             </div>
             <div style={{ display: 'flex', gap: 14 }}>
-              {[{ color: '#d946ef', label: 'Receita' }, { color: '#374151', label: 'Meta', dashed: true }].map(({ color, label, dashed }) => (
+              {[{ color: '#c9a24f', label: 'Receita' }, { color: '#374151', label: 'Meta', dashed: true }].map(({ color, label, dashed }) => (
                 <div key={label} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
                   <svg width="20" height="8"><line x1="0" y1="4" x2="20" y2="4" stroke={color} strokeWidth="2" strokeDasharray={dashed ? '4 3' : undefined} /></svg>
                   <span style={{ fontSize: 11, color: '#555', fontWeight: 500 }}>{label}</span>
@@ -159,8 +159,8 @@ export default function Overview() {
             <AreaChart data={salesData} margin={{ top: 4, right: 4, left: -16, bottom: 0 }}>
               <defs>
                 <linearGradient id="gVendas" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#d946ef" stopOpacity={0.25} />
-                  <stop offset="95%" stopColor="#d946ef" stopOpacity={0} />
+                  <stop offset="5%" stopColor="#c9a24f" stopOpacity={0.25} />
+                  <stop offset="95%" stopColor="#c9a24f" stopOpacity={0} />
                 </linearGradient>
               </defs>
               <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.04)" />
@@ -168,7 +168,7 @@ export default function Overview() {
               <YAxis tick={{ fill: '#444', fontSize: 11 }} axisLine={false} tickLine={false} tickFormatter={v => `${(v/1000).toFixed(0)}k`} />
               <Tooltip content={<ChartTooltip />} />
               <Area type="monotone" dataKey="meta" stroke="#374151" fill="transparent" strokeDasharray="5 4" strokeWidth={1.5} />
-              <Area type="monotone" dataKey="vendas" stroke="#d946ef" fill="url(#gVendas)" strokeWidth={2.5} dot={false} activeDot={{ r: 5, fill: '#d946ef', stroke: '#fff', strokeWidth: 2 }} />
+              <Area type="monotone" dataKey="vendas" stroke="#c9a24f" fill="url(#gVendas)" strokeWidth={2.5} dot={false} activeDot={{ r: 5, fill: '#c9a24f', stroke: '#fff', strokeWidth: 2 }} />
             </AreaChart>
           </ResponsiveContainer>
         </motion.div>
@@ -228,7 +228,7 @@ export default function Overview() {
               <h3 style={{ fontSize: 15, fontWeight: 700, color: '#fff', marginBottom: 2 }}>Pedidos Recentes</h3>
               <p style={{ fontSize: 11, color: '#999' }}>Últimas transações</p>
             </div>
-            <button style={{ fontSize: 11, fontWeight: 700, color: '#d946ef', background: 'rgba(217,70,239,0.08)', border: '1px solid rgba(217,70,239,0.2)', borderRadius: 8, padding: '5px 10px', cursor: 'pointer', fontFamily: 'inherit' }}>
+            <button style={{ fontSize: 11, fontWeight: 700, color: '#c9a24f', background: 'rgba(201,162,79,0.08)', border: '1px solid rgba(201,162,79,0.2)', borderRadius: 8, padding: '5px 10px', cursor: 'pointer', fontFamily: 'inherit' }}>
               Ver todos
             </button>
           </div>
@@ -273,14 +273,14 @@ export default function Overview() {
               <h3 style={{ fontSize: 15, fontWeight: 700, color: '#fff', marginBottom: 2 }}>Top Produtos</h3>
               <p style={{ fontSize: 11, color: '#999' }}>Mais vendidos este mês</p>
             </div>
-            <button style={{ fontSize: 11, fontWeight: 700, color: '#d946ef', background: 'rgba(217,70,239,0.08)', border: '1px solid rgba(217,70,239,0.2)', borderRadius: 8, padding: '5px 10px', cursor: 'pointer', fontFamily: 'inherit' }}>
+            <button style={{ fontSize: 11, fontWeight: 700, color: '#c9a24f', background: 'rgba(201,162,79,0.08)', border: '1px solid rgba(201,162,79,0.2)', borderRadius: 8, padding: '5px 10px', cursor: 'pointer', fontFamily: 'inherit' }}>
               Ver todos
             </button>
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
             {topProducts.map((p, i) => {
-              const rankColors = ['#f97316', '#d946ef', '#b8842c', '#9333ea', '#d8a84a'];
+              const rankColors = ['#f97316', '#c9a24f', '#b8842c', '#8d6b2f', '#d8a84a'];
               const c = rankColors[i] ?? '#555';
               return (
                 <motion.div key={p.name}

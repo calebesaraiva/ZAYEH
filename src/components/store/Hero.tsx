@@ -15,7 +15,7 @@ export default function Hero() {
           animate={{ x: [0, 30, 0], y: [0, -20, 0], scale: [1, 1.1, 1] }}
           transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut' }}
           className="absolute -top-40 -right-40 w-[700px] h-[700px] rounded-full opacity-15"
-          style={{ background: 'radial-gradient(circle, #f97316, #ec4899, transparent)' }}
+          style={{ background: 'radial-gradient(circle, #f97316, #b8842c, transparent)' }}
         />
         <motion.div
           animate={{ x: [0, -20, 0], y: [0, 30, 0] }}
