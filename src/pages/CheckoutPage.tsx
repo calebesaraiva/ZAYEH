@@ -217,17 +217,21 @@ export default function CheckoutPage() {
 
   const prev = () => step > 0 && setStep((s) => s - 1);
 
-  const handleFinish = async () => {
+  const handleFinish = async (override?: { method?: PayMethod; installments?: number }) => {
     if (!validateStep()) return;
     setSubmitting(true);
     try {
+      const checkoutMethod = override?.method ?? resolvedPayMethod;
+      const checkoutInstallments = checkoutMethod === 'cartao'
+        ? Math.max(1, Math.trunc(override?.installments ?? (Number(form.parcelas) || 1)))
+        : 1;
       const items = cart.map((i) => {
         const pricing = getProductPricing(i.product, pricingSettings);
         return {
           productId: i.product.id,
           productName: i.product.name,
           quantity: i.quantity,
-          price: resolvedPayMethod === 'pix' ? pricing.pixPrice : i.product.price,
+          price: checkoutMethod === 'pix' ? pricing.pixPrice : i.product.price,
           pixPrice: pricing.pixPrice,
           size: i.size,
           color: i.color,
@@ -240,8 +244,8 @@ export default function CheckoutPage() {
         customerPhone: form.tel,
         customerCpf: form.cpf,
         items,
-        paymentMethod: resolvedPayMethod === 'cartao' ? `Cartão ${form.parcelas}x` : 'PIX',
-        installments: resolvedPayMethod === 'cartao' ? Number(form.parcelas) : 1,
+        paymentMethod: checkoutMethod === 'cartao' ? `Cartão ${checkoutInstallments}x` : 'PIX',
+        installments: checkoutInstallments,
         deliveryMethod,
         address: deliveryMethod === 'delivery' ? {
           cep: form.cep,
@@ -280,6 +284,23 @@ export default function CheckoutPage() {
     } finally {
       setSubmitting(false);
     }
+  };
+
+  const goToPixCheckout = () => {
+    if (submitting) return;
+    setPayMethod('pix');
+    void handleFinish({ method: 'pix' });
+  };
+
+  const selectCardAndWaitForInstallments = () => {
+    setPayMethod('cartao');
+  };
+
+  const goToCardCheckout = (installments: number) => {
+    if (submitting) return;
+    setPayMethod('cartao');
+    setForm((current) => ({ ...current, parcelas: String(installments) }));
+    void handleFinish({ method: 'cartao', installments });
   };
 
   if (done) return (
@@ -488,24 +509,24 @@ export default function CheckoutPage() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
             <div style={{ display: 'grid', gridTemplateColumns: `${cardEnabled ? '1fr' : ''}${cardEnabled && pixEnabled ? ' 1fr' : ''}${pixEnabled ? '' : ''}`.trim() || '1fr', gap: 12 }}>
               {cardEnabled && (
-                <button onClick={() => setPayMethod('cartao')} style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '16px 18px', borderRadius: 14, cursor: 'pointer', fontFamily: 'inherit', border: `1.5px solid ${resolvedPayMethod === 'cartao' ? '#b8842c' : 'rgba(12,46,42,0.13)'}`, background: resolvedPayMethod === 'cartao' ? 'rgba(216,168,74,0.12)' : '#fffdf7', transition: 'all 0.2s', textAlign: 'left', boxShadow: resolvedPayMethod === 'cartao' ? '0 12px 26px rgba(184,132,44,0.12)' : 'none' }}>
+                <button onClick={selectCardAndWaitForInstallments} style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '16px 18px', borderRadius: 14, cursor: 'pointer', fontFamily: 'inherit', border: `1.5px solid ${resolvedPayMethod === 'cartao' ? '#b8842c' : 'rgba(12,46,42,0.13)'}`, background: resolvedPayMethod === 'cartao' ? 'rgba(216,168,74,0.12)' : '#fffdf7', transition: 'all 0.2s', textAlign: 'left', boxShadow: resolvedPayMethod === 'cartao' ? '0 12px 26px rgba(184,132,44,0.12)' : 'none' }}>
                   <div style={{ width: 40, height: 40, borderRadius: 12, background: resolvedPayMethod === 'cartao' ? 'rgba(216,168,74,0.18)' : 'rgba(12,46,42,0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                     <CreditCard size={20} style={{ color: resolvedPayMethod === 'cartao' ? '#9b6d22' : '#596760' }} />
                   </div>
                   <div>
                   <p style={{ fontSize: 14, fontWeight: 900, color: '#0b2f2b', marginBottom: 2 }}>Cartão</p>
-                  <p style={{ fontSize: 11, color: resolvedPayMethod === 'cartao' ? '#9b6d22' : '#596760', fontWeight: resolvedPayMethod === 'cartao' ? 800 : 500 }}>Parcele em até {maxInstallments}x</p>
+                  <p style={{ fontSize: 11, color: resolvedPayMethod === 'cartao' ? '#9b6d22' : '#596760', fontWeight: resolvedPayMethod === 'cartao' ? 800 : 500 }}>Escolha as parcelas e siga direto</p>
                   </div>
                 </button>
               )}
               {pixEnabled && (
-                <button onClick={() => setPayMethod('pix')} style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '16px 18px', borderRadius: 14, cursor: 'pointer', fontFamily: 'inherit', border: `1.5px solid ${resolvedPayMethod === 'pix' ? '#0f9f5f' : 'rgba(12,46,42,0.13)'}`, background: resolvedPayMethod === 'pix' ? 'rgba(15,159,95,0.1)' : '#fffdf7', transition: 'all 0.2s', textAlign: 'left', boxShadow: resolvedPayMethod === 'pix' ? '0 12px 26px rgba(15,159,95,0.12)' : 'none' }}>
+                <button onClick={goToPixCheckout} style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '16px 18px', borderRadius: 14, cursor: 'pointer', fontFamily: 'inherit', border: `1.5px solid ${resolvedPayMethod === 'pix' ? '#0f9f5f' : 'rgba(12,46,42,0.13)'}`, background: resolvedPayMethod === 'pix' ? 'rgba(15,159,95,0.1)' : '#fffdf7', transition: 'all 0.2s', textAlign: 'left', boxShadow: resolvedPayMethod === 'pix' ? '0 12px 26px rgba(15,159,95,0.12)' : 'none' }}>
                   <div style={{ width: 40, height: 40, borderRadius: 12, background: resolvedPayMethod === 'pix' ? 'rgba(15,159,95,0.16)' : 'rgba(12,46,42,0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                     <Zap size={20} style={{ color: resolvedPayMethod === 'pix' ? '#0f9f5f' : '#596760' }} />
                   </div>
                   <div>
                     <p style={{ fontSize: 14, fontWeight: 900, color: '#0b2f2b', marginBottom: 2 }}>PIX</p>
-                    <p style={{ fontSize: 11, color: resolvedPayMethod === 'pix' ? '#0f9f5f' : '#596760', fontWeight: resolvedPayMethod === 'pix' ? 800 : 500 }}>Desconto na hora</p>
+                    <p style={{ fontSize: 11, color: resolvedPayMethod === 'pix' ? '#0f9f5f' : '#596760', fontWeight: resolvedPayMethod === 'pix' ? 800 : 500 }}>Clique e abra o pagamento na hora</p>
                   </div>
                 </button>
               )}
@@ -515,7 +536,17 @@ export default function CheckoutPage() {
               <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                 <div>
                   <label style={lbl}>Parcelamento</label>
-                  <select style={{ ...inp, cursor: 'pointer', appearance: 'none' as const }} value={form.parcelas} onChange={set('parcelas')} onFocus={focusIn} onBlur={focusOut}>
+                  <select
+                    style={{ ...inp, cursor: 'pointer', appearance: 'none' as const }}
+                    value={form.parcelas}
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      setForm((current) => ({ ...current, parcelas: value }));
+                      void Promise.resolve().then(() => goToCardCheckout(Number(value)));
+                    }}
+                    onFocus={focusIn}
+                    onBlur={focusOut}
+                  >
                     {Array.from({ length: maxInstallments }, (_, idx) => idx + 1).map((n) => (
                       <option key={n} value={n} style={{ background: '#fffdf7', color: '#0b2f2b' }}>
                         {n}x {n === 1 ? '(à vista)' : n <= interestFreeInstallments ? '(sem juros)' : '(juros no checkout)'}
@@ -525,7 +556,7 @@ export default function CheckoutPage() {
                 </div>
                 <div style={{ padding: '14px 16px', borderRadius: 12, background: 'rgba(216,168,74,0.1)', border: '1px solid rgba(216,168,74,0.2)' }}>
                   <p style={{ fontSize: 12, color: '#6d5425', lineHeight: 1.7 }}>
-                    Os dados do cartão serão preenchidos com segurança no checkout oficial do Mercado Pago. Na sua loja o cliente escolhe apenas a quantidade de parcelas.
+                    Escolha as parcelas e vamos abrir o checkout oficial do Mercado Pago imediatamente.
                   </p>
                 </div>
               </div>
@@ -540,7 +571,7 @@ export default function CheckoutPage() {
                     </div>
                     <div>
                       <p style={{ fontSize: 15, fontWeight: 950, color: '#0b2f2b', marginBottom: 2 }}>PIX pelo Mercado Pago</p>
-                      <p style={{ fontSize: 11.5, color: '#596760' }}>Clique no botão abaixo e pague no ambiente seguro.</p>
+                      <p style={{ fontSize: 11.5, color: '#596760' }}>Ao tocar em PIX, o pagamento abre direto no ambiente seguro.</p>
                     </div>
                   </div>
                   <div style={{ display: 'grid', gap: 8 }}>
@@ -755,9 +786,15 @@ export default function CheckoutPage() {
                 <ChevronLeft size={14} /> VOLTAR
               </button>
             )}
-            <button onClick={next} style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, padding: '14px', borderRadius: 12, border: 'none', background: step === 1 ? 'linear-gradient(135deg,#0d2f2b,#15564e)' : 'linear-gradient(135deg,#b8842c,#f0cf82)', color: step === 1 ? '#fffdf7' : '#111', fontWeight: 950, fontSize: 13, letterSpacing: '0.06em', cursor: 'pointer', fontFamily: 'inherit', boxShadow: '0 16px 30px rgba(12,46,42,0.15)' }}>
-              {submitting ? <><Loader2 size={14} style={{ animation: 'spin 1s linear infinite' }} /> PROCESSANDO...</> : step === 1 ? <><Lock size={14} /> PAGAR COM MERCADO PAGO</> : <>CONTINUAR <ChevronRight size={14} /></>}
-            </button>
+            {step !== 1 ? (
+              <button onClick={next} style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, padding: '14px', borderRadius: 12, border: 'none', background: 'linear-gradient(135deg,#b8842c,#f0cf82)', color: '#111', fontWeight: 950, fontSize: 13, letterSpacing: '0.06em', cursor: 'pointer', fontFamily: 'inherit', boxShadow: '0 16px 30px rgba(12,46,42,0.15)' }}>
+                {submitting ? <><Loader2 size={14} style={{ animation: 'spin 1s linear infinite' }} /> PROCESSANDO...</> : <>CONTINUAR <ChevronRight size={14} /></>}
+              </button>
+            ) : (
+              <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '14px', borderRadius: 12, border: '1px dashed rgba(12,46,42,0.16)', background: 'rgba(255,253,247,0.72)', color: '#596760', fontWeight: 700, fontSize: 12, letterSpacing: '0.04em' }}>
+                {submitting ? <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}><Loader2 size={14} style={{ animation: 'spin 1s linear infinite' }} /> ABRINDO PAGAMENTO...</span> : <span>Escolha PIX ou selecione as parcelas do cartao para abrir o pagamento.</span>}
+              </div>
+            )}
           </div>
         </div>
 
