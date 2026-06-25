@@ -255,39 +255,34 @@ export default function CheckoutPage() {
       : 'Avisado no WhatsApp';
 
   const Stepper = () => (
-    <div style={{ padding: '16px 0 28px', maxWidth: 480, margin: '0 auto' }}>
-      <div style={{ display: 'flex', alignItems: 'center' }}>
+    <div className="checkout-stepper-shell">
+      <div className="checkout-stepper">
         {STEPS.map((s, i) => {
           const doneStep = i < step;
           const active = i === step;
+          const stateClass = active ? 'active' : doneStep ? 'done' : 'upcoming';
           return (
-            <div key={s} style={{ display: 'flex', alignItems: 'center', flex: i < STEPS.length - 1 ? 1 : 'none' }}>
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8 }}>
+            <div key={s} className={`checkout-step ${stateClass}`}>
+              <div className="checkout-step-content">
                 <motion.button
+                  type="button"
+                  aria-label={`Etapa ${i + 1}: ${s}`}
                   onClick={() => doneStep && setStep(i)}
-                  whileHover={doneStep ? { scale: 1.1 } : {}}
+                  whileHover={doneStep ? { scale: 1.06, y: -1 } : {}}
                   transition={{ duration: 0.2 }}
-                  style={{
-                    width: 40, height: 40, borderRadius: '50%',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    border: 'none', cursor: doneStep ? 'pointer' : 'default', padding: 0,
-                    flexShrink: 0,
-                    background: active ? 'linear-gradient(135deg,#d8a84a,#b8842c)' : doneStep ? 'rgba(216,168,74,0.12)' : 'rgba(255,255,255,0.04)',
-                    boxShadow: active ? '0 0 0 5px rgba(216,168,74,0.18), 0 6px 20px rgba(216,168,74,0.35)' : doneStep ? '0 0 0 3px rgba(216,168,74,0.15)' : 'none',
-                    outline: active ? '1.5px solid rgba(255,255,255,0.08)' : 'none',
-                    transition: 'all 0.3s',
-                  }}
+                  className="checkout-step-dot"
+                  style={{ cursor: doneStep ? 'pointer' : 'default' }}
                 >
-                  {doneStep ? <CheckCircle size={18} style={{ color: '#d8a84a' }} /> : <span style={{ fontSize: 13, fontWeight: 900, color: active ? '#fff' : '#333', fontFamily: 'inherit', lineHeight: 1 }}>{i + 1}</span>}
+                  {doneStep ? <CheckCircle size={18} /> : <span>{i + 1}</span>}
                 </motion.button>
-                <span style={{ fontSize: 9, fontWeight: active ? 900 : 600, letterSpacing: '0.12em', whiteSpace: 'nowrap', textTransform: 'uppercase', color: active ? '#fff' : doneStep ? '#d8a84a' : '#2a2a2a' }}>
+                <span className="checkout-step-label">
                   {s}
                 </span>
               </div>
 
               {i < STEPS.length - 1 && (
-                <div style={{ flex: 1, height: 2, margin: '0 6px', marginBottom: 24, position: 'relative', background: 'rgba(255,255,255,0.05)', borderRadius: 99, overflow: 'hidden' }}>
-                  <motion.div animate={{ width: doneStep ? '100%' : '0%' }} transition={{ duration: 0.4, ease: 'easeInOut' }} style={{ position: 'absolute', inset: 0, background: 'linear-gradient(90deg,#d8a84a,#b8842c)', borderRadius: 99 }} />
+                <div className="checkout-step-line" aria-hidden="true">
+                  <motion.div animate={{ width: doneStep ? '100%' : '0%' }} transition={{ duration: 0.4, ease: 'easeInOut' }} />
                 </div>
               )}
             </div>

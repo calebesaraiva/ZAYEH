@@ -1482,6 +1482,111 @@ body {
 }
 
 /* ─── CHECKOUT LAYOUT ────────────────────────────── */
+.checkout-stepper-shell {
+  width: min(100%, 660px);
+  margin: 0 auto 26px;
+  padding: 12px;
+  border: 1px solid rgba(12, 46, 42, 0.1);
+  border-radius: 999px;
+  background:
+    linear-gradient(135deg, rgba(255, 253, 247, 0.9), rgba(232, 223, 204, 0.72)),
+    radial-gradient(circle at 20% 0%, rgba(216, 168, 74, 0.18), transparent 42%);
+  box-shadow: 0 18px 48px rgba(71, 55, 26, 0.1);
+}
+.checkout-stepper {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+.checkout-step {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+}
+.checkout-step:last-child {
+  flex: 0 0 auto;
+}
+.checkout-step-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: max-content;
+  padding: 4px;
+  border-radius: 999px;
+}
+.checkout-step-dot {
+  width: 42px;
+  height: 42px;
+  border: 1px solid rgba(12, 46, 42, 0.14);
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  padding: 0;
+  background: rgba(255, 253, 247, 0.8);
+  color: #51625b;
+  font-family: inherit;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.9);
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s, background 0.2s;
+}
+.checkout-step-dot span {
+  color: inherit !important;
+  font-size: 13px;
+  font-weight: 950;
+  line-height: 1;
+}
+.checkout-step-label {
+  color: #51625b !important;
+  font-size: 10px;
+  font-weight: 850;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.checkout-step-line {
+  position: relative;
+  flex: 1;
+  height: 2px;
+  min-width: 34px;
+  margin: 0 12px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: rgba(12, 46, 42, 0.12);
+}
+.checkout-step-line > div {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #b8842c, #f0cf82);
+}
+.checkout-step.active .checkout-step-content {
+  background: rgba(12, 46, 42, 0.06);
+  box-shadow: inset 0 0 0 1px rgba(12, 46, 42, 0.08);
+}
+.checkout-step.active .checkout-step-dot {
+  border-color: rgba(12, 46, 42, 0.3);
+  background: linear-gradient(135deg, #0d2f2b, #15564e);
+  color: #f8efd8;
+  box-shadow: 0 10px 24px rgba(12, 46, 42, 0.24), 0 0 0 6px rgba(12, 46, 42, 0.08);
+}
+.checkout-step.active .checkout-step-label {
+  color: #0b2f2b !important;
+}
+.checkout-step.done .checkout-step-dot {
+  border-color: rgba(184, 132, 44, 0.32);
+  background: linear-gradient(135deg, #f7e8bf, #d8a84a);
+  color: #1b2f2b;
+  box-shadow: 0 10px 22px rgba(184, 132, 44, 0.18);
+}
+.checkout-step.done .checkout-step-label {
+  color: #9b6d22 !important;
+}
+.checkout-step.upcoming .checkout-step-dot {
+  opacity: 0.78;
+}
+
 .checkout-layout {
   display: grid;
   grid-template-columns: 1fr;
@@ -1496,6 +1601,35 @@ body {
 .checkout-page { padding-bottom: 48px; }
 @media (max-width: 767px) {
   .checkout-page { padding-bottom: calc(84px + env(safe-area-inset-bottom)); }
+  .checkout-stepper-shell {
+    margin-bottom: 18px;
+    padding: 10px;
+    border-radius: 24px;
+  }
+  .checkout-stepper {
+    align-items: flex-start;
+  }
+  .checkout-step {
+    align-items: flex-start;
+  }
+  .checkout-step-content {
+    flex-direction: column;
+    gap: 7px;
+    min-width: 58px;
+    padding: 0;
+  }
+  .checkout-step-dot {
+    width: 38px;
+    height: 38px;
+  }
+  .checkout-step-label {
+    font-size: 8px;
+    letter-spacing: 0.1em;
+  }
+  .checkout-step-line {
+    min-width: 18px;
+    margin: 19px 4px 0;
+  }
 }
 
 /* Mobile: toggle button visível, card sempre visível no desktop */
