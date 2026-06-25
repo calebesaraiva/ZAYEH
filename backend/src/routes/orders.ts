@@ -139,11 +139,19 @@ router.post('/', async (req, res) => {
           subtotal,
           serviceCode: shippingQuote?.serviceCode,
           freeShipping: freeShippingApplied,
+          cidade: normalizedAddress.cidade,
+          estado: normalizedAddress.estado,
         });
         shippingAmount = calculatedShippingQuote.selected.price;
       } catch {
         calculatedShippingQuote = null;
       }
+    }
+
+    if (selectedDeliveryMethod === 'delivery' && !freeShippingApplied && !calculatedShippingQuote) {
+      return res.status(400).json({
+        error: 'Informe um CEP valido e calcule o frete antes de ir para o pagamento. Para Imperatriz/MA o frete local e R$ 10,00.',
+      });
     }
 
     const shippingMessage = selectedDeliveryMethod === 'pickup'

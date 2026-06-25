@@ -122,6 +122,8 @@ export default function CheckoutPage() {
         subtotal,
         serviceCode: shippingQuote?.selected.serviceCode,
         freeShipping: freeShipPromo || subtotal >= freeShipThreshold || couponFreeShipping,
+        cidade: form.cidade,
+        estado: form.estado,
       })
         .then((quote) => {
           if (cancelled) return;
@@ -142,7 +144,7 @@ export default function CheckoutPage() {
       cancelled = true;
       window.clearTimeout(timer);
     };
-  }, [cepDigits, deliveryMethod, subtotal, freeShipPromo, freeShipThreshold, couponFreeShipping]);
+  }, [cepDigits, deliveryMethod, subtotal, freeShipPromo, freeShipThreshold, couponFreeShipping, form.cidade, form.estado]);
 
   useEffect(() => {
     if (!redirectingCheckout) return;
@@ -192,6 +194,10 @@ export default function CheckoutPage() {
         }
         if (cepDigits.length === 8 && shippingLoading) {
           showToast('Aguarde o calculo do frete.', 'error');
+          return false;
+        }
+        if (!freeShippingApplied && !shippingQuote) {
+          showToast('Calcule o frete pelo CEP antes de continuar. Em Imperatriz/MA o frete local e R$ 10,00.', 'error');
           return false;
         }
       }
@@ -395,7 +401,7 @@ export default function CheckoutPage() {
                 <button onClick={() => setDeliveryMethod('delivery')} style={{ padding: '16px 18px', borderRadius: 14, border: `1.5px solid ${deliveryMethod === 'delivery' ? '#32718d' : 'rgba(12,46,42,0.13)'}`, background: deliveryMethod === 'delivery' ? 'rgba(50,113,141,0.1)' : '#fffdf7', textAlign: 'left', cursor: 'pointer', fontFamily: 'inherit', boxShadow: deliveryMethod === 'delivery' ? '0 12px 26px rgba(50,113,141,0.12)' : 'none' }}>
                   <p style={{ fontSize: 14, fontWeight: 900, color: '#0b2f2b', marginBottom: 4 }}>Entrega</p>
                   <p style={{ fontSize: 11, color: deliveryMethod === 'delivery' ? '#32718d' : '#596760', fontWeight: deliveryMethod === 'delivery' ? 800 : 500 }}>
-                    {freeShippingApplied ? 'Frete gratis para este pedido' : shippingQuote ? `${shippingQuote.selected.serviceName} · R$ ${shippingAmount.toFixed(2).replace('.', ',')}` : 'Frete calculado pelo CEP'}
+                    {freeShippingApplied ? 'Frete gratis para este pedido' : shippingQuote ? `${shippingQuote.selected.serviceName} · R$ ${shippingAmount.toFixed(2).replace('.', ',')}` : 'CEP obrigatorio para entrega'}
                   </p>
                 </button>
               )}
@@ -442,7 +448,7 @@ export default function CheckoutPage() {
                     {shippingLoading ? <Loader2 size={16} style={{ color: '#32718d', flexShrink: 0, marginTop: 1, animation: 'spin 1s linear infinite' }} /> : <MapPin size={16} style={{ color: shippingError ? '#9b6d22' : '#32718d', flexShrink: 0, marginTop: 1 }} />}
                     <div>
                       <p style={{ fontSize: 12, color: '#0b2f2b', fontWeight: 900, marginBottom: 3 }}>
-                        {freeShippingApplied ? 'Frete gratis aplicado' : shippingQuote ? `Frete ${shippingQuote.selected.serviceName} calculado` : shippingLoading ? 'Calculando frete pelos Correios' : 'Calculo automatico de frete'}
+                        {freeShippingApplied ? 'Frete gratis aplicado' : shippingQuote ? `Frete ${shippingQuote.selected.serviceName} calculado` : shippingLoading ? 'Calculando frete' : 'Calculo obrigatorio de frete'}
                       </p>
                       <p style={{ fontSize: 12, color: shippingError ? '#6d5425' : '#32718d', lineHeight: 1.6 }}>
                         {freeShippingApplied
@@ -451,7 +457,7 @@ export default function CheckoutPage() {
                             ? `Valor: R$ ${shippingAmount.toFixed(2).replace('.', ',')}${shippingQuote.selected.deadlineText ? ` · Prazo estimado: ${shippingQuote.selected.deadlineText}` : ''}. Esse frete ja entra no total.`
                             : shippingError
                               ? `${shippingError}${whatsapp ? ` Se precisar, finalize com retirada ou fale conosco no WhatsApp ${whatsapp}.` : ''}`
-                              : 'Digite um CEP valido para buscar valor e prazo antes de seguir para pagamento.'}
+                              : 'Digite o CEP. Para Imperatriz/MA o frete local fica R$ 10,00; para outras cidades/estados calculamos antes do pagamento.'}
                       </p>
                     </div>
                   </div>

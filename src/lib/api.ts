@@ -60,7 +60,7 @@ export interface ShippingQuoteOption {
 }
 
 export interface ShippingQuoteResponse {
-  provider: 'correios';
+  provider: 'correios' | 'local';
   originCep: string;
   destinationCep: string;
   freeShippingApplied: boolean;
@@ -188,7 +188,7 @@ export const api = {
   },
 
   shipping: {
-    quote: (data: { cepDestino: string; subtotal: number; serviceCode?: string; freeShipping?: boolean }) =>
+    quote: (data: { cepDestino: string; subtotal: number; serviceCode?: string; freeShipping?: boolean; cidade?: string; estado?: string }) =>
       request<ShippingQuoteResponse>('/shipping/quote', {
         method: 'POST',
         body: JSON.stringify(data),

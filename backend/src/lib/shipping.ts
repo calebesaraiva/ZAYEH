@@ -13,7 +13,7 @@ export interface ShippingQuoteOption {
 }
 
 export interface ShippingQuoteResult {
-  provider: 'correios';
+  provider: 'correios' | 'local';
   originCep: string;
   destinationCep: string;
   freeShippingApplied: boolean;
@@ -36,6 +36,18 @@ const SERVICE_NAMES: Record<string, string> = {
 
 function onlyDigits(value: unknown) {
   return String(value ?? '').replace(/\D/g, '');
+}
+
+function normalizeText(value: unknown) {
+  return String(value ?? '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .trim()
+    .toLowerCase();
+}
+
+function isImperatrizDelivery(city: unknown, state: unknown) {
+  return normalizeText(city) === 'imperatriz' && normalizeText(state) === 'ma';
 }
 
 function parseMoney(value: unknown) {
@@ -148,7 +160,7 @@ async function quoteService(config: ReturnType<typeof getConfig>, destinationCep
 
 export async function quoteShipping(
   prisma: PrismaClient,
-  payload: { cepDestino: unknown; subtotal?: unknown; serviceCode?: unknown; freeShipping?: boolean },
+  payload: { cepDestino: unknown; subtotal?: unknown; serviceCode?: unknown; freeShipping?: boolean; cidade?: unknown; estado?: unknown },
 ): Promise<ShippingQuoteResult> {
   const settings = await getStoreSettingsMap(prisma);
   const config = getConfig(settings);
@@ -157,10 +169,32 @@ export async function quoteShipping(
   const preferredServiceCode = String(payload.serviceCode || '').trim();
   const freeShippingApplied = Boolean(payload.freeShipping) || config.freeShipPromo || subtotal >= config.freeShipThreshold;
 
+  if (destinationCep.length !== 8) throw new ShippingQuoteError('Informe um CEP valido com 8 digitos.', 400);
+
+  if (isImperatrizDelivery(payload.cidade, payload.estado)) {
+    const localPrice = freeShippingApplied ? 0 : 10;
+    const option = {
+      serviceCode: 'LOCAL-IMP',
+      serviceName: 'Entrega local Imperatriz',
+      price: localPrice,
+      originalPrice: 10,
+      deadlineDays: 1,
+      deadlineText: 'ate 1 dia util',
+    } satisfies ShippingQuoteOption;
+
+    return {
+      provider: 'local',
+      originCep: config.originCep,
+      destinationCep,
+      freeShippingApplied,
+      options: [option],
+      selected: option,
+    };
+  }
+
   if (!config.enabled) throw new ShippingQuoteError('Calculo automatico de frete esta desativado.', 503);
   if (!config.token) throw new ShippingQuoteError('Token dos Correios nao configurado. Configure no painel ou na VPS para liberar frete automatico.', 503);
   if (config.originCep.length !== 8) throw new ShippingQuoteError('CEP de origem dos Correios invalido.', 500);
-  if (destinationCep.length !== 8) throw new ShippingQuoteError('Informe um CEP valido com 8 digitos.', 400);
 
   const quoted = await Promise.allSettled(config.serviceCodes.map((code) => quoteService(config, destinationCep, code)));
   const options = quoted

@@ -11,6 +11,8 @@ router.post('/quote', async (req, res) => {
       subtotal: req.body?.subtotal,
       serviceCode: req.body?.serviceCode,
       freeShipping: req.body?.freeShipping,
+      cidade: req.body?.cidade,
+      estado: req.body?.estado,
     });
     res.json(quote);
   } catch (error) {
