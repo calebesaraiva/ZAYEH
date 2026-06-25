@@ -4,6 +4,7 @@ import { createMercadoPagoPreference, getMercadoPagoConfig } from '../lib/mercad
 import { getProductPricing, getStorePricingSettings } from '../lib/storePricing';
 import { getStoreSettingsMap, parseBool, parseNumber } from '../lib/storeSettings';
 import { quoteShipping } from '../lib/shipping';
+import { requireAuth, type AuthRequest } from '../middleware/auth';
 
 const router = Router();
 
@@ -11,7 +12,7 @@ const REQUIRED_DELIVERY_FIELDS = ['cep', 'rua', 'num', 'bairro', 'cidade', 'esta
 const normalizeEmail = (value: unknown) => String(value ?? '').trim().toLowerCase();
 const normalizeCpf = (value: unknown) => String(value ?? '').replace(/\D/g, '').trim();
 
-router.post('/', async (req, res) => {
+router.post('/', requireAuth, async (req: AuthRequest, res) => {
   try {
     const {
       customerName,
@@ -28,12 +29,13 @@ router.post('/', async (req, res) => {
       shippingQuote,
     } = req.body;
 
-    if (!customerName || !customerEmail || !items?.length || !paymentMethod) {
+    const normalizedCustomerEmail = normalizeEmail(req.user?.email || customerEmail);
+    const normalizedCustomerCpf = normalizeCpf(customerCpf) || undefined;
+    const authenticatedName = String(customerName || req.user?.email || '').trim();
+
+    if (!authenticatedName || !normalizedCustomerEmail || !items?.length || !paymentMethod) {
       return res.status(400).json({ error: 'Dados incompletos' });
     }
-
-    const normalizedCustomerEmail = normalizeEmail(customerEmail);
-    const normalizedCustomerCpf = normalizeCpf(customerCpf) || undefined;
 
     const selectedDeliveryMethod = deliveryMethod === 'pickup' ? 'pickup' : 'delivery';
     const normalizedAddress = address && typeof address === 'object' ? address : null;
@@ -182,7 +184,7 @@ router.post('/', async (req, res) => {
     if (!customer) {
       customer = await prisma.customer.create({
         data: {
-          name: customerName,
+          name: authenticatedName,
           email: normalizedCustomerEmail,
           phone: customerPhone,
           cpf: normalizedCustomerCpf,
@@ -194,7 +196,7 @@ router.post('/', async (req, res) => {
       customer = await prisma.customer.update({
         where: { id: customer.id },
         data: {
-          name: customerName,
+          name: authenticatedName,
           phone: customerPhone,
           city: normalizedAddress?.cidade ?? customer.city,
           state: normalizedAddress?.estado ?? customer.state,
@@ -209,7 +211,7 @@ router.post('/', async (req, res) => {
       const createdOrder = await tx.order.create({
         data: {
           customerId: customer.id,
-          customerName,
+          customerName: authenticatedName,
           customerEmail: normalizedCustomerEmail,
           customerPhone,
           customerCpf: normalizedCustomerCpf,
@@ -337,7 +339,7 @@ router.post('/', async (req, res) => {
       try {
         const checkout = await createMercadoPagoPreference(mercadoPagoConfig, {
           orderId: order.id,
-          customerName,
+          customerName: authenticatedName,
           customerEmail: normalizedCustomerEmail,
           customerPhone,
           customerCpf: normalizedCustomerCpf,
@@ -421,6 +423,34 @@ router.post('/', async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Erro ao criar pedido' });
+  }
+});
+
+router.get('/me', requireAuth, async (req: AuthRequest, res) => {
+  try {
+    const email = normalizeEmail(req.user?.email);
+    if (!email) {
+      return res.status(401).json({ error: 'Usuário não autenticado' });
+    }
+
+    const customer = await prisma.customer.findUnique({
+      where: { email },
+    });
+
+    const orders = await prisma.order.findMany({
+      where: customer ? { customerId: customer.id } : { customerEmail: email },
+      include: { items: true },
+      orderBy: { createdAt: 'desc' },
+    });
+
+    res.json({
+      orders,
+      cashbackAvailable: orders
+        .filter((order) => order.status === 'pago')
+        .reduce((total, order) => total + order.cashback, 0),
+    });
+  } catch {
+    res.status(500).json({ error: 'Erro ao carregar pedidos' });
   }
 });
 

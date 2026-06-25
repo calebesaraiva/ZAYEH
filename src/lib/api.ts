@@ -77,6 +77,11 @@ export interface ApiOrder {
   couponCode?: string; notes?: string; createdAt: string;
 }
 
+export interface MyOrdersResponse {
+  orders: ApiOrder[];
+  cashbackAvailable: number;
+}
+
 export interface OrderShippingInfo {
   method: string;
   freeShippingApplied: boolean;
@@ -157,6 +162,7 @@ export const api = {
         method: 'POST',
         body: JSON.stringify(data),
       }),
+    mine: () => request<MyOrdersResponse>('/orders/me'),
     get: (id: string) => request<ApiOrder>(`/orders/${id}`),
     paymentStatus: (id: string, paymentId?: string) =>
       request<{ order: ApiOrder; payment: Record<string, unknown> | null }>(

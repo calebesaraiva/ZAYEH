@@ -7,7 +7,7 @@ import {
   Tag, Loader2, Store, MapPin, Clock,
 } from 'lucide-react';
 import { useStore } from '../store/useStore';
-import { api, type ShippingQuoteResponse } from '../lib/api';
+import { api, type ApiUser, type ShippingQuoteResponse } from '../lib/api';
 import { getProductPricing, resolveStorePricingSettings } from '../lib/storePricing';
 
 const STEPS = ['Dados', 'Pagamento'];
@@ -32,6 +32,8 @@ const focusOut = (e: React.FocusEvent<HTMLInputElement | HTMLSelectElement>) =>
 
 export default function CheckoutPage() {
   const { cart, clearCart, showToast } = useStore();
+  const [authLoading, setAuthLoading] = useState(() => !!localStorage.getItem('zayeh_token'));
+  const [currentUser, setCurrentUser] = useState<ApiUser | null>(null);
   const [step, setStep] = useState(0);
   const [payMethod, setPayMethod] = useState<PayMethod>('cartao');
   const [deliveryMethod, setDeliveryMethod] = useState<DeliveryMethod>('delivery');
@@ -84,6 +86,39 @@ export default function CheckoutPage() {
     card_num: '', card_name: '', card_exp: '', card_cvv: '', parcelas: '1',
   });
   const cepDigits = form.cep.replace(/\D/g, '');
+
+  useEffect(() => {
+    const token = localStorage.getItem('zayeh_token');
+    if (!token) {
+      setAuthLoading(false);
+      return;
+    }
+
+    let active = true;
+
+    api.auth.me()
+      .then((user) => {
+        if (!active) return;
+        setCurrentUser(user);
+        setForm((current) => ({
+          ...current,
+          nome: current.nome || user.name,
+          email: current.email || user.email,
+        }));
+      })
+      .catch(() => {
+        if (!active) return;
+        localStorage.removeItem('zayeh_token');
+        setCurrentUser(null);
+      })
+      .finally(() => {
+        if (active) setAuthLoading(false);
+      });
+
+    return () => {
+      active = false;
+    };
+  }, []);
 
   useEffect(() => {
     api.settings.get()
@@ -218,6 +253,11 @@ export default function CheckoutPage() {
   const prev = () => step > 0 && setStep((s) => s - 1);
 
   const handleFinish = async (override?: { method?: PayMethod; installments?: number }) => {
+    if (!currentUser) {
+      showToast('Entre na sua conta para concluir a compra e registrar o cashback.', 'error');
+      window.location.assign('/conta?redirect=/checkout');
+      return;
+    }
     if (!validateStep()) return;
     setSubmitting(true);
     try {
@@ -302,6 +342,52 @@ export default function CheckoutPage() {
     setForm((current) => ({ ...current, parcelas: String(installments) }));
     void handleFinish({ method: 'cartao', installments });
   };
+
+  if (authLoading) return (
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '80px 24px', minHeight: '60vh' }}>
+      <div style={{ textAlign: 'center', maxWidth: 420 }}>
+        <div style={{ width: 72, height: 72, borderRadius: '50%', background: 'rgba(216,168,74,0.12)', border: '2px solid rgba(216,168,74,0.45)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px' }}>
+          <Loader2 size={30} style={{ color: '#d8a84a', animation: 'spin 1s linear infinite' }} />
+        </div>
+        <h2 style={{ fontSize: 24, fontWeight: 900, color: '#fff', marginBottom: 8 }}>Preparando seu checkout</h2>
+        <p style={{ color: '#888', lineHeight: 1.7 }}>Estamos verificando sua conta antes de continuar.</p>
+      </div>
+    </div>
+  );
+
+  if (!currentUser) return (
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '80px 24px', minHeight: '60vh' }}>
+      <motion.div initial={{ scale: 0.96, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} style={{ width: '100%', maxWidth: 560, background: 'linear-gradient(180deg,#121212,#0c0c0c)', borderRadius: 24, border: '1px solid rgba(216,168,74,0.16)', padding: '34px 28px', textAlign: 'center', boxShadow: '0 32px 70px rgba(0,0,0,0.26)' }}>
+        <div style={{ width: 74, height: 74, margin: '0 auto 18px', borderRadius: '50%', display: 'grid', placeItems: 'center', background: 'rgba(216,168,74,0.12)', border: '1px solid rgba(216,168,74,0.3)' }}>
+          <Lock size={28} style={{ color: '#d8a84a' }} />
+        </div>
+        <p style={{ fontSize: 11, color: '#d8a84a', fontWeight: 900, letterSpacing: '0.16em', textTransform: 'uppercase', marginBottom: 10 }}>Checkout protegido</p>
+        <h1 style={{ fontSize: 30, lineHeight: 1.1, fontWeight: 900, color: '#fff', marginBottom: 12 }}>Entre para finalizar e guardar seus pedidos</h1>
+        <p style={{ color: '#9a9a9a', lineHeight: 1.75, marginBottom: 24 }}>
+          A compra fica vinculada à sua conta, o cashback aparece na área do cliente e o retorno do pagamento leva direto para seus pedidos.
+        </p>
+        <div style={{ display: 'grid', gap: 10, gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', marginBottom: 24, textAlign: 'left' }}>
+          {[
+            'Pedidos salvos no banco',
+            'Cashback associado ao cliente',
+            'Acompanhamento de pagamento',
+          ].map((item) => (
+            <div key={item} style={{ padding: '13px 14px', borderRadius: 14, background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)', color: '#d9d9d9', fontSize: 13 }}>
+              {item}
+            </div>
+          ))}
+        </div>
+        <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
+          <Link to="/conta?redirect=/checkout" className="btn-gradient no-underline" style={{ padding: '14px 26px', borderRadius: 12, fontSize: 12, letterSpacing: '0.08em' }}>
+            ENTRAR PARA COMPRAR
+          </Link>
+          <Link to="/" className="no-underline" style={{ padding: '14px 26px', borderRadius: 12, fontSize: 12, letterSpacing: '0.08em', border: '1px solid rgba(255,255,255,0.08)', color: '#aaa' }}>
+            VOLTAR À LOJA
+          </Link>
+        </div>
+      </motion.div>
+    </div>
+  );
 
   if (done) return (
     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '80px 24px', minHeight: '60vh' }}>

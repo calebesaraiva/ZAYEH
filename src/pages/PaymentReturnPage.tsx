@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { CheckCircle2, Clock3, Loader2, XCircle } from 'lucide-react';
 import { api, type ApiOrder } from '../lib/api';
 
@@ -32,6 +32,7 @@ const statusMeta: Record<string, { title: string; color: string; icon: typeof Cl
 };
 
 export default function PaymentReturnPage() {
+  const navigate = useNavigate();
   const [params] = useSearchParams();
   const orderId = params.get('order') || '';
   const paymentId = params.get('payment_id') || '';
@@ -71,6 +72,19 @@ export default function PaymentReturnPage() {
     };
   }, [orderId, paymentId]);
 
+  useEffect(() => {
+    if (state.loading || !state.order || state.status !== 'pago') return;
+    if (!localStorage.getItem('zayeh_token')) return;
+
+    const timer = window.setTimeout(() => {
+      navigate('/conta', { replace: true });
+    }, 3200);
+
+    return () => {
+      window.clearTimeout(timer);
+    };
+  }, [navigate, state.loading, state.order, state.status]);
+
   if (state.loading) {
     return (
       <div style={{ minHeight: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#999', gap: 10 }}>
@@ -91,7 +105,10 @@ export default function PaymentReturnPage() {
         </div>
         <p style={{ fontSize: 10, color: '#d8a84a', fontWeight: 900, letterSpacing: '0.16em', textTransform: 'uppercase', marginBottom: 8 }}>ZAYEH</p>
         <h1 style={{ fontSize: 28, fontWeight: 900, color: '#fff', marginBottom: 8 }}>{meta.title}</h1>
-        <p style={{ fontSize: 14, color: '#888', lineHeight: 1.7, marginBottom: 20 }}>{state.error || meta.desc}</p>
+        <p style={{ fontSize: 14, color: '#888', lineHeight: 1.7, marginBottom: 20 }}>
+          {state.error || meta.desc}
+          {state.status === 'pago' ? ' Em instantes você será levado para a sua área de pedidos.' : ''}
+        </p>
         {state.order && (
           <div style={{ padding: '14px 16px', borderRadius: 14, background: '#0d0d0d', border: '1px solid rgba(255,255,255,0.05)', marginBottom: 20, textAlign: 'left' }}>
             <p style={{ fontSize: 11, color: '#d8a84a', fontWeight: 800, marginBottom: 8 }}>PEDIDO #{state.order.id.slice(-8).toUpperCase()}</p>
@@ -115,7 +132,7 @@ export default function PaymentReturnPage() {
           </Link>
           {orderId && (
             <Link to="/conta" className="no-underline" style={{ padding: '13px 24px', borderRadius: 12, fontSize: 12, letterSpacing: '0.08em', border: '1px solid rgba(255,255,255,0.08)', color: '#aaa' }}>
-              MINHA CONTA
+              VER MEUS PEDIDOS
             </Link>
           )}
         </div>

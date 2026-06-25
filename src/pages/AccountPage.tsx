@@ -1,5 +1,17 @@
+import { useSearchParams } from 'react-router-dom';
 import AccountPanel from '../components/ui/AccountPanel';
 
 export default function AccountPage() {
-  return <AccountPanel />;
+  const [searchParams] = useSearchParams();
+  const redirect = searchParams.get('redirect');
+
+  return (
+    <AccountPanel
+      onAuthSuccess={() => {
+        if (redirect) {
+          window.location.assign(redirect);
+        }
+      }}
+    />
+  );
 }

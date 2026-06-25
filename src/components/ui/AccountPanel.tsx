@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import type { CSSProperties, FormEvent } from 'react';
-import { Loader2, LogOut, User } from 'lucide-react';
-import { api, type ApiUser } from '../../lib/api';
+import { Loader2, LogOut, Package2, User, Wallet } from 'lucide-react';
+import { api, type ApiOrder, type ApiUser } from '../../lib/api';
 import { useStore } from '../../store/useStore';
 
 interface Props {
@@ -35,6 +35,9 @@ export default function AccountPanel({ compact = false, onAuthSuccess }: Props) 
   const [checkingSession, setCheckingSession] = useState(() => !!localStorage.getItem('zayeh_token'));
   const [error, setError] = useState('');
   const [currentUser, setCurrentUser] = useState<ApiUser | null>(null);
+  const [orders, setOrders] = useState<ApiOrder[]>([]);
+  const [ordersLoading, setOrdersLoading] = useState(false);
+  const [cashbackAvailable, setCashbackAvailable] = useState(0);
 
   useEffect(() => {
     let active = true;
@@ -57,6 +60,37 @@ export default function AccountPanel({ compact = false, onAuthSuccess }: Props) 
       active = false;
     };
   }, []);
+
+  useEffect(() => {
+    if (!currentUser) {
+      setOrders([]);
+      setCashbackAvailable(0);
+      setOrdersLoading(false);
+      return;
+    }
+
+    let active = true;
+    setOrdersLoading(true);
+
+    api.orders.mine()
+      .then((result) => {
+        if (!active) return;
+        setOrders(result.orders);
+        setCashbackAvailable(result.cashbackAvailable);
+      })
+      .catch(() => {
+        if (!active) return;
+        setOrders([]);
+        setCashbackAvailable(0);
+      })
+      .finally(() => {
+        if (active) setOrdersLoading(false);
+      });
+
+    return () => {
+      active = false;
+    };
+  }, [currentUser]);
 
   const resetForm = () => {
     setName('');
@@ -131,6 +165,8 @@ export default function AccountPanel({ compact = false, onAuthSuccess }: Props) 
   const handleLogout = () => {
     localStorage.removeItem('zayeh_token');
     setCurrentUser(null);
+    setOrders([]);
+    setCashbackAvailable(0);
     resetForm();
     setMode('login');
     showToast('Sessão encerrada.');
@@ -141,6 +177,8 @@ export default function AccountPanel({ compact = false, onAuthSuccess }: Props) 
     : { maxWidth: 480, margin: '0 auto', padding: '32px 16px 100px' };
 
   const cardPadding = compact ? '24px 22px' : '28px 24px';
+  const ordersCount = orders.length;
+  const paidOrdersCount = orders.filter((order) => order.status === 'pago').length;
 
   return (
     <div style={containerStyle}>
@@ -171,6 +209,82 @@ export default function AccountPanel({ compact = false, onAuthSuccess }: Props) 
             <p style={{ fontSize: 13, color: '#888', marginBottom: 22 }}>
               Conectado com {currentUser.email}
             </p>
+            <div style={{ display: 'grid', gridTemplateColumns: compact ? '1fr' : 'repeat(3, minmax(0, 1fr))', gap: 10, marginBottom: 18, textAlign: 'left' }}>
+              <div style={{ padding: '14px 14px 12px', borderRadius: 14, background: '#0d0d0d', border: '1px solid rgba(255,255,255,0.05)' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8, color: '#d8a84a' }}>
+                  <Package2 size={14} />
+                  <span style={{ fontSize: 10, fontWeight: 800, letterSpacing: '0.08em', textTransform: 'uppercase' }}>Pedidos</span>
+                </div>
+                <strong style={{ display: 'block', fontSize: 22, color: '#fff', fontWeight: 900 }}>{ordersCount}</strong>
+                <p style={{ fontSize: 12, color: '#777', marginTop: 4 }}>Compras vinculadas à sua conta</p>
+              </div>
+              <div style={{ padding: '14px 14px 12px', borderRadius: 14, background: '#0d0d0d', border: '1px solid rgba(255,255,255,0.05)' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8, color: '#22c55e' }}>
+                  <Wallet size={14} />
+                  <span style={{ fontSize: 10, fontWeight: 800, letterSpacing: '0.08em', textTransform: 'uppercase' }}>Cashback</span>
+                </div>
+                <strong style={{ display: 'block', fontSize: 22, color: '#fff', fontWeight: 900 }}>
+                  R$ {cashbackAvailable.toFixed(2).replace('.', ',')}
+                </strong>
+                <p style={{ fontSize: 12, color: '#777', marginTop: 4 }}>Somente pedidos pagos</p>
+              </div>
+              <div style={{ padding: '14px 14px 12px', borderRadius: 14, background: '#0d0d0d', border: '1px solid rgba(255,255,255,0.05)' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8, color: '#60a5fa' }}>
+                  <User size={14} />
+                  <span style={{ fontSize: 10, fontWeight: 800, letterSpacing: '0.08em', textTransform: 'uppercase' }}>Pagos</span>
+                </div>
+                <strong style={{ display: 'block', fontSize: 22, color: '#fff', fontWeight: 900 }}>{paidOrdersCount}</strong>
+                <p style={{ fontSize: 12, color: '#777', marginTop: 4 }}>Pedidos confirmados</p>
+              </div>
+            </div>
+
+            <div style={{ textAlign: 'left', marginBottom: 18 }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, marginBottom: 12 }}>
+                <p style={{ fontSize: 12, fontWeight: 800, color: '#d8a84a', letterSpacing: '0.12em', textTransform: 'uppercase' }}>
+                  Meus pedidos
+                </p>
+                {ordersLoading && <Loader2 size={14} style={{ color: '#d8a84a', animation: 'spin 1s linear infinite' }} />}
+              </div>
+
+              {ordersLoading ? (
+                <div style={{ padding: '20px 16px', borderRadius: 14, background: '#0d0d0d', border: '1px solid rgba(255,255,255,0.05)', color: '#8c8c8c', fontSize: 13 }}>
+                  Carregando seus pedidos...
+                </div>
+              ) : orders.length === 0 ? (
+                <div style={{ padding: '20px 16px', borderRadius: 14, background: '#0d0d0d', border: '1px solid rgba(255,255,255,0.05)', color: '#8c8c8c', fontSize: 13 }}>
+                  Assim que você finalizar uma compra, ela aparecerá aqui com status, total e cashback.
+                </div>
+              ) : (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                  {orders.slice(0, compact ? 2 : 6).map((order) => {
+                    const statusColor =
+                      order.status === 'pago' ? '#22c55e' :
+                      order.status === 'cancelado' ? '#ef4444' :
+                      '#f59e0b';
+
+                    return (
+                      <div key={order.id} style={{ padding: '14px 14px 12px', borderRadius: 14, background: '#0d0d0d', border: '1px solid rgba(255,255,255,0.05)' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, marginBottom: 8 }}>
+                          <strong style={{ fontSize: 13, color: '#fff' }}>Pedido #{order.id.slice(-8).toUpperCase()}</strong>
+                          <span style={{ fontSize: 11, fontWeight: 800, color: statusColor, textTransform: 'uppercase' }}>{order.status.replace(/_/g, ' ')}</span>
+                        </div>
+                        <p style={{ fontSize: 12, color: '#888', lineHeight: 1.6, marginBottom: 10 }}>
+                          {order.items.map((item) => `${item.productName} x${item.quantity}`).join(' • ')}
+                        </p>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, fontSize: 12, color: '#777' }}>
+                          <span>{new Date(order.createdAt).toLocaleDateString('pt-BR')}</span>
+                          <span style={{ color: '#d8a84a', fontWeight: 800 }}>R$ {order.total.toFixed(2).replace('.', ',')}</span>
+                        </div>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, fontSize: 12, color: '#777', marginTop: 8 }}>
+                          <span>Cashback previsto</span>
+                          <span style={{ color: '#22c55e', fontWeight: 700 }}>R$ {order.cashback.toFixed(2).replace('.', ',')}</span>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
             <button
               onClick={handleLogout}
               style={{ width: '100%', padding: '13px', borderRadius: 10, border: '1px solid rgba(255,255,255,0.12)', background: 'rgba(255,255,255,0.02)', color: '#fff', fontWeight: 700, fontSize: 13, cursor: 'pointer', fontFamily: 'inherit', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}
@@ -186,8 +300,8 @@ export default function AccountPanel({ compact = false, onAuthSuccess }: Props) 
             </p>
             <p style={{ fontSize: 13, color: '#666', marginBottom: 24 }}>
               {mode === 'login'
-                ? 'Acompanhe seus pedidos e finalize mais rapido.'
-                : 'Cadastre-se para comprar com mais praticidade.'}
+                ? 'Acompanhe seus pedidos, ganhe cashback e finalize mais rapido.'
+                : 'Cadastre-se para comprar com mais praticidade e vincular seus pedidos.'}
             </p>
 
             <div style={{ display: 'flex', gap: 8, marginBottom: 18, padding: 4, background: '#0d0d0d', borderRadius: 14, border: '1px solid rgba(255,255,255,0.05)' }}>
