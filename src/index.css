@@ -1287,10 +1287,24 @@ body {
 .zayeh-light .checkout-page [style*="#22C55E"] {
   color: #0f9f5f !important;
 }
+.zayeh-light .cart-drawer [style*="#0f9f5f"],
+.zayeh-light .cart-drawer [style*="#0e5a51"],
+.zayeh-light .checkout-page [style*="#0f9f5f"],
+.zayeh-light .checkout-page [style*="#0e5a51"] {
+  color: #0f9f5f !important;
+}
 .zayeh-light .qv-modal [style*="#d8a84a"],
 .zayeh-light .cart-drawer [style*="#d8a84a"],
 .zayeh-light .checkout-page [style*="#d8a84a"] {
   color: #b65f2a !important;
+}
+.zayeh-light .cart-drawer [style*="#9b6d22"],
+.zayeh-light .checkout-page [style*="#9b6d22"] {
+  color: #9b6d22 !important;
+}
+.zayeh-light .cart-drawer [style*="#596760"],
+.zayeh-light .cart-drawer [style*="#87918a"] {
+  color: #596760 !important;
 }
 .zayeh-light .checkout-page [style*="#60a5fa"] {
   color: #32718d !important;
