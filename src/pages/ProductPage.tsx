@@ -112,7 +112,7 @@ export default function ProductPage() {
 
   return (
     <>
-      <div style={{ maxWidth: 1280, margin: '0 auto', padding: '20px 16px 110px' }}>
+      <div className="product-page" style={{ maxWidth: 1280, margin: '0 auto', padding: '20px 16px 110px' }}>
         <nav className="breadcrumb mb-6">
           <Link to="/" className="no-underline">Início</Link>
           <ChevronRight size={12} />
@@ -135,18 +135,18 @@ export default function ProductPage() {
                 position: 'relative',
                 borderRadius: 28,
                 overflow: 'hidden',
-                border: '1px solid rgba(255,255,255,0.07)',
+                border: '1px solid rgba(12,46,42,0.14)',
                 background: isPerfumaria
-                  ? 'radial-gradient(circle at top, rgba(216,168,74,0.2), transparent 38%), linear-gradient(180deg,#151218,#090909 76%)'
-                  : 'linear-gradient(180deg,#141414,#0c0c0c 78%)',
-                boxShadow: '0 30px 70px rgba(0,0,0,0.38)',
+                  ? 'radial-gradient(circle at 50% 18%, rgba(216,168,74,0.28), transparent 42%), linear-gradient(160deg,#fff8e8,#e4eadf 76%)'
+                  : 'linear-gradient(180deg,#fffdf7,#e6ece2 78%)',
+                boxShadow: '0 30px 70px rgba(12,46,42,0.16)',
               }}
             >
               <div
                 style={{
                   position: 'absolute',
                   inset: 0,
-                  background: 'linear-gradient(180deg, rgba(255,255,255,0.04), transparent 22%, transparent 78%, rgba(255,255,255,0.03))',
+                  background: 'linear-gradient(180deg, rgba(255,255,255,0.42), transparent 28%, rgba(12,46,42,0.04))',
                   pointerEvents: 'none',
                 }}
               />
@@ -154,7 +154,7 @@ export default function ProductPage() {
               <div style={{ position: 'absolute', top: 16, left: 16, right: 16, display: 'flex', justifyContent: 'space-between', gap: 10, zIndex: 2, flexWrap: 'wrap' }}>
                 <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
                   {product.isNew && (
-                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '8px 12px', borderRadius: 999, background: 'rgba(184,132,44,0.16)', border: '1px solid rgba(184,132,44,0.28)', color: '#ffd5eb', fontSize: 11, fontWeight: 800 }}>
+                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '8px 12px', borderRadius: 999, background: 'rgba(184,132,44,0.14)', border: '1px solid rgba(184,132,44,0.32)', color: '#6f4710', fontSize: 11, fontWeight: 800 }}>
                       <Sparkles size={13} /> Novidade
                     </span>
                   )}
@@ -166,9 +166,9 @@ export default function ProductPage() {
                 </div>
                 <button
                   onClick={() => toggleWishlist(product.id)}
-                  style={{ width: 44, height: 44, borderRadius: 14, display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid rgba(255,255,255,0.1)', background: 'rgba(10,10,10,0.55)', backdropFilter: 'blur(10px)', color: '#fff', cursor: 'pointer' }}
+                  style={{ width: 44, height: 44, borderRadius: 14, display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid rgba(12,46,42,0.14)', background: 'rgba(255,253,247,0.76)', backdropFilter: 'blur(10px)', color: '#0b2f2b', cursor: 'pointer' }}
                 >
-                  <Heart size={18} fill={isWished ? '#b8842c' : 'none'} color={isWished ? '#b8842c' : '#fff'} />
+                  <Heart size={18} fill={isWished ? '#b8842c' : 'none'} color={isWished ? '#b8842c' : '#0b2f2b'} />
                 </button>
               </div>
 
@@ -198,9 +198,9 @@ export default function ProductPage() {
                       minWidth: 0,
                       padding: '10px 12px',
                       borderRadius: 14,
-                      background: 'rgba(8,8,8,0.68)',
-                      border: '1px solid rgba(255,255,255,0.08)',
-                      color: '#e7e7e7',
+                      background: 'rgba(255,253,247,0.8)',
+                      border: '1px solid rgba(12,46,42,0.12)',
+                      color: '#0b2f2b',
                       fontSize: 11,
                       fontWeight: 700,
                       textAlign: 'center',
@@ -224,8 +224,8 @@ export default function ProductPage() {
                     borderRadius: 16,
                     overflow: 'hidden',
                     flexShrink: 0,
-                    border: `1.5px solid ${i === mainImg ? '#FFB800' : 'rgba(255,255,255,0.08)'}`,
-                    background: i === mainImg ? 'rgba(255,184,0,0.07)' : '#111',
+                    border: `1.5px solid ${i === mainImg ? '#d8a84a' : 'rgba(12,46,42,0.12)'}`,
+                    background: i === mainImg ? 'rgba(216,168,74,0.12)' : '#fffdf7',
                     padding: 6,
                     cursor: 'pointer',
                     boxShadow: i === mainImg ? '0 10px 24px rgba(255,184,0,0.12)' : 'none',
@@ -243,9 +243,9 @@ export default function ProductPage() {
               style={{
                 padding: '26px 24px',
                 borderRadius: 28,
-                background: 'linear-gradient(180deg,rgba(255,255,255,0.038),rgba(255,255,255,0.016))',
-                border: '1px solid rgba(255,255,255,0.07)',
-                boxShadow: '0 24px 60px rgba(0,0,0,0.24)',
+                background: 'linear-gradient(180deg,rgba(255,253,247,0.94),rgba(232,236,226,0.82))',
+                border: '1px solid rgba(12,46,42,0.12)',
+                boxShadow: '0 24px 60px rgba(12,46,42,0.12)',
               }}
             >
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 14 }}>
@@ -260,7 +260,7 @@ export default function ProductPage() {
                 </span>
               </div>
 
-              <h1 className="text-2xl md:text-4xl font-black text-white mb-3 leading-tight">{product.name}</h1>
+              <h1 className="text-2xl md:text-4xl font-black mb-3 leading-tight" style={{ color: '#0b2f2b' }}>{product.name}</h1>
 
               <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap', marginBottom: 18 }}>
                 <div className="stars" style={{ display: 'flex', gap: 4 }}>
@@ -268,11 +268,11 @@ export default function ProductPage() {
                     <Star key={s} size={15} fill={s <= Math.round(product.rating) ? '#FFB800' : 'none'} color={s <= Math.round(product.rating) ? '#FFB800' : '#444'} />
                   ))}
                 </div>
-                <span style={{ fontSize: 13, color: '#c1c1c1', fontWeight: 700 }}>{product.rating.toFixed(1)} de 5</span>
-                <span style={{ fontSize: 12, color: '#737373' }}>{reviewCount} avaliações</span>
+                <span style={{ fontSize: 13, color: '#596760', fontWeight: 700 }}>{product.rating.toFixed(1)} de 5</span>
+                <span style={{ fontSize: 12, color: '#87918a' }}>{reviewCount} avaliações</span>
               </div>
 
-              <p style={{ fontSize: 14, color: '#9a9a9a', lineHeight: 1.75, marginBottom: 22, maxWidth: 620 }}>
+              <p style={{ fontSize: 14, color: '#596760', lineHeight: 1.75, marginBottom: 22, maxWidth: 620 }}>
                 {product.description || 'Seleção exclusiva da ZAYEH com acabamento premium, ótima presença visual e proposta pensada para quem quer comprar bem e vestir personalidade.'}
               </p>
 
