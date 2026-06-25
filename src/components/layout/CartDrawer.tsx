@@ -32,6 +32,7 @@ export default function CartDrawer({ open, onClose }: Props) {
 
           {/* Drawer */}
           <motion.div
+            className="cart-drawer"
             initial={{ x: '100%' }} animate={{ x: 0 }} exit={{ x: '100%' }}
             transition={{ type: 'tween', duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
             style={{

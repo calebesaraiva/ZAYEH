@@ -1142,6 +1142,140 @@ body {
   color: #5f5647 !important;
 }
 
+/* Premium light purchase flow */
+.zayeh-light .qv-modal {
+  background: linear-gradient(135deg, #fff8e8 0%, #ead8b5 100%) !important;
+  border: 1px solid rgba(92, 66, 22, 0.18) !important;
+  box-shadow: 0 42px 110px rgba(50, 35, 12, 0.32) !important;
+}
+.zayeh-light .qv-modal .qv-img-side {
+  background: radial-gradient(circle at 50% 18%, rgba(232, 196, 121, 0.45), transparent 44%), linear-gradient(180deg, #fff6e4, #e8d2ab) !important;
+}
+.zayeh-light .qv-modal img {
+  background: transparent !important;
+  object-fit: contain !important;
+  filter: drop-shadow(0 18px 24px rgba(69, 49, 18, 0.2));
+}
+.zayeh-light .qv-modal h2,
+.zayeh-light .qv-modal h3,
+.zayeh-light .qv-modal p,
+.zayeh-light .qv-modal span,
+.zayeh-light .qv-modal label {
+  color: #171d1b !important;
+}
+.zayeh-light .qv-modal p[style*="letter-spacing"],
+.zayeh-light .qv-modal label,
+.zayeh-light .checkout-page label {
+  color: #9b6d22 !important;
+}
+.zayeh-light .qv-modal button:not(.btn-primary),
+.zayeh-light .qv-modal a {
+  border-color: rgba(92, 66, 22, 0.16) !important;
+}
+.zayeh-light .qv-modal > div,
+.zayeh-light .qv-modal div[style*="rgba(255,255,255,0.03)"],
+.zayeh-light .qv-modal div[style*="rgba(255,255,255,0.04)"],
+.zayeh-light .qv-modal div[style*="rgba(255,255,255,0.06)"] {
+  background-color: transparent !important;
+}
+
+.zayeh-light .cart-drawer {
+  background: linear-gradient(180deg, #fff8e8 0%, #ead8b5 100%) !important;
+  border-left: 1px solid rgba(92, 66, 22, 0.18) !important;
+  box-shadow: -28px 0 90px rgba(50, 35, 12, 0.24) !important;
+}
+.zayeh-light .cart-drawer > div,
+.zayeh-light .cart-drawer div[style*="#0b0b0b"],
+.zayeh-light .cart-drawer div[style*="#111"],
+.zayeh-light .cart-drawer div[style*="#161616"],
+.zayeh-light .cart-drawer div[style*="#141414"] {
+  background: rgba(255, 250, 240, 0.72) !important;
+  border-color: rgba(92, 66, 22, 0.12) !important;
+}
+.zayeh-light .cart-drawer h2,
+.zayeh-light .cart-drawer h3,
+.zayeh-light .cart-drawer p,
+.zayeh-light .cart-drawer span {
+  color: #171d1b !important;
+}
+.zayeh-light .cart-drawer input,
+.zayeh-light .checkout-page input,
+.zayeh-light .checkout-page select {
+  background: #fffaf0 !important;
+  color: #171d1b !important;
+  border-color: rgba(92, 66, 22, 0.18) !important;
+}
+.zayeh-light .cart-drawer input::placeholder,
+.zayeh-light .checkout-page input::placeholder {
+  color: #8a806d !important;
+}
+.zayeh-light .cart-drawer img,
+.zayeh-light .checkout-page img {
+  background: linear-gradient(180deg, #fff6e4, #ead8b5) !important;
+  object-fit: contain !important;
+}
+.zayeh-light .cart-drawer a[href="/checkout"],
+.zayeh-light .checkout-page button[style*="linear-gradient"] {
+  background: linear-gradient(135deg, #c49438, #f0cf82) !important;
+  color: #17120a !important;
+  box-shadow: 0 18px 34px rgba(153, 109, 37, 0.18) !important;
+}
+
+.zayeh-light .checkout-page {
+  color: #171d1b !important;
+}
+.zayeh-light .checkout-page > .checkout-layout > div,
+.zayeh-light .checkout-summary-card,
+.zayeh-light .checkout-summary-toggle {
+  background: rgba(255, 250, 240, 0.82) !important;
+  border: 1px solid rgba(92, 66, 22, 0.14) !important;
+  box-shadow: 0 20px 54px rgba(95, 67, 21, 0.1) !important;
+}
+.zayeh-light .checkout-page h1,
+.zayeh-light .checkout-page h2,
+.zayeh-light .checkout-page h3,
+.zayeh-light .checkout-page p,
+.zayeh-light .checkout-page span {
+  color: #171d1b !important;
+}
+.zayeh-light .checkout-page div[style*="#111"],
+.zayeh-light .checkout-page div[style*="#0d0d0d"],
+.zayeh-light .checkout-page div[style*="rgba(255,255,255,0.02)"],
+.zayeh-light .checkout-page div[style*="rgba(255,255,255,0.03)"] {
+  background: rgba(255, 250, 240, 0.72) !important;
+  border-color: rgba(92, 66, 22, 0.12) !important;
+}
+.zayeh-light .checkout-page button {
+  border-color: rgba(92, 66, 22, 0.16) !important;
+}
+.zayeh-light .checkout-page button[style*="rgba(59,130,246"],
+.zayeh-light .checkout-page button[style*="rgba(34,197,94"],
+.zayeh-light .checkout-page button[style*="rgba(216,168,74"] {
+  background: rgba(255, 248, 232, 0.9) !important;
+}
+.zayeh-light .checkout-page .checkout-summary-card div,
+.zayeh-light .checkout-page .checkout-summary-card p,
+.zayeh-light .checkout-page .checkout-summary-card span {
+  color: #171d1b !important;
+}
+.zayeh-light .checkout-page option {
+  background: #fffaf0 !important;
+  color: #171d1b !important;
+}
+.zayeh-light .qv-modal [style*="#22C55E"],
+.zayeh-light .cart-drawer [style*="#22C55E"],
+.zayeh-light .checkout-page [style*="#22C55E"] {
+  color: #0f9f5f !important;
+}
+.zayeh-light .qv-modal [style*="#d8a84a"],
+.zayeh-light .cart-drawer [style*="#d8a84a"],
+.zayeh-light .checkout-page [style*="#d8a84a"] {
+  color: #9b6d22 !important;
+}
+.zayeh-light .checkout-page [style*="#60a5fa"] {
+  color: #32718d !important;
+}
+
 /* ─── PIX TAG ────────────────────────────────────── */
 .pix-tag {
   display: inline-flex; align-items: center; gap: 5px;

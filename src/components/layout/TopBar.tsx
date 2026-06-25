@@ -13,11 +13,11 @@ export default function TopBar() {
 
   return (
     <div style={{
-      background: 'linear-gradient(90deg, #0a0a0a 0%, #0f0f0f 50%, #0a0a0a 100%)',
-      borderBottom: '1px solid rgba(255,255,255,0.05)',
+      background: 'linear-gradient(90deg, #17201d 0%, #241a10 50%, #17201d 100%)',
+      borderBottom: '1px solid rgba(216,168,74,0.18)',
       overflow: 'hidden',
     }}>
-      <div style={{ height: 2, background: 'linear-gradient(90deg, #d8a84a 0%, #b8842c 40%, #FFB800 75%, #22C55E 100%)' }} />
+      <div style={{ height: 2, background: 'linear-gradient(90deg, #d8a84a 0%, #f5df9b 50%, #b8842c 100%)' }} />
 
       {/* Desktop: all items in a row */}
       <div className="hdr-desktop-only" style={{ alignItems: 'center', justifyContent: 'center', gap: 0, padding: '0 24px', height: 36 }}>
@@ -25,9 +25,9 @@ export default function TopBar() {
           <div key={text} style={{ display: 'flex', alignItems: 'center', gap: 7, padding: '0 18px', position: 'relative' }}>
             {i > 0 && <span style={{ position: 'absolute', left: 0, top: '20%', height: '60%', width: 1, background: 'rgba(255,255,255,0.06)' }} />}
             <Icon size={11} style={{ color: '#d8a84a', flexShrink: 0 }} />
-            <span style={{ fontSize: 11, color: '#888', whiteSpace: 'nowrap' }}>
+            <span style={{ fontSize: 11, color: '#d9cdb9', whiteSpace: 'nowrap' }}>
               {text.split(highlight)[0]}
-              <strong style={{ color: '#ddd', fontWeight: 700 }}>{highlight}</strong>
+              <strong style={{ color: '#fff8e8', fontWeight: 900 }}>{highlight}</strong>
               {text.split(highlight)[1]}
             </span>
           </div>
