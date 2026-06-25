@@ -515,7 +515,7 @@ export default function CheckoutPage() {
                   </div>
                   <div>
                   <p style={{ fontSize: 14, fontWeight: 900, color: '#0b2f2b', marginBottom: 2 }}>Cartão</p>
-                  <p style={{ fontSize: 11, color: resolvedPayMethod === 'cartao' ? '#9b6d22' : '#596760', fontWeight: resolvedPayMethod === 'cartao' ? 800 : 500 }}>Escolha as parcelas e siga direto</p>
+                  <p style={{ fontSize: 11, color: resolvedPayMethod === 'cartao' ? '#9b6d22' : '#596760', fontWeight: resolvedPayMethod === 'cartao' ? 800 : 500 }}>Toque aqui, escolha as parcelas e abra o pagamento</p>
                   </div>
                 </button>
               )}
@@ -555,8 +555,12 @@ export default function CheckoutPage() {
                   </select>
                 </div>
                 <div style={{ padding: '14px 16px', borderRadius: 12, background: 'rgba(216,168,74,0.1)', border: '1px solid rgba(216,168,74,0.2)' }}>
+                  <p style={{ fontSize: 10.5, fontWeight: 900, color: '#9b6d22', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 6 }}>Como funciona</p>
                   <p style={{ fontSize: 12, color: '#6d5425', lineHeight: 1.7 }}>
-                    Escolha as parcelas e vamos abrir o checkout oficial do Mercado Pago imediatamente.
+                    1. Escolha o numero de parcelas.
+                  </p>
+                  <p style={{ fontSize: 12, color: '#6d5425', lineHeight: 1.7 }}>
+                    2. Assim que selecionar, abrimos o checkout oficial do Mercado Pago na hora.
                   </p>
                 </div>
               </div>
