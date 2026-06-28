@@ -257,8 +257,19 @@ export default function AccountPanel({ compact = false, onAuthSuccess }: Props) 
               ) : (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                   {orders.slice(0, compact ? 2 : 6).map((order) => {
+                    const statusLabelMap: Record<string, string> = {
+                      pendente: 'Pendente',
+                      aguardando_pagamento: 'Aguardando pagamento',
+                      pago: 'Pago',
+                      em_preparo: 'Em preparo',
+                      saiu_para_entrega: 'Saiu para entrega',
+                      entregue: 'Entregue',
+                      cancelado: 'Cancelado',
+                    };
                     const statusColor =
                       order.status === 'pago' ? '#22c55e' :
+                      order.status === 'em_preparo' ? '#a855f7' :
+                      order.status === 'saiu_para_entrega' || order.status === 'entregue' ? '#3b82f6' :
                       order.status === 'cancelado' ? '#ef4444' :
                       '#f59e0b';
 
@@ -266,7 +277,7 @@ export default function AccountPanel({ compact = false, onAuthSuccess }: Props) 
                       <div key={order.id} style={{ padding: '14px 14px 12px', borderRadius: 14, background: '#0d0d0d', border: '1px solid rgba(255,255,255,0.05)' }}>
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, marginBottom: 8 }}>
                           <strong style={{ fontSize: 13, color: '#fff' }}>Pedido #{order.id.slice(-8).toUpperCase()}</strong>
-                          <span style={{ fontSize: 11, fontWeight: 800, color: statusColor, textTransform: 'uppercase' }}>{order.status.replace(/_/g, ' ')}</span>
+                          <span style={{ fontSize: 11, fontWeight: 800, color: statusColor, textTransform: 'uppercase' }}>{statusLabelMap[order.status] ?? order.status.replace(/_/g, ' ')}</span>
                         </div>
                         <p style={{ fontSize: 12, color: '#888', lineHeight: 1.6, marginBottom: 10 }}>
                           {order.items.map((item) => `${item.productName} x${item.quantity}`).join(' • ')}

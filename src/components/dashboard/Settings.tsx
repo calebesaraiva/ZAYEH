@@ -97,6 +97,16 @@ export default function Settings() {
   const [mercadopagoAccessToken, setMercadopagoAccessToken] = useState('');
   const [mercadopagoWebhookSecret, setMercadopagoWebhookSecret] = useState('');
   const [storeDisplayName, setStoreDisplayName] = useState('ZAYEH');
+  const [storeCode, setStoreCode] = useState('zayeh');
+  const [storeName, setStoreName] = useState('ZAYEH');
+  const [paymentGateway, setPaymentGateway] = useState('mercadopago');
+  const [smtpHost, setSmtpHost] = useState('');
+  const [smtpPort, setSmtpPort] = useState(587);
+  const [smtpSecure, setSmtpSecure] = useState(false);
+  const [smtpUser, setSmtpUser] = useState('');
+  const [smtpPass, setSmtpPass] = useState('');
+  const [smtpFromEmail, setSmtpFromEmail] = useState('');
+  const [smtpFromName, setSmtpFromName] = useState('');
 
   useEffect(() => {
     api.dashboard.getSettings().then(s => {
@@ -130,6 +140,16 @@ export default function Settings() {
       if (s.mercadopagoAccessToken)              setMercadopagoAccessToken(s.mercadopagoAccessToken);
       if (s.mercadopagoWebhookSecret)            setMercadopagoWebhookSecret(s.mercadopagoWebhookSecret);
       if (s.storeDisplayName)                setStoreDisplayName(s.storeDisplayName);
+      if (s.storeCode)                       setStoreCode(s.storeCode);
+      if (s.storeName)                       setStoreName(s.storeName);
+      if (s.paymentGateway)                  setPaymentGateway(s.paymentGateway);
+      if (s.smtpHost)                        setSmtpHost(s.smtpHost);
+      if (s.smtpPort)                        setSmtpPort(Number(s.smtpPort));
+      if (s.smtpSecure !== undefined)        setSmtpSecure(s.smtpSecure === 'true');
+      if (s.smtpUser)                        setSmtpUser(s.smtpUser);
+      if (s.smtpPass)                        setSmtpPass(s.smtpPass);
+      if (s.smtpFromEmail)                   setSmtpFromEmail(s.smtpFromEmail);
+      if (s.smtpFromName)                    setSmtpFromName(s.smtpFromName);
     }).catch(() => {}).finally(() => setLoading(false));
   }, []);
 
@@ -167,6 +187,13 @@ export default function Settings() {
         mercadopagoAccessToken,
         mercadopagoWebhookSecret,
         storeDisplayName,
+        smtpHost,
+        smtpPort: String(smtpPort),
+        smtpSecure: String(smtpSecure),
+        smtpUser,
+        smtpPass,
+        smtpFromEmail,
+        smtpFromName,
       });
       setSaved(true);
       setTimeout(() => setSaved(false), 2500);
@@ -200,6 +227,15 @@ export default function Settings() {
           {saving ? <Loader2 size={14} style={{ animation: 'spin 1s linear infinite' }} /> : <Check size={15} />}
           {saved ? 'SALVO!' : saving ? 'SALVANDO...' : 'SALVAR CONFIGURAÇÕES'}
         </button>
+      </div>
+
+      <div style={{ padding: '16px 18px', borderRadius: 14, background: 'linear-gradient(135deg, rgba(37,99,235,0.12), rgba(184,132,44,0.08))', border: '1px solid rgba(96,165,250,0.22)' }}>
+        <p style={{ fontSize: 10, fontWeight: 800, color: '#93c5fd', letterSpacing: '0.16em', textTransform: 'uppercase', marginBottom: 7 }}>Identidade deste projeto</p>
+        <p style={{ fontSize: 15, fontWeight: 800, color: '#fff', marginBottom: 6 }}>{storeName} · código `{storeCode}`</p>
+        <p style={{ fontSize: 12, color: '#bfdbfe', lineHeight: 1.6 }}>
+          Este repositório está separado da SUH e opera somente com <strong>Mercado Pago</strong>. Token, webhook e domínio da SUH não devem ser configurados aqui.
+        </p>
+        <p style={{ fontSize: 11, color: '#7dd3fc', marginTop: 8 }}>Gateway fixo deste projeto: {paymentGateway}</p>
       </div>
 
       {/* Cashback */}
@@ -441,6 +477,55 @@ export default function Settings() {
                 </div>
               </div>
             )}
+          </div>
+        </div>
+      </Card>
+
+      <Card title="Notificações por E-mail" icon={Info} color="#8b5cf6">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+          <div style={{ padding: '14px 16px', borderRadius: 10, background: '#0d0d0d', border: '1px solid rgba(255,255,255,0.05)' }}>
+            <p style={{ fontWeight: 700, color: '#ccc', fontSize: 13, marginBottom: 6 }}>Aviso automático quando o pedido sair para entrega</p>
+            <p style={{ fontSize: 11.5, color: '#777', lineHeight: 1.6 }}>
+              O cliente recebe um e-mail profissional assim que você mudar o pedido para <strong>Saiu para entrega</strong> no painel.
+            </p>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
+            <div>
+              <label style={lbl}>Servidor SMTP</label>
+              <input style={inp} value={smtpHost} onChange={e => setSmtpHost(e.target.value)} placeholder="smtp.seudominio.com" onFocus={focIn} onBlur={focOut} />
+            </div>
+            <div>
+              <label style={lbl}>Porta SMTP</label>
+              <input type="number" style={inp} value={smtpPort} onChange={e => setSmtpPort(Number(e.target.value))} placeholder="587" onFocus={focIn} onBlur={focOut} />
+            </div>
+            <div>
+              <label style={lbl}>Usuário SMTP</label>
+              <input style={inp} value={smtpUser} onChange={e => setSmtpUser(e.target.value)} placeholder="notificacoes@seudominio.com" onFocus={focIn} onBlur={focOut} />
+            </div>
+            <div>
+              <label style={lbl}>Senha SMTP</label>
+              <input type="password" style={inp} value={smtpPass} onChange={e => setSmtpPass(e.target.value)} placeholder="Senha do e-mail" onFocus={focIn} onBlur={focOut} />
+            </div>
+            <div>
+              <label style={lbl}>E-mail remetente</label>
+              <input style={inp} value={smtpFromEmail} onChange={e => setSmtpFromEmail(e.target.value)} placeholder="pedidos@seudominio.com" onFocus={focIn} onBlur={focOut} />
+            </div>
+            <div>
+              <label style={lbl}>Nome remetente</label>
+              <input style={inp} value={smtpFromName} onChange={e => setSmtpFromName(e.target.value)} placeholder="SUH CONCEPT" onFocus={focIn} onBlur={focOut} />
+            </div>
+          </div>
+
+          <Row label="Conexão segura (SSL/TLS)" sub="Ative normalmente para porta 465. Em 587 costuma ficar desligado.">
+            <Toggle on={smtpSecure} color="#8b5cf6" onChange={setSmtpSecure} />
+          </Row>
+
+          <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8, padding: '10px 12px', borderRadius: 8, background: 'rgba(139,92,246,0.08)', border: '1px solid rgba(139,92,246,0.2)' }}>
+            <Info size={13} style={{ color: '#c4b5fd', flexShrink: 0, marginTop: 1 }} />
+            <p style={{ fontSize: 11.5, color: '#ddd6fe', lineHeight: 1.6 }}>
+              Exemplo profissional: remetente <strong>pedidos@seudominio.com</strong> com nome <strong>SUH CONCEPT</strong>. Depois de salvar, o envio acontece automaticamente ao marcar <strong>Saiu para entrega</strong>.
+            </p>
           </div>
         </div>
       </Card>

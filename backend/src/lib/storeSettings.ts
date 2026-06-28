@@ -4,6 +4,7 @@ export const PUBLIC_SETTINGS_BLOCKLIST = new Set([
   'mercadopagoAccessToken',
   'mercadopagoWebhookSecret',
   'correiosToken',
+  'smtpPass',
 ]);
 
 export type StoreSettingsMap = Record<string, string>;
